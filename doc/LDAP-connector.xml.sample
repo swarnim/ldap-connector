@@ -1,0 +1,3 @@
+<!-- BEGIN_INCLUDE(ldap:my-processor) -->
+    <ldap:my-processor content="#[map-payload:content]" />
+<!-- END_INCLUDE(ldap:my-processor) -->
