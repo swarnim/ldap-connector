@@ -97,9 +97,9 @@ public class LDAPConnector
     @Configurable
     @Optional
     private Map<String, String> extendedConfiguration;
-
+    
     private LDAPConnection connection = null;
-
+    
     /**
      * Connect
      * 
@@ -383,5 +383,5 @@ public class LDAPConnector
     public void setExtendedConfiguration(Map<String, String> extendedConfiguration)
     {
         this.extendedConfiguration = extendedConfiguration;
-    }    
+    }
 }

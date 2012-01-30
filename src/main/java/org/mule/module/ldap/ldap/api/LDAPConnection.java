@@ -53,7 +53,7 @@ public abstract class LDAPConnection
 
     public static LDAPConnection getConnection(String type, String url, String authentication, Map<String, String> extendedConf) throws LDAPException
     {
-        Map<String, String> conf = new HashMap<String, String>(extendedConf);
+        Map<String, String> conf = extendedConf != null ? new HashMap<String, String>(extendedConf) : new HashMap<String, String>();
         conf.put(CONNECTION_TYPE_ATTR, type);
         conf.put(LDAP_URL_ATTR, url);
         conf.put(AUTHENTICATION_ATTR, authentication);
@@ -67,7 +67,7 @@ public abstract class LDAPConnection
     
     public static LDAPConnection getConnection(String type, String url, String authentication, int initialPoolSize, int maxPoolSize, long poolTimeout, String referral, Map<String, String> extendedConf) throws LDAPException
     {
-        Map<String, String> conf = new HashMap<String, String>(extendedConf);
+        Map<String, String> conf = extendedConf != null ? new HashMap<String, String>(extendedConf) : new HashMap<String, String>();
         conf.put(CONNECTION_TYPE_ATTR, type);
         conf.put(LDAP_URL_ATTR, url);
         conf.put(REFERRAL_ATTR, referral);
