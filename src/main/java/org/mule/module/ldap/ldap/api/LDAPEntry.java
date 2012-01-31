@@ -145,7 +145,7 @@ public class LDAPEntry implements Serializable
             anAttr = it.next();
             if(!anAttr.isMultiValued())
             {
-                anAttr.getValue();
+                entry.put(anAttr.getName(), anAttr.getValue());
             }
             else
             {
