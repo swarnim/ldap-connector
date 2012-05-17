@@ -14,8 +14,19 @@ import org.mule.module.ldap.ldap.api.LDAPSearchControls;
 
 public enum SearchScope
 {
+    /**
+     * Object
+     */
     OBJECT(LDAPSearchControls.OBJECT_SCOPE),
+    
+    /**
+     * One Level
+     */
     ONE_LEVEL(LDAPSearchControls.ONELEVEL_SCOPE),
+    
+    /**
+     * Sub Tree
+     */
     SUB_TREE(LDAPSearchControls.SUBTREE_SCOPE);
     
     private int value;

@@ -59,41 +59,62 @@ public class LDAPConnector
     private static final Logger LOGGER = Logger.getLogger(LDAPConnector.class);
     
     /**
-     * Configurable
+     * Configurable url
      */
     @Configurable
     private String url;
 
+    /**
+     * Type
+     */
     @Configurable
     @Optional
     @Default(value = "JNDI")
     private Type type;
 
+    /**
+     * Authentication
+     */
     @Configurable
     @Optional
     @Default(value = "none")
     private String authentication;
 
+    /**
+     * Initial Pool Size
+     */
     @Configurable
     @Optional
     @Default(value = "1")
     private int initialPoolSize;
 
+    /**
+     * Max Pool Size
+     */
     @Configurable
     @Optional
     @Default(value = "5")
     private int maxPoolSize;
 
+    /**
+     * Pool Timeout
+     */
     @Configurable
     @Optional
     @Default(value = "60000")
     private long poolTimeout;
 
+    /**
+     * Referral
+     */
     @Configurable
     @Optional
     @Default(value = "IGNORE")
     private Referral referral;
     
+    /**
+     * Extended Configuration
+     */
     @Configurable
     @Optional
     private Map<String, String> extendedConfiguration;
@@ -103,8 +124,8 @@ public class LDAPConnector
     /**
      * Connect
      * 
-     * @param username A authDn
-     * @param password A authPassword
+     * @param authDn A authDn
+     * @param authPassword A authPassword
      * @throws ConnectionException
      */
     @Connect
@@ -170,6 +191,8 @@ public class LDAPConnector
 
     /**
      * Are we connected
+     * 
+     * @return boolean
      */
     @ValidateConnection
     public boolean isConnected() throws LDAPException
@@ -187,6 +210,8 @@ public class LDAPConnector
 
     /**
      * Are we connected
+     * 
+     * @return String with the connection Id
      */
     @ConnectionIdentifier
     public String connectionId()
@@ -196,9 +221,13 @@ public class LDAPConnector
 
     /**
      * Retrieves an entry from the LDAP server
-     * @param dn
-     * @param attributes
-     * @return
+     * 
+     * {@sample.xml ../../../doc/LDAP-connector.xml.sample ldap:lookup}
+     * 
+     * @param dn The dn.
+     * @param attributes. A list of attributes.
+     * @return a {@link LDAPEntry}
+     * 
      * @throws Exception
      */
     @Processor
@@ -228,15 +257,18 @@ public class LDAPConnector
     }
     
     /**
+     * Searches some specifics entries from the LDAP server.
      * 
-     * @param baseDn
-     * @param filter
-     * @param attributes
-     * @param scope
-     * @param timeout
-     * @param maxResults
-     * @param returnObject
-     * @return
+     * {@sample.xml ../../../doc/LDAP-connector.xml.sample ldap:search}
+     * 
+     * @param baseDn The base Dn
+     * @param filter A filter.
+     * @param attributes A list of attributes
+     * @param scope The Search Scope
+     * @param timeout Timeout
+     * @param maxResults Max Results
+     * @param returnObject Boolean to set the returnObject
+     * @return a list of {@link LDAPEntry}
      * @throws Exception
      */
     @Processor
@@ -269,15 +301,18 @@ public class LDAPConnector
     }
     
     /**
+     * Searches for one entry from the LDAP server.
      * 
-     * @param baseDn
-     * @param filter
-     * @param attributes
-     * @param scope
-     * @param timeout
-     * @param maxResults
-     * @param returnObject
-     * @return
+     * {@sample.xml ../../../doc/LDAP-connector.xml.sample ldap:search-one}
+     * 
+     * @param baseDn The base Dn
+     * @param filter A filter
+     * @param attributes A list of attributes
+     * @param scope The Search Scope
+     * @param timeout Timeout
+     * @param maxResults MaxResults
+     * @param returnObject Boolean to set the returnObject
+     * @return a {@link LDAPEntry}
      * @throws Exception
      */
     @Processor
@@ -293,12 +328,28 @@ public class LDAPConnector
         return results != null && results.size() > 0 ? results.get(0) : null;
     }
 
+    /**
+     * Transform a LDAP entry to a map
+     * 
+     * {@sample.xml ../../../doc/LDAP-connector.xml.sample ldap:ldap-entry-to-map}
+     * 
+     * @param entry A {@link LDAPEntry}
+     * @return a Map<String, Object>
+     */
     @Transformer(sourceTypes = {LDAPEntry.class})
     public static Map<String, Object> ldapEntryToMap(LDAPEntry entry)
     {
         return entry != null ? entry.toMap() : null;
     }
     
+    /**
+     * Transform a LDAP entry to a LdifString
+     * 
+     * {@sample.xml ../../../doc/LDAP-connector.xml.sample ldap:ldap-entry-to-ldif}
+     * 
+     * @param entry A {@link LDAPEntry}
+     * @return String
+     */
     @Transformer(sourceTypes = {LDAPEntry.class})
     public static String ldapEntryToLdif(LDAPEntry entry)
     {

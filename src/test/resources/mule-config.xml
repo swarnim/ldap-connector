@@ -25,13 +25,46 @@
       xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-        http://www.mulesoft.org/schema/mule/ldap http://www.mulesoft.org/schema/mule/ldap/1.0-SNAPSHOT/mule-ldap.xsd">
+        http://www.mulesoft.org/schema/mule/ldap http://www.mulesoft.org/schema/mule/ldap/3.2/mule-ldap.xsd">
 
-    <ldap:config myProperty="Some string"
-            username="xxx" password="yyy"/>
+    <ldap:config url="#[header:url]" 
+                 authDn="#[header:authDn]" 
+                 authPassword="#[header:authPassword]"/>
+    
+    <flow name="lookup">
+	    <ldap:lookup dn="#[header:dn]">
+	        <ldap:attributes ref="#[header:attributes]" />
+	    </ldap:lookup>
+    </flow>
 
-    <flow name="testFlow">
-        <ldap:my-processor content="Another string"/>
+    <flow name="search">
+	    <ldap:search baseDn="#[header:baseDn]"
+	                 filter="#[header:filter]"
+	                 scope="#[header:scope]"
+	                 timeout="#[header:timeout]"
+	                 maxResults="#[header:maxResults]"
+	                 returnObject="#[returnObject]">
+	        <ldap:attributes ref="#[header:attributes]" />
+	    </ldap:search>
+    </flow>
+
+    <flow name="search-one">
+	    <ldap:search-one baseDn="#[header:baseDn]"
+	                 filter="#[header:filter]"
+	                 scope="#[header:scope]"
+	                 timeout="#[header:timeout]"
+	                 maxResults="#[header:maxResults]"
+	                 returnObject="#[returnObject]">
+	        <ldap:attributes ref="#[header:attributes]" />
+	    </ldap:search-one>
+    </flow>
+
+    <flow name="ldap-entry-to-map">
+        <ldap:ldap-entry-to-map/>
+    </flow>
+
+    <flow name="ldap-entry-to-ldif">
+        <ldap:ldap-entry-to-ldif/>
     </flow>
 
 </mule>
