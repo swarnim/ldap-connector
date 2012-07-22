@@ -25,13 +25,14 @@
       xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-        http://www.mulesoft.org/schema/mule/ldap http://www.mulesoft.org/schema/mule/ldap/1.0-SNAPSHOT/mule-ldap.xsd">
+        http://www.mulesoft.org/schema/mule/ldap http://www.mulesoft.org/schema/mule/ldap/current/mule-ldap.xsd">
 
-    <ldap:config myProperty="Some string"
-            username="xxx" password="yyy"/>
+	<ldap:config name="simpleConf" url="ldap://localhost:10389/" authentication="simple" authDn="uid=admin" authPassword="secret"/>
+	<ldap:config name="anonymousConf" url="ldap://localhost:10389/"/>
 
-    <flow name="testFlow">
-        <ldap:my-processor content="Another string"/>
+    <flow name="testAnonymousFlow">
+    	<ldap:lookup config-ref="anonymousConf" dn="#[payload:]"/>
+    	<ldap:lookup config-ref="anonymousConf" dn="#[groovy:payload.getDn()]"/>
     </flow>
 
 </mule>

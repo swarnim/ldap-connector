@@ -20,27 +20,82 @@
  */
 package org.mule.module.ldap;
 
-import org.mule.api.MuleEvent;
-import org.mule.construct.Flow;
-import org.mule.tck.FunctionalTestCase;
-import org.mule.tck.AbstractMuleTestCase;
+import java.io.File;
 
 import org.junit.Test;
+import org.mule.api.MuleEvent;
+import org.mule.construct.Flow;
+import org.mule.module.ldap.ldap.api.LDAPEntry;
+import org.mule.tck.AbstractMuleTestCase;
+import org.mule.tck.FunctionalTestCase;
+import org.mule.util.FileUtils;
+import org.springframework.security.ldap.server.ApacheDSContainer;
 
 public class LDAPConnectorTest extends FunctionalTestCase
 {
+    private ApacheDSContainer ldapServer;
+    public static int LDAP_PORT = 10389;
+    public static File WORKING_DIRECTORY = new File(System.getProperty("java.io.tmpdir") + File.separator + "ldap-connector-junit-server");
+    
+    @Override
+    protected void doSetUp() throws Exception {
+        try
+        {
+            FileUtils.deleteDirectory(WORKING_DIRECTORY);
+            
+            ldapServer = new ApacheDSContainer("dc=mulesoft,dc=org", "classpath:test-server.ldif");
+            ldapServer.setWorkingDirectory(WORKING_DIRECTORY);
+            ldapServer.setPort(10389);
+            ldapServer.afterPropertiesSet();
+            ldapServer.start();
+        }
+        catch(Throwable e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            super.doSetUp();
+        }
+        
+    }
+
+    @Override
+    protected void doTearDown() throws Exception {
+        try
+        {
+            if (ldapServer != null) {
+                ldapServer.stop();
+            }
+        }
+        finally
+        {
+            super.doTearDown();
+        }
+    }    
+    
     @Override
     protected String getConfigResources()
     {
         return "mule-config.xml";
     }
 
-    @Test
-    public void testFlow() throws Exception
-    {
-        runFlowAndExpect("testFlow", "Another string");
-    }
-
+    /**
+     * Run the flow specified by name using the specified payload and assert
+     * equality on the expected output
+     *
+     * @param flowName The name of the flow to run
+     * @param payload The payload of the input event
+     */
+     protected <U> Object runFlow(String flowName, U payload) throws Exception
+     {
+         Flow flow = lookupFlowConstruct(flowName);
+         MuleEvent event = AbstractMuleTestCase.getTestEvent(payload);
+         MuleEvent responseEvent = flow.process(event);
+         
+         return responseEvent.getMessage().getPayload();
+     }
+     
     /**
     * Run the flow specified by name and assert equality on the expected output
     *
@@ -49,11 +104,7 @@ public class LDAPConnectorTest extends FunctionalTestCase
     */
     protected <T> void runFlowAndExpect(String flowName, T expect) throws Exception
     {
-        Flow flow = lookupFlowConstruct(flowName);
-        MuleEvent event = AbstractMuleTestCase.getTestEvent(null);
-        MuleEvent responseEvent = flow.process(event);
-
-        assertEquals(expect, responseEvent.getMessage().getPayload());
+        assertEquals(expect, runFlow(flowName, null));
     }
 
     /**
@@ -66,11 +117,7 @@ public class LDAPConnectorTest extends FunctionalTestCase
     */
     protected <T, U> void runFlowWithPayloadAndExpect(String flowName, T expect, U payload) throws Exception
     {
-        Flow flow = lookupFlowConstruct(flowName);
-        MuleEvent event = AbstractMuleTestCase.getTestEvent(payload);
-        MuleEvent responseEvent = flow.process(event);
-
-        assertEquals(expect, responseEvent.getMessage().getPayload());
+        assertEquals(expect, runFlow(flowName, payload));
     }
 
     /**
@@ -81,5 +128,17 @@ public class LDAPConnectorTest extends FunctionalTestCase
     protected Flow lookupFlowConstruct(String name)
     {
         return (Flow) AbstractMuleTestCase.muleContext.getRegistry().lookupFlowConstruct(name);
+    }
+    
+    
+    
+    @Test
+    public void testAnonymousLookup() throws Exception
+    {
+        LDAPEntry result = (LDAPEntry) runFlow("testAnonymousFlow", "uid=admin,ou=people,dc=mulesoft,dc=org");
+        
+        assertEquals("admin", result.getAttribute("uid").getValue());
+        assertEquals("Administrator", result.getAttribute("cn").getValue());
+        assertEquals("Administrator", result.getAttribute("sn").getValue());
     }
 }

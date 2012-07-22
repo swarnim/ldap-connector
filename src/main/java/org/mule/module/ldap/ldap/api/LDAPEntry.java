@@ -12,6 +12,7 @@ package org.mule.module.ldap.ldap.api;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,7 +22,8 @@ import java.util.Map;
  */
 public class LDAPEntry implements Serializable
 {
-
+    private static final String MAP_DN_KEY = "dn";
+    
     /**
 	 * 
 	 */
@@ -35,7 +37,7 @@ public class LDAPEntry implements Serializable
 	 */
     public LDAPEntry()
     {
-        this(null);
+        this((String) null);
     }
 
     /**
@@ -45,6 +47,33 @@ public class LDAPEntry implements Serializable
     {
         super();
         setDn(dn);
+    }
+    
+    /**
+     * @param dn
+     */
+    public LDAPEntry(String dn, Map<String, ?> attributes)
+    {
+        Map<String, Object> entry = new HashMap<String, Object>(attributes);
+        entry.put(MAP_DN_KEY, dn);
+        try
+        {
+            fromMap(attributes);
+        }
+        catch(LDAPException ex)
+        {
+            // Should never happen as he only exception fromMap throws
+            // is when the DN is not present in the map
+        }
+    }
+    
+    /**
+     * 
+     * @param entry
+     */
+    public LDAPEntry(Map<String, Object> entry) throws LDAPException
+    {
+        fromMap(entry);
     }
 
     /**
@@ -71,6 +100,24 @@ public class LDAPEntry implements Serializable
         this.attributes.addAttribute(attribute);
     }
 
+    /**
+     * 
+     * @param attributeName
+     * @param attributeValue
+     */
+    @SuppressWarnings("unchecked")
+    public void addAttribute(String attributeName, Object attributeValue)
+    {
+        if(attributeValue instanceof List)
+        {
+            addAttribute(new LDAPMultiValueEntryAttribute(attributeName, (List<Object>) attributeValue));
+        }
+        else
+        {
+            addAttribute(new LDAPSingleValueEntryAttribute(attributeName, attributeValue));
+        }
+    }
+    
     /**
      * @param name
      * @return
@@ -133,11 +180,33 @@ public class LDAPEntry implements Serializable
         return entryLdif.toString();
     }
 
+    private void fromMap(Map<String, ?> entry) throws LDAPException
+    {
+        Object entryDN = entry.remove(MAP_DN_KEY);
+        if(entryDN != null && entryDN instanceof String)
+        {
+            setDn((String) entryDN);
+        }
+        else
+        {
+            throw new LDAPException("The map representing the LDAP entry should contain the key '" + MAP_DN_KEY + "' with the string value of the DN (Distinguished Name) of the entry.");
+        }
+        
+        String attr;
+        Object value;
+        for(Iterator<String> attrsIt = entry.keySet().iterator(); attrsIt.hasNext(); )
+        {
+            attr = attrsIt.next();
+            value = entry.get(attr);
+            addAttribute(attr, value);
+        }
+    }
+    
     public Map<String, Object> toMap()
     {
         Map<String, Object> entry = new HashMap<String, Object>();
         
-        entry.put("dn", getDn());
+        entry.put(MAP_DN_KEY, getDn());
 
         LDAPEntryAttribute anAttr;
         for (Iterator<LDAPEntryAttribute> it = attributes(); it.hasNext();)
@@ -175,5 +244,29 @@ public class LDAPEntry implements Serializable
     public void setAttributes(LDAPEntryAttributes attributes)
     {
         this.attributes = attributes;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(obj == this)
+        {
+            return true;
+        }
+        
+        if(obj == null || !(obj instanceof LDAPEntry))
+        {
+            return false;
+        }
+        LDAPEntry entry = (LDAPEntry) obj;
+        
+        return getDn() != null && getDn().equals(entry.getDn());
+        
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return getDn() != null ? getDn().hashCode() : super.hashCode();
     }
 }

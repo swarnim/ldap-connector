@@ -201,6 +201,10 @@ public class LDAPJNDIConnection extends LDAPConnection
         {
             conf.append("bindDn: " + bindDn + ", ");
         }
+        else
+        {
+            conf.append("bindDn: {anonymous}, ");
+        }        
         if (isConnectionPoolEnabled())
         {
             conf.append("init_pool_conns: " + getInitialPoolSizeConnections() + ", ");

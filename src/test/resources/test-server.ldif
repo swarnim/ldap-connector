@@ -1,0 +1,20 @@
+version: 1
+dn: ou=groups,dc=mulesoft,dc=org
+objectclass: top
+objectclass: organizationalUnit
+ou: groups
+
+dn: ou=people,dc=mulesoft,dc=org
+objectclass: top
+objectclass: organizationalUnit
+ou: people
+
+dn: uid=admin,ou=people,dc=mulesoft,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Administrator
+sn: Administrator
+uid: admin
+userPassword: admin

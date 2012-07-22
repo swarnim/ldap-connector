@@ -97,5 +97,4 @@ public abstract class LDAPEntryAttribute implements Serializable
         }
         return buffer.toString();
     }
-
 }

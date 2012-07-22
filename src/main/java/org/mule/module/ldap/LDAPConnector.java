@@ -108,15 +108,23 @@ public class LDAPConnector
      * @throws ConnectionException
      */
     @Connect
-    public void connect(@ConnectionKey String authDn, String authPassword) throws ConnectionException
+    public void connect(@ConnectionKey @Default(value = "ANONYMOUS") String authDn, @Default(value = "ANONYMOUS") String authPassword) throws ConnectionException
     {
+        /*
+         * DevKit doesn't support null values for the @Connect parameters. The default ANONYMOUS value is used internally for these cases.
+         * ANONYMOUS is not a valid DN so it is used for this purpose as a keyword to indicate that the bind should be performed in this way. 
+         */
         try
         {
             if(this.connection == null)
             {
-                this.connection = LDAPConnection.getConnection(type.toString(), url, authentication, initialPoolSize, maxPoolSize, poolTimeout, referral.toString(), extendedConfiguration);
+                this.connection = LDAPConnection.getConnection(type.toString(), getUrl(), getAuthentication(), getInitialPoolSize(), getMaxPoolSize(), getPoolTimeout(), getReferral().toString(), getExtendedConfiguration());
             }
-            this.connection.bind(authDn, authPassword);
+            // Turning anonymous keywords to actual bind values (null DN means anonymous bin)
+            String dn = "ANONYMOUS".equals(authDn) ? null : authDn;
+            String password = "ANONYMOUS".equals(authDn) && "ANONYMOUS".equals(authPassword) ? null : authPassword;
+            
+            this.connection.bind(dn, password);
         }
         catch(CommunicationException ex)
         {
@@ -140,6 +148,10 @@ public class LDAPConnector
         catch(LDAPException ex)
         {
             throw new ConnectionException(ConnectionExceptionCode.UNKNOWN, ex.getCode(), ex.getMessage(), ex);
+        }
+        catch(Throwable ex)
+        {
+            throw new ConnectionException(ConnectionExceptionCode.UNKNOWN, null, ex.getMessage(), ex);
         }
     }
 
@@ -212,11 +224,11 @@ public class LDAPConnector
         LDAPEntry entry = null;
         if(attributes != null && attributes.size() > 0)
         {
-            entry = this.connection.lookup(dn);
+            entry = this.connection.lookup(dn, attributes.toArray(new String[0]));
         }
         else
         {
-            entry = this.connection.lookup(dn, attributes.toArray(new String[0]));
+            entry = this.connection.lookup(dn);
         }
         
         if(LOGGER.isDebugEnabled())
@@ -283,6 +295,11 @@ public class LDAPConnector
     @Processor
     public LDAPEntry searchOne(String baseDn, String filter, @Optional List<String> attributes, @Optional @Default("ONE_LEVEL") SearchScope scope, @Optional @Default("0") int timeout, @Optional @Default("0") long maxResults, @Optional @Default("false") boolean returnObject) throws Exception
     {
+        if(LOGGER.isDebugEnabled())
+        {
+            LOGGER.debug("Searching entries under " + baseDn + " with filter " + filter);
+        }
+        
         List<LDAPEntry> results = search(baseDn, filter, attributes, scope, timeout, maxResults, returnObject);
         
         if(results != null && results.size() > 1)
@@ -293,6 +310,59 @@ public class LDAPConnector
         return results != null && results.size() > 0 ? results.get(0) : null;
     }
 
+    /**
+     * 
+     * @param dn
+     * @param attributes
+     * @throws Exception
+     */
+    @Processor
+    public void create(String dn, @Default("#[payload:]") Map<String, String> attributes) throws Exception
+    {
+        if(LOGGER.isDebugEnabled())
+        {
+            LOGGER.debug("About to create entry " + dn + ": " + attributes);
+        }        
+        
+        this.connection.addEntry(new LDAPEntry(dn, attributes));
+        
+        if(LOGGER.isInfoEnabled())
+        {
+            LOGGER.info("Created entry " + dn);
+        }
+    }
+    
+    /**
+     * 
+     * @param entry
+     * @throws Exception
+     */
+    @Processor
+    public void createEntry(@Optional @Default("#[payload:]") LDAPEntry entry) throws Exception
+    {
+        if(LOGGER.isDebugEnabled())
+        {
+            LOGGER.debug("About to create entry " + entry.getDn() + ": " + entry);
+        }        
+        
+        this.connection.addEntry(entry);
+        
+        if(LOGGER.isInfoEnabled())
+        {
+            LOGGER.info("Created entry " + entry.getDn());
+        }
+    }
+    
+    @Transformer(sourceTypes = {Map.class})
+    public static LDAPEntry mapToLdapEntry(Map<String, Object> entry) throws Exception
+    {
+        if(LOGGER.isDebugEnabled())
+        {
+            LOGGER.debug("About to transform map " + entry);
+        }         
+        return new LDAPEntry(entry);
+    }
+    
     @Transformer(sourceTypes = {LDAPEntry.class})
     public static Map<String, Object> ldapEntryToMap(LDAPEntry entry)
     {
