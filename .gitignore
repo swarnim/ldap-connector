@@ -1,0 +1,10 @@
+.classpath
+.settings
+.project
+.jruby
+*.iml
+*.ipr
+*.iws
+target
+bin/
+internal-gateway/deploy.bat

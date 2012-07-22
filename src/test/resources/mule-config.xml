@@ -33,6 +33,43 @@
     <flow name="testAnonymousFlow">
     	<ldap:lookup config-ref="anonymousConf" dn="#[payload:]"/>
     	<ldap:lookup config-ref="anonymousConf" dn="#[groovy:payload.getDn()]"/>
+	</flow>
+
+	<!--     
+    <flow name="lookup">
+	    <ldap:lookup dn="#[header:dn]">
+	        <ldap:attributes ref="#[header:attributes]" />
+	    </ldap:lookup>
     </flow>
 
+    <flow name="search">
+	    <ldap:search baseDn="#[header:baseDn]"
+	                 filter="#[header:filter]"
+	                 scope="#[header:scope]"
+	                 timeout="#[header:timeout]"
+	                 maxResults="#[header:maxResults]"
+	                 returnObject="#[returnObject]">
+	        <ldap:attributes ref="#[header:attributes]" />
+	    </ldap:search>
+    </flow>
+
+    <flow name="search-one">
+	    <ldap:search-one baseDn="#[header:baseDn]"
+	                 filter="#[header:filter]"
+	                 scope="#[header:scope]"
+	                 timeout="#[header:timeout]"
+	                 maxResults="#[header:maxResults]"
+	                 returnObject="#[returnObject]">
+	        <ldap:attributes ref="#[header:attributes]" />
+	    </ldap:search-one>
+    </flow>
+
+    <flow name="ldap-entry-to-map">
+        <ldap:ldap-entry-to-map/>
+    </flow>
+
+    <flow name="ldap-entry-to-ldif">
+        <ldap:ldap-entry-to-ldif/>
+    </flow>
+     -->
 </mule>

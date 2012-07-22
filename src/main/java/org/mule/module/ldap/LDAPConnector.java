@@ -1,18 +1,11 @@
 /**
- * Mule Development Kit
- * Copyright 2010-2011 (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+ * Mule LDAP Connector
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
  */
 
 /**
@@ -59,41 +52,62 @@ public class LDAPConnector
     private static final Logger LOGGER = Logger.getLogger(LDAPConnector.class);
     
     /**
-     * Configurable
+     * Configurable url
      */
     @Configurable
     private String url;
 
+    /**
+     * Type
+     */
     @Configurable
     @Optional
     @Default(value = "JNDI")
     private Type type;
 
+    /**
+     * Authentication
+     */
     @Configurable
     @Optional
     @Default(value = "none")
     private String authentication;
 
+    /**
+     * Initial Pool Size
+     */
     @Configurable
     @Optional
     @Default(value = "1")
     private int initialPoolSize;
 
+    /**
+     * Max Pool Size
+     */
     @Configurable
     @Optional
     @Default(value = "5")
     private int maxPoolSize;
 
+    /**
+     * Pool Timeout
+     */
     @Configurable
     @Optional
     @Default(value = "60000")
     private long poolTimeout;
 
+    /**
+     * Referral
+     */
     @Configurable
     @Optional
     @Default(value = "IGNORE")
     private Referral referral;
     
+    /**
+     * Extended Configuration
+     */
     @Configurable
     @Optional
     private Map<String, String> extendedConfiguration;
@@ -103,8 +117,8 @@ public class LDAPConnector
     /**
      * Connect
      * 
-     * @param username A authDn
-     * @param password A authPassword
+     * @param authDn A authDn
+     * @param authPassword A authPassword
      * @throws ConnectionException
      */
     @Connect
@@ -182,6 +196,8 @@ public class LDAPConnector
 
     /**
      * Are we connected
+     * 
+     * @return boolean
      */
     @ValidateConnection
     public boolean isConnected() throws LDAPException
@@ -199,6 +215,8 @@ public class LDAPConnector
 
     /**
      * Are we connected
+     * 
+     * @return String with the connection Id
      */
     @ConnectionIdentifier
     public String connectionId()
@@ -208,9 +226,13 @@ public class LDAPConnector
 
     /**
      * Retrieves an entry from the LDAP server
-     * @param dn
-     * @param attributes
-     * @return
+     * 
+     * {@sample.xml ../../../doc/LDAP-connector.xml.sample ldap:lookup}
+     * 
+     * @param dn The dn.
+     * @param attributes A list of attributes.
+     * @return a {@link LDAPEntry}
+     * 
      * @throws Exception
      */
     @Processor
@@ -240,15 +262,18 @@ public class LDAPConnector
     }
     
     /**
+     * Searches some specifics entries from the LDAP server.
      * 
-     * @param baseDn
-     * @param filter
-     * @param attributes
-     * @param scope
-     * @param timeout
-     * @param maxResults
-     * @param returnObject
-     * @return
+     * {@sample.xml ../../../doc/LDAP-connector.xml.sample ldap:search}
+     * 
+     * @param baseDn The base Dn
+     * @param filter A filter.
+     * @param attributes A list of attributes
+     * @param scope The Search Scope
+     * @param timeout Timeout
+     * @param maxResults Max Results
+     * @param returnObject Boolean to set the returnObject
+     * @return a list of {@link LDAPEntry}
      * @throws Exception
      */
     @Processor
@@ -281,15 +306,18 @@ public class LDAPConnector
     }
     
     /**
+     * Searches for one entry from the LDAP server.
      * 
-     * @param baseDn
-     * @param filter
-     * @param attributes
-     * @param scope
-     * @param timeout
-     * @param maxResults
-     * @param returnObject
-     * @return
+     * {@sample.xml ../../../doc/LDAP-connector.xml.sample ldap:search-one}
+     * 
+     * @param baseDn The base Dn
+     * @param filter A filter
+     * @param attributes A list of attributes
+     * @param scope The Search Scope
+     * @param timeout Timeout
+     * @param maxResults MaxResults
+     * @param returnObject Boolean to set the returnObject
+     * @return a {@link LDAPEntry}
      * @throws Exception
      */
     @Processor
@@ -317,7 +345,7 @@ public class LDAPConnector
      * @throws Exception
      */
     @Processor
-    public void create(String dn, @Default("#[payload:]") Map<String, String> attributes) throws Exception
+    public void create(String dn, @Optional @Default("#[payload:]") Map<String, String> attributes) throws Exception
     {
         if(LOGGER.isDebugEnabled())
         {
@@ -362,7 +390,7 @@ public class LDAPConnector
         }         
         return new LDAPEntry(entry);
     }
-    
+
     @Transformer(sourceTypes = {LDAPEntry.class})
     public static Map<String, Object> ldapEntryToMap(LDAPEntry entry)
     {
