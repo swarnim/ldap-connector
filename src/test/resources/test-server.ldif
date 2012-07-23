@@ -18,3 +18,36 @@ cn: Administrator
 sn: Administrator
 uid: admin
 userPassword: admin
+
+dn: uid=user1,ou=people,dc=mulesoft,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: User One
+sn: One
+uid: user1
+userPassword: user1
+
+dn: uid=user2,ou=people,dc=mulesoft,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: User Two
+sn: Two
+uid: user2
+userPassword: user2
+
+dn: cn=Administrators,ou=groups,dc=mulesoft,dc=org
+objectclass: top
+objectclass: groupOfNames
+cn: Administrators
+member: uid=admin,ou=people,dc=mulesoft,dc=org
+
+dn: cn=Users,ou=groups,dc=mulesoft,dc=org
+objectclass: top
+objectclass: groupOfNames
+cn: Users
+member: uid=user1,ou=people,dc=mulesoft,dc=org
+member: uid=user2,ou=people,dc=mulesoft,dc=org

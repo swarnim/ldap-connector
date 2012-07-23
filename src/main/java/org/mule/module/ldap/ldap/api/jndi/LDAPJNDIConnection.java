@@ -60,7 +60,6 @@ import org.mule.module.ldap.ldap.api.NoPermissionException;
  */
 public class LDAPJNDIConnection extends LDAPConnection
 {
-    public static final String NO_AUTHENTICATION = "none";
     public static final int DEFAULT_MAX_POOL_CONNECTIONS = 0;
     public static final int DEFAULT_INITIAL_POOL_CONNECTIONS = 0;
     public static final long DEFAULT_POOL_TIMEOUT = 0L;

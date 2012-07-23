@@ -27,14 +27,37 @@
         http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
         http://www.mulesoft.org/schema/mule/ldap http://www.mulesoft.org/schema/mule/ldap/current/mule-ldap.xsd">
 
-	<ldap:config name="simpleConf" url="ldap://localhost:10389/" authentication="simple" authDn="uid=admin" authPassword="secret"/>
-	<ldap:config name="anonymousConf" url="ldap://localhost:10389/"/>
+	<ldap:config name="adminConf" url="ldap://localhost:10389/" authentication="simple" authDn="uid=admin,ou=people,dc=mulesoft,dc=org" authPassword="admin"/>
+	
+	<!--
+		Because of DevKit limitations (authDn is @ConnectionKey and cannot be empty/null) in order to have an anonymous bind to LDAP
+		the user needs to:
+		1) Set authentication to "none" -> This is the default value!
+		2) Provide a value for authDn (that will be used as key to retrieve this connection). Recommended value is ANONYMOUS
+		3) Provide a value for authPassword
+	 -->
+	<ldap:config name="anonymousConf" url="ldap://localhost:10389/" authentication="none" authDn="ANONYMOUS" authPassword="IGNORE"/>
 
     <flow name="testAnonymousFlow">
     	<ldap:lookup config-ref="anonymousConf" dn="#[payload:]"/>
-    	<ldap:lookup config-ref="anonymousConf" dn="#[groovy:payload.getDn()]"/>
+    	<ldap:lookup config-ref="anonymousConf" dn="#[groovy:payload.getDn()]">
+    		<ldap:attributes>
+    			<ldap:attribute>uid</ldap:attribute>
+    			<ldap:attribute>cn</ldap:attribute>
+    		</ldap:attributes>
+    	</ldap:lookup>
 	</flow>
 
+    <flow name="testAdminFlow">
+    	<ldap:search-one config-ref="adminConf" baseDn="dc=mulesoft,dc=org" filter="#[payload:]" scope="SUB_TREE"/>
+    	<ldap:search config-ref="adminConf" baseDn="#[groovy:payload.getDn()]" filter="(uid=user*)">
+    		<ldap:attributes>
+    			<ldap:attribute>uid</ldap:attribute>
+    			<ldap:attribute>cn</ldap:attribute>
+    		</ldap:attributes>
+    	</ldap:search>
+	</flow>
+	
 	<!--     
     <flow name="lookup">
 	    <ldap:lookup dn="#[header:dn]">

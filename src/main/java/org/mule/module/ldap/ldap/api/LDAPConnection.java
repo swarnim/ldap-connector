@@ -45,6 +45,7 @@ public abstract class LDAPConnection
         CONNECTION_IMPLEMENTATIONS.put("jndi", LDAPJNDIConnection.class);
     }
 
+    public static final String NO_AUTHENTICATION = "none";
     public static final String CONNECTION_TYPE_ATTR = "type";
     public static final String LDAP_URL_ATTR = "url";
     public static final String AUTHENTICATION_ATTR = "authentication";

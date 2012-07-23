@@ -122,11 +122,12 @@ public class LDAPConnector
      * @throws ConnectionException
      */
     @Connect
-    public void connect(@ConnectionKey @Default(value = "ANONYMOUS") String authDn, @Default(value = "ANONYMOUS") String authPassword) throws ConnectionException
+    public void connect(@ConnectionKey String authDn, String authPassword) throws ConnectionException
     {
         /*
-         * DevKit doesn't support null values for the @Connect parameters. The default ANONYMOUS value is used internally for these cases.
-         * ANONYMOUS is not a valid DN so it is used for this purpose as a keyword to indicate that the bind should be performed in this way. 
+         * DevKit doesn't support null values for the @Connect parameters. In order to have an anonymous bind, the
+         * authentication parameter should be "none" and a default value should be provided as value for "authDn"
+         * and "authPassword"
          */
         try
         {
@@ -134,11 +135,17 @@ public class LDAPConnector
             {
                 this.connection = LDAPConnection.getConnection(type.toString(), getUrl(), getAuthentication(), getInitialPoolSize(), getMaxPoolSize(), getPoolTimeout(), getReferral().toString(), getExtendedConfiguration());
             }
-            // Turning anonymous keywords to actual bind values (null DN means anonymous bin)
-            String dn = "ANONYMOUS".equals(authDn) ? null : authDn;
-            String password = "ANONYMOUS".equals(authDn) && "ANONYMOUS".equals(authPassword) ? null : authPassword;
             
-            this.connection.bind(dn, password);
+            if(LDAPConnection.NO_AUTHENTICATION.equals(getAuthentication()))
+            {
+                // Anonymous -> Ignoring authDn and authPassword
+                // For DevKit connection Management to work, authDn should be set to a value (like ANONYMOUS)
+                this.connection.bind(null, null);
+            }
+            else
+            {
+                this.connection.bind(authDn, authPassword);
+            }
         }
         catch(CommunicationException ex)
         {

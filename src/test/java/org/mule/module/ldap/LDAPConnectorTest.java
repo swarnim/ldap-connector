@@ -17,6 +17,7 @@
 package org.mule.module.ldap;
 
 import java.io.File;
+import java.util.List;
 
 import org.junit.Test;
 import org.mule.api.MuleEvent;
@@ -135,6 +136,23 @@ public class LDAPConnectorTest extends FunctionalTestCase
         
         assertEquals("admin", result.getAttribute("uid").getValue());
         assertEquals("Administrator", result.getAttribute("cn").getValue());
-        assertEquals("Administrator", result.getAttribute("sn").getValue());
+        assertNull(result.getAttribute("sn"));
+    }
+    
+    @Test
+    public void testAdminSearch() throws Exception
+    {
+        @SuppressWarnings("unchecked")
+        List<LDAPEntry> result = (List<LDAPEntry>) runFlow("testAdminFlow", "(ou=people)");
+
+        assertEquals(2, result.size());
+        
+        for(LDAPEntry entry : result)
+        {
+            assertNotNull(entry.getAttribute("uid").getValue());
+            assertNotNull(entry.getAttribute("cn").getValue());
+            assertNull(entry.getAttribute("sn"));
+        }
+        
     }
 }
