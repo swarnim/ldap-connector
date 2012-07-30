@@ -1,0 +1,93 @@
+<!-- BEGIN_INCLUDE(ldap:config-1) -->
+	<!-- Case 1: Simple Bind (User/Password) -->
+	<ldap:config name="ldapConf" url="ldap://localhost:389/" authentication="simple" authDn="uid=admin,ou=people,dc=mulesoft,dc=org" authPassword="secret"/>
+<!-- END_INCLUDE(ldap:config-1) -->
+
+<!-- BEGIN_INCLUDE(ldap:config-2) -->
+	<!-- Case 2: Anonymous Bind -->
+	<ldap:config name="ldapConf" url="ldap://localhost:389/" authentication="none" authDn="ANONYMOUS" authPassword="NONE"/>
+<!-- END_INCLUDE(ldap:config-2) -->
+
+<!-- BEGIN_INCLUDE(ldap:lookup) -->
+    <ldap:lookup dn="#[header:dn]">
+        <ldap:attributes ref="#[header:attributes]" />
+    </ldap:lookup>
+<!-- END_INCLUDE(ldap:lookup) -->
+
+<!-- BEGIN_INCLUDE(ldap:search) -->
+    <ldap:search baseDn="#[header:baseDn]"
+                 filter="#[header:filter]"
+                 scope="#[header:scope]"
+                 timeout="#[header:timeout]"
+                 maxResults="#[header:maxResults]"
+                 returnObject="#[returnObject]">
+        <ldap:attributes ref="#[header:attributes]" />
+    </ldap:search>
+<!-- END_INCLUDE(ldap:search) -->
+
+<!-- BEGIN_INCLUDE(ldap:search-one) -->
+    <ldap:search-one baseDn="#[header:baseDn]"
+                 filter="#[header:filter]"
+                 scope="#[header:scope]"
+                 timeout="#[header:timeout]"
+                 maxResults="#[header:maxResults]"
+                 returnObject="#[returnObject]">
+        <ldap:attributes ref="#[header:attributes]" />
+    </ldap:search-one>
+<!-- END_INCLUDE(ldap:search-one) -->
+
+<!-- BEGIN_INCLUDE(ldap:create-from-map) -->
+	<ldap:create-from-map />
+<!-- END_INCLUDE(ldap:create-from-map) -->
+
+<!-- BEGIN_INCLUDE(ldap:create) -->
+	<ldap:create />
+<!-- END_INCLUDE(ldap:create) -->
+
+<!-- BEGIN_INCLUDE(ldap:update-from-map) -->
+	<ldap:update-from-map />
+<!-- END_INCLUDE(ldap:update-from-map) -->
+
+<!-- BEGIN_INCLUDE(ldap:update) -->
+	<ldap:update />
+<!-- END_INCLUDE(ldap:update) -->
+
+<!-- BEGIN_INCLUDE(ldap:delete) -->
+	<ldap:update />
+<!-- END_INCLUDE(ldap:delete) -->
+
+<!-- BEGIN_INCLUDE(ldap:add-single-value-attribute) -->
+	<ldap:add-single-value-attribute />
+<!-- END_INCLUDE(ldap:add-single-value-attribute) -->
+
+<!-- BEGIN_INCLUDE(ldap:add-multi-value-attribute) -->
+	<ldap:add-multi-value-attribute />
+<!-- END_INCLUDE(ldap:add-multi-value-attribute) -->
+
+<!-- BEGIN_INCLUDE(ldap:update-single-value-attribute) -->
+	<ldap:update-single-value-attribute />
+<!-- END_INCLUDE(ldap:update-single-value-attribute) -->
+
+<!-- BEGIN_INCLUDE(ldap:update-multi-value-attribute) -->
+	<ldap:update-multi-value-attribute />
+<!-- END_INCLUDE(ldap:update-multi-value-attribute) -->
+
+<!-- BEGIN_INCLUDE(ldap:delete-single-value-attribute) -->
+	<ldap:delete-single-value-attribute />
+<!-- END_INCLUDE(ldap:delete-single-value-attribute) -->
+
+<!-- BEGIN_INCLUDE(ldap:delete-multi-value-attribute) -->
+	<ldap:delete-multi-value-attribute />
+<!-- END_INCLUDE(ldap:delete-multi-value-attribute) -->
+
+<!-- BEGIN_INCLUDE(ldap:ldap-entry-to-map) -->
+    <ldap:ldap-entry-to-map/>
+<!-- END_INCLUDE(ldap:ldap-entry-to-map) -->
+
+<!-- BEGIN_INCLUDE(ldap:map-to-ldap-entry) -->
+    <ldap:map-to-ldap-entry/>
+<!-- END_INCLUDE(ldap:map-to-ldap-entry) -->
+
+<!-- BEGIN_INCLUDE(ldap:ldap-entry-to-ldif) -->
+    <ldap:ldap-entry-to-ldif/>
+<!-- END_INCLUDE(ldap:ldap-entry-to-ldif) -->

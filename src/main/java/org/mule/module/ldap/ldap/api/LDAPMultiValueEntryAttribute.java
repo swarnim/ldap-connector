@@ -20,6 +20,7 @@
 package org.mule.module.ldap.ldap.api;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -58,7 +59,7 @@ public class LDAPMultiValueEntryAttribute extends LDAPEntryAttribute
      * @param name
      * @param values
      */
-    public LDAPMultiValueEntryAttribute(String name, List<Object> values)
+    public LDAPMultiValueEntryAttribute(String name, Collection<Object> values)
     {
         this(name);
         addValues(values != null ? values.toArray() : null);

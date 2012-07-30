@@ -20,9 +20,9 @@
 package org.mule.module.ldap.ldap.api;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,7 +32,7 @@ import java.util.Map;
  */
 public class LDAPEntry implements Serializable
 {
-    private static final String MAP_DN_KEY = "dn";
+    public static final String MAP_DN_KEY = "dn";
     
     /**
 	 * 
@@ -64,6 +64,11 @@ public class LDAPEntry implements Serializable
      */
     public LDAPEntry(String dn, Map<String, ?> attributes)
     {
+        if(dn == null)
+        {
+            throw new IllegalArgumentException("Entry DN cannot be null.");
+        }
+        
         Map<String, Object> entry = new HashMap<String, Object>(attributes);
         entry.put(MAP_DN_KEY, dn);
         try
@@ -118,9 +123,13 @@ public class LDAPEntry implements Serializable
     @SuppressWarnings("unchecked")
     public void addAttribute(String attributeName, Object attributeValue)
     {
-        if(attributeValue instanceof List)
+        if(attributeValue instanceof Collection)
         {
-            addAttribute(new LDAPMultiValueEntryAttribute(attributeName, (List<Object>) attributeValue));
+            addAttribute(new LDAPMultiValueEntryAttribute(attributeName, (Collection<Object>) attributeValue));
+        }
+        else if(attributeValue instanceof Object[])
+        {
+            addAttribute(new LDAPMultiValueEntryAttribute(attributeName, (Object[]) attributeValue));
         }
         else
         {
@@ -235,6 +244,11 @@ public class LDAPEntry implements Serializable
         return entry;
     }
     
+    /**
+     * 
+     * @return
+     * @see java.lang.Object#toString()
+     */
     public String toString()
     {
         return toLDIFString();

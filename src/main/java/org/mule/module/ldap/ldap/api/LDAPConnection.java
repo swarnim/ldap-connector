@@ -7,16 +7,6 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-
-/*
- * Project: Leonards Common Libraries
- * This class is member of leonards.common.ldap
- * File: LDAPConnection.java
- *
- * Property of Leonards / Mindpool
- * Created on Jun 22, 2006 (12:57:35 AM) 
- */
-
 package org.mule.module.ldap.ldap.api;
 
 import java.util.HashMap;
