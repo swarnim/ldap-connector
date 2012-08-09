@@ -56,6 +56,10 @@
 	<ldap:update />
 <!-- END_INCLUDE(ldap:delete) -->
 
+<!-- BEGIN_INCLUDE(ldap:rename) -->
+	<ldap:rename oldDn="cn=origin, dc=domain, dc=org" newDn="cn=destination, dc=domain, dc=org" />
+<!-- END_INCLUDE(ldap:rename) -->
+
 <!-- BEGIN_INCLUDE(ldap:add-single-value-attribute) -->
 	<ldap:add-single-value-attribute />
 <!-- END_INCLUDE(ldap:add-single-value-attribute) -->

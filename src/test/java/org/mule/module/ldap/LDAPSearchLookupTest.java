@@ -10,6 +10,11 @@
 
 package org.mule.module.ldap;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+
 import java.util.List;
 
 import org.junit.Test;
@@ -47,7 +52,7 @@ public class LDAPSearchLookupTest extends AbstractLDAPConnectorTest
         @SuppressWarnings("unchecked")
         List<LDAPEntry> result = (List<LDAPEntry>) runFlow("testAdminFlow", "(ou=people)");
 
-        assertEquals(2, result.size());
+        assertEquals(4, result.size());
         
         for(LDAPEntry entry : result)
         {

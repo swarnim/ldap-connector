@@ -10,9 +10,12 @@
 
 package org.mule.module.ldap;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Ignore;
 import org.junit.Test;
-import org.mule.module.ldap.ldap.api.InvalidAttributesException;
+import org.mule.module.ldap.ldap.api.InvalidAttributeException;
+import org.mule.module.ldap.ldap.api.InvalidEntryException;
 import org.mule.module.ldap.ldap.api.LDAPEntry;
 import org.mule.module.ldap.ldap.api.NameAlreadyBoundException;
 
@@ -33,7 +36,6 @@ public class LDAPCreateTest extends AbstractLDAPConnectorTest
     }
     
     @Test
-    @Ignore
     public void testCreateNewValidEntry() throws Exception
     {
         LDAPEntry entryToCreate = new LDAPEntry("uid=testuser,ou=people,dc=mulesoft,dc=org");
@@ -51,7 +53,6 @@ public class LDAPCreateTest extends AbstractLDAPConnectorTest
     }
     
     @Test
-    @Ignore
     public void testCreateExistingDnEntry() throws Exception
     {
         LDAPEntry entryToCreate = new LDAPEntry("uid=user1,ou=people,dc=mulesoft,dc=org");
@@ -65,42 +66,42 @@ public class LDAPCreateTest extends AbstractLDAPConnectorTest
     }    
     
     @Test
+    @Ignore // This is not working in the embedded Directory Server! No schema validation?
     public void testCreateMissingRequiredAttributeEntry() throws Exception
     {
-        // This is not working in the embeeded Directory Server! No schema validation?
-        LDAPEntry entryToCreate = new LDAPEntry("uid=testuser,ou=people,dc=mulesoft,dc=org");
-        entryToCreate.addAttribute("uid", "testuser");
+        LDAPEntry entryToCreate = new LDAPEntry("uid=invalidtestuser1,ou=people,dc=mulesoft,dc=org");
+        entryToCreate.addAttribute("uid", "invalidtestuser1");
         entryToCreate.addAttribute("objectclass", new String[] {"top", "person", "organizationalPerson", "inetOrgPerson"});
         
-        runFlowWithPayloadAndExpectException("testCreateEntryFlow", InvalidAttributesException.class, entryToCreate);
+        runFlowWithPayloadAndExpectException("testCreateEntryFlow", InvalidEntryException.class, entryToCreate);
     }    
 
     @Test
+    @Ignore // This is not working in the embedded Directory Server! It is just a WARN message that the attribute will be skipped
     public void testCreateNotSupportedAttributeEntry() throws Exception
     {
-        // This is not working in the embeeded Directory Server! It is just a WARN message that the attribute will be skipped
-        LDAPEntry entryToCreate = new LDAPEntry("uid=testuser,ou=people,dc=mulesoft,dc=org");
-        entryToCreate.addAttribute("uid", "testuser");
-        entryToCreate.addAttribute("cn", "Test User");
+        LDAPEntry entryToCreate = new LDAPEntry("uid=invalidtestuser2,ou=people,dc=mulesoft,dc=org");
+        entryToCreate.addAttribute("uid", "invalidtestuser2");
+        entryToCreate.addAttribute("cn", "Invalid Test User 2");
         entryToCreate.addAttribute("sn", "User");
         entryToCreate.addAttribute("userPassword", "test1234");
         entryToCreate.addAttribute("notSupportedAttribute", "notSupportedValue");
         entryToCreate.addAttribute("objectclass", new String[] {"top", "person", "organizationalPerson", "inetOrgPerson"});
         
-        runFlowWithPayloadAndExpectException("testCreateEntryFlow", InvalidAttributesException.class, entryToCreate);
+        runFlowWithPayloadAndExpectException("testCreateEntryFlow", InvalidAttributeException.class, entryToCreate);
     }    
 
     @Test
     public void testCreateInvalidAttributeValueEntry() throws Exception
     {
-        LDAPEntry entryToCreate = new LDAPEntry("uid=testuser,ou=people,dc=mulesoft,dc=org");
-        entryToCreate.addAttribute("uid", "testuser");
+        LDAPEntry entryToCreate = new LDAPEntry("uid=invalidtestuser3,ou=people,dc=mulesoft,dc=org");
+        entryToCreate.addAttribute("uid", "invalidtestuser3");
         entryToCreate.addAttribute("cn", new LDAPEntry()); // Invalid value!
         entryToCreate.addAttribute("sn", "User");
         entryToCreate.addAttribute("userPassword", "test1234");
         entryToCreate.addAttribute("objectclass", new String[] {"top", "person", "organizationalPerson", "inetOrgPerson"});
         
-        runFlowWithPayloadAndExpectException("testCreateEntryFlow", InvalidAttributesException.class, entryToCreate);
+        runFlowWithPayloadAndExpectException("testCreateEntryFlow", InvalidAttributeException.class, entryToCreate);
     }    
     
 }

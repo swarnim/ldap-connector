@@ -16,51 +16,46 @@
  */
 package org.mule.module.ldap;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.io.File;
 
+import org.apache.directory.server.core.schema.SchemaInterceptor;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.mule.api.MuleEvent;
 import org.mule.construct.Flow;
-import org.mule.tck.AbstractMuleTestCase;
-import org.mule.tck.FunctionalTestCase;
+import org.mule.tck.junit4.FunctionalTestCase;
 import org.mule.util.FileUtils;
 import org.springframework.security.ldap.server.ApacheDSContainer;
 
 public abstract class AbstractLDAPConnectorTest extends FunctionalTestCase
 {
-    private ApacheDSContainer ldapServer;
+    private static ApacheDSContainer ldapServer;
     public static int LDAP_PORT = 10389;
     public static File WORKING_DIRECTORY = new File(System.getProperty("java.io.tmpdir") + File.separator + "ldap-connector-junit-server");
     
-    @Override
-    protected void doSetUp() throws Exception {
-        try
-        {
-            FileUtils.deleteDirectory(WORKING_DIRECTORY);
-            
-            ldapServer = new ApacheDSContainer("dc=mulesoft,dc=org", "classpath:test-server.ldif");
-            ldapServer.setWorkingDirectory(WORKING_DIRECTORY);
-            ldapServer.setPort(LDAP_PORT);
-            ldapServer.afterPropertiesSet();
-            ldapServer.start();
-        }
-        finally
-        {
-            super.doSetUp();
-        }
+    @BeforeClass
+    public static void startLdapServer() throws Exception {
+        FileUtils.deleteDirectory(WORKING_DIRECTORY);
         
+        ldapServer = new ApacheDSContainer("dc=mulesoft,dc=org", "classpath:test-server.ldif");
+        ldapServer.setWorkingDirectory(WORKING_DIRECTORY);
+        ldapServer.setPort(LDAP_PORT);
+        ldapServer.getService().setAllowAnonymousAccess(true);
+        ldapServer.getService().setAccessControlEnabled(true);
+        ldapServer.getService().setShutdownHookEnabled(true);
+        
+        ldapServer.getService().getInterceptors().add(new SchemaInterceptor());
+        ldapServer.afterPropertiesSet(); // This method calls start
+        ldapServer.getService().getSchemaService().getRegistries();
     }
 
-    @Override
-    protected void doTearDown() throws Exception {
-        try
-        {
-            if (ldapServer != null) {
-                ldapServer.stop();
-            }
-        }
-        finally
-        {
-            super.doTearDown();
+    @AfterClass
+    public static void stopLdapServer() throws Exception {
+        if (ldapServer != null) {
+            ldapServer.stop();
         }
     }    
     
@@ -74,7 +69,7 @@ public abstract class AbstractLDAPConnectorTest extends FunctionalTestCase
      protected <U> Object runFlow(String flowName, U payload) throws Exception
      {
          Flow flow = lookupFlowConstruct(flowName);
-         MuleEvent event = AbstractMuleTestCase.getTestEvent(payload);
+         MuleEvent event = getTestEvent(payload);
          MuleEvent responseEvent = flow.process(event);
          
          return responseEvent.getMessage().getPayload();
@@ -88,15 +83,16 @@ public abstract class AbstractLDAPConnectorTest extends FunctionalTestCase
       * @param expect The expected exception
       * @param payload The payload of the input event
       */
-      protected <T, U> void runFlowWithPayloadAndExpectException(String flowName, Class<T> expect, U payload) throws Exception
+      protected <T, U> Throwable runFlowWithPayloadAndExpectException(String flowName, Class<T> expect, U payload) throws Exception
       {
           Flow flow = lookupFlowConstruct(flowName);
-          MuleEvent event = AbstractMuleTestCase.getTestEvent(payload);
+          MuleEvent event = getTestEvent(payload);
           MuleEvent responseEvent = flow.process(event);
 
           assertNotNull(responseEvent.getMessage().getExceptionPayload());
-          // responseEvent.getMessage().getExceptionPayload().getException() holds the messaging exception
           assertEquals(expect, responseEvent.getMessage().getExceptionPayload().getException().getCause().getClass());
+          
+          return responseEvent.getMessage().getExceptionPayload().getException().getCause();
       }
       
     /**
@@ -130,6 +126,6 @@ public abstract class AbstractLDAPConnectorTest extends FunctionalTestCase
      */
     protected Flow lookupFlowConstruct(String name)
     {
-        return (Flow) AbstractMuleTestCase.muleContext.getRegistry().lookupFlowConstruct(name);
+        return (Flow) muleContext.getRegistry().lookupFlowConstruct(name);
     }
 }

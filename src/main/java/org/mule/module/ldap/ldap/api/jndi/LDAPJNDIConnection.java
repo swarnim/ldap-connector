@@ -37,9 +37,6 @@ import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 
 import org.apache.commons.lang.StringUtils;
-import org.mule.module.ldap.ldap.api.AuthenticationException;
-import org.mule.module.ldap.ldap.api.CommunicationException;
-import org.mule.module.ldap.ldap.api.InvalidAttributesException;
 import org.mule.module.ldap.ldap.api.LDAPConnection;
 import org.mule.module.ldap.ldap.api.LDAPEntry;
 import org.mule.module.ldap.ldap.api.LDAPEntryAttribute;
@@ -49,9 +46,6 @@ import org.mule.module.ldap.ldap.api.LDAPMultiValueEntryAttribute;
 import org.mule.module.ldap.ldap.api.LDAPResultSet;
 import org.mule.module.ldap.ldap.api.LDAPSearchControls;
 import org.mule.module.ldap.ldap.api.LDAPSingleValueEntryAttribute;
-import org.mule.module.ldap.ldap.api.NameAlreadyBoundException;
-import org.mule.module.ldap.ldap.api.NameNotFoundException;
-import org.mule.module.ldap.ldap.api.NoPermissionException;
 
 /**
  * This class is the abstraction
@@ -262,8 +256,7 @@ public class LDAPJNDIConnection extends LDAPConnection
             }
             catch (NamingException nex)
             {
-                logger.error("close", nex);
-                throw new LDAPException("Could not close connection.", nex);
+                throw handleNamingException(nex, "Close connection failed.");
             }
         }
     }
@@ -341,25 +334,9 @@ public class LDAPJNDIConnection extends LDAPConnection
             logger.info("Binded to " + getProviderUrl() + " with " + getAuthentication() + " authentication as " + dn);
 
         }
-        catch (javax.naming.AuthenticationException nex)
-        {
-            logger.error(nex.getExplanation(), nex);
-            throw new AuthenticationException(nex.getMessage(), nex);
-        }
-        catch (javax.naming.NameNotFoundException nex)
-        {
-            logger.error(nex.getExplanation(), nex);
-            throw new NameNotFoundException(nex.getMessage(), nex);
-        }
-        catch(javax.naming.CommunicationException nex)
-        {
-            logger.error(nex.getExplanation(), nex);
-            throw new CommunicationException(nex.getMessage(), nex);
-        }
         catch (NamingException nex)
         {
-            logger.error(nex.getExplanation(), nex);
-            throw new LDAPException(nex.getMessage(), nex);
+            throw handleNamingException(nex, "Bind failed.");
         }
     }
 
@@ -412,21 +389,10 @@ public class LDAPJNDIConnection extends LDAPConnection
             NamingEnumeration<SearchResult> entries = getConn().search(baseDn, buildAttributes(matchingAttributes));
             return buildSearchResultSet(baseDn, entries);
         }
-        catch (javax.naming.NoPermissionException nex)
-        {
-            logger.warn("search", nex);
-            throw new NoPermissionException(nex);
-        }
-        catch (javax.naming.NameNotFoundException nex)
-        {
-            logger.warn("search", nex);
-            throw new NameNotFoundException(nex);
-        }
         catch (NamingException nex)
         {
-            logger.warn("search", nex);
-            throw new LDAPException(nex);
-        }
+            throw handleNamingException(nex, "Search failed.");
+        }        
     }
 
     /**
@@ -446,20 +412,9 @@ public class LDAPJNDIConnection extends LDAPConnection
             NamingEnumeration<SearchResult> entries = getConn().search(baseDn, filter, buildSearchControls(controls));
             return buildSearchResultSet(baseDn, entries);
         }
-        catch (javax.naming.NoPermissionException nex)
-        {
-            logger.warn("search", nex);
-            throw new NoPermissionException(nex);
-        }
-        catch (javax.naming.NameNotFoundException nex)
-        {
-            logger.warn("search", nex);
-            throw new NameNotFoundException(nex);
-        }
         catch (NamingException nex)
         {
-            logger.warn("search", nex);
-            throw new LDAPException(nex);
+            throw handleNamingException(nex, "Search failed.");
         }
     }
 
@@ -482,20 +437,9 @@ public class LDAPJNDIConnection extends LDAPConnection
             NamingEnumeration<SearchResult> entries = getConn().search(baseDn, filter, filterArgs, buildSearchControls(controls));
             return buildSearchResultSet(baseDn, entries);
         }
-        catch (javax.naming.NoPermissionException nex)
-        {
-            logger.warn("search", nex);
-            throw new NoPermissionException(nex);
-        }
-        catch (javax.naming.NameNotFoundException nex)
-        {
-            logger.warn("search", nex);
-            throw new NameNotFoundException(nex);
-        }
         catch (NamingException nex)
         {
-            logger.warn("search", nex);
-            throw new LDAPException(nex);
+            throw handleNamingException(nex, "Search failed.");
         }
     }
 
@@ -552,30 +496,11 @@ public class LDAPJNDIConnection extends LDAPConnection
     {
         try
         {
-
             return buildEntry(dn, getConn().getAttributes(dn));
-
-        }
-        catch (javax.naming.NoPermissionException nex)
-        {
-
-            logger.warn("lookup", nex);
-            throw new NoPermissionException(nex.getMessage(), nex);
-
-        }
-        catch (javax.naming.NameNotFoundException nex)
-        {
-
-            logger.warn("lookup", nex);
-            throw new NameNotFoundException(nex.getMessage(), nex);
-
         }
         catch (NamingException nex)
         {
-
-            logger.warn("lookup", nex);
-            throw new LDAPException(nex.getMessage(), nex);
-
+            throw handleNamingException(nex, "Lookup failed.");
         }
     }
 
@@ -591,30 +516,11 @@ public class LDAPJNDIConnection extends LDAPConnection
     {
         try
         {
-
             return buildEntry(dn, getConn().getAttributes(dn, attributes));
-
-        }
-        catch (javax.naming.NoPermissionException nex)
-        {
-
-            logger.warn("lookup", nex);
-            throw new NoPermissionException(nex.getMessage(), nex);
-
-        }
-        catch (javax.naming.NameNotFoundException nex)
-        {
-
-            logger.warn("lookup", nex);
-            throw new NameNotFoundException(nex.getMessage(), nex);
-
         }
         catch (NamingException nex)
         {
-
-            logger.warn("lookup", nex);
-            throw new LDAPException(nex.getMessage(), nex);
-
+            throw handleNamingException(nex, "Lookup failed.");
         }
     }
 
@@ -629,34 +535,20 @@ public class LDAPJNDIConnection extends LDAPConnection
         {
             getConn().bind(entry.getDn(), null, buildAttributes(entry));
         }
-        catch (javax.naming.NoPermissionException nex)
-        {
-            logger.warn("addEntry", nex);
-            throw new NoPermissionException(nex.getMessage(), nex);
-        }
-        catch (javax.naming.InvalidNameException nex)
-        {
-            logger.warn("addEntry", nex);
-            throw new InvalidAttributesException(nex.getMessage(), nex);
-        }
-        catch (javax.naming.directory.InvalidAttributeValueException nex)
-        {
-            logger.warn("addEntry", nex);
-            throw new InvalidAttributesException(nex.getMessage(), nex);
-        }
-        
-        catch (javax.naming.NameAlreadyBoundException nex)
-        {
-            logger.warn("addEntry", nex);
-            throw new NameAlreadyBoundException(nex.getMessage(), nex);
-        }
         catch (NamingException nex)
         {
-            logger.warn("addEntry", nex);
-            throw new LDAPException(nex.getMessage(), nex);
+            throw handleNamingException(nex, "Add entry failed.");
         }
     }
 
+    
+    private LDAPException handleNamingException(NamingException nex, String logMessage)
+    {
+        logger.error(logMessage, nex);
+        
+        return LDAPException.create(nex);
+    }
+    
     /**
      * @param entry
      * @throws LDAPException
@@ -670,30 +562,14 @@ public class LDAPJNDIConnection extends LDAPConnection
             Iterator<LDAPEntryAttribute> it = entry.attributes();
             for (int i = 0; it.hasNext() && i < mods.length; i++)
             {
-                mods[i++] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE,
+                mods[i] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE,
                     buildBasicAttribute(((LDAPEntryAttribute) it.next())));
             }
             getConn().modifyAttributes(entry.getDn(), mods);
         }
-        catch (javax.naming.NoPermissionException nex)
-        {
-            logger.warn("updateEntry", nex);
-            throw new NoPermissionException(nex.getMessage(), nex);
-        }
-        catch (javax.naming.NameNotFoundException nex)
-        {
-            logger.warn("updateEntry", nex);
-            throw new NameNotFoundException(nex.getMessage(), nex);
-        }
-        catch (javax.naming.InvalidNameException nex)
-        {
-            logger.warn("updateEntry", nex);
-            throw new InvalidAttributesException(nex.getMessage(), nex);
-        }        
         catch (NamingException nex)
         {
-            logger.warn("updateEntry", nex);
-            throw new LDAPException(nex.getMessage(), nex);
+            throw handleNamingException(nex, "Update entry failed.");
         }
     }
 
@@ -716,25 +592,53 @@ public class LDAPJNDIConnection extends LDAPConnection
     {
         try
         {
+            if(logger.isDebugEnabled())
+            {
+                logger.debug("About to delete entry " + dn );
+            } 
+            
             getConn().unbind(dn);
-        }
-        catch (javax.naming.NoPermissionException nex)
-        {
-            logger.warn("deleteEntry", nex);
-            throw new NoPermissionException(nex.getMessage(), nex);
-        }
-        catch (javax.naming.NameNotFoundException nex)
-        {
-            logger.warn("deleteEntry", nex);
-            throw new NameNotFoundException(nex.getMessage(), nex);
+            
+            if(logger.isInfoEnabled())
+            {
+                logger.info("Deleted entry " + dn);
+            }             
         }
         catch (NamingException nex)
         {
-            logger.warn("deleteEntry", nex);
-            throw new LDAPException(nex.getMessage(), nex);
+            throw handleNamingException(nex, "Delete entry failed.");
         }
     }
 
+    /**
+     * 
+     * @param oldDn
+     * @param newDn
+     * @throws LDAPException
+     * @see org.mule.module.ldap.ldap.api.LDAPConnection#renameEntry(java.lang.String, java.lang.String)
+     */
+    public void renameEntry(String oldDn, String newDn) throws LDAPException
+    {
+        try
+        {
+            if(logger.isDebugEnabled())
+            {
+                logger.debug("About to rename entry " + oldDn + " to " + newDn);
+            }
+            
+            getConn().rename(oldDn, newDn);
+            
+            if(logger.isInfoEnabled())
+            {
+                logger.info("Renamed entry " + oldDn + " to " + newDn);
+            }            
+        }
+        catch (NamingException nex)
+        {
+            throw handleNamingException(nex, "Rename entry failed.");
+        }
+    }
+    
     /**
      * @param dn
      * @param attribute
@@ -750,20 +654,9 @@ public class LDAPJNDIConnection extends LDAPConnection
             mods[0] = new ModificationItem(DirContext.ADD_ATTRIBUTE, buildBasicAttribute(attribute));
             getConn().modifyAttributes(dn, mods);
         }
-        catch (javax.naming.NoPermissionException nex)
-        {
-            logger.warn("addAttribute", nex);
-            throw new NoPermissionException(nex.getMessage(), nex);
-        }
-        catch (javax.naming.NameNotFoundException nex)
-        {
-            logger.warn("addAttribute", nex);
-            throw new NameNotFoundException(nex.getMessage(), nex);
-        }
         catch (NamingException nex)
         {
-            logger.warn("addAttribute", nex);
-            throw new LDAPException(nex.getMessage(), nex);
+            throw handleNamingException(nex, "Add attribute failed.");
         }
     }
 
@@ -783,20 +676,9 @@ public class LDAPJNDIConnection extends LDAPConnection
             mods[0] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE, buildBasicAttribute(attribute));
             getConn().modifyAttributes(dn, mods);
         }
-        catch (javax.naming.NoPermissionException nex)
-        {
-            logger.warn("updateAttribute", nex);
-            throw new NoPermissionException(nex.getMessage(), nex);
-        }
-        catch (javax.naming.NameNotFoundException nex)
-        {
-            logger.warn("updateAttribute", nex);
-            throw new NameNotFoundException(nex.getMessage(), nex);
-        }
         catch (NamingException nex)
         {
-            logger.warn("updateAttribute", nex);
-            throw new LDAPException(nex.getMessage(), nex);
+            throw handleNamingException(nex, "Update attribute failed.");
         }
     }
 
@@ -815,20 +697,9 @@ public class LDAPJNDIConnection extends LDAPConnection
             mods[0] = new ModificationItem(DirContext.REMOVE_ATTRIBUTE, buildBasicAttribute(attribute));
             getConn().modifyAttributes(dn, mods);
         }
-        catch (javax.naming.NoPermissionException nex)
-        {
-            logger.warn("deleteAttribute", nex);
-            throw new NoPermissionException(nex.getMessage(), nex);
-        }
-        catch (javax.naming.NameNotFoundException nex)
-        {
-            logger.warn("deleteAttribute", nex);
-            throw new NameNotFoundException(nex.getMessage(), nex);
-        }
         catch (NamingException nex)
         {
-            logger.warn("deleteAttribute", nex);
-            throw new LDAPException(nex.getMessage(), nex);
+            throw handleNamingException(nex, "Delete attribute failed.");
         }
     }
 
@@ -980,8 +851,7 @@ public class LDAPJNDIConnection extends LDAPConnection
             }
             catch (NamingException nex)
             {
-                logger.error("buildAttribute", nex);
-                throw new LDAPException("Could not build attribute.", nex);
+                throw handleNamingException(nex, "Build attribute failed.");
             }
         }
         else
@@ -1010,8 +880,7 @@ public class LDAPJNDIConnection extends LDAPConnection
             }
             catch (NamingException nex)
             {
-                logger.error("buildEntry", nex);
-                throw new LDAPException("Could not build entry.", nex);
+                throw handleNamingException(nex, "Build entry failed.");
             }
         }
         return anEntry;

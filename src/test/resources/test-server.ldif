@@ -39,6 +39,29 @@ sn: Two
 uid: user2
 userPassword: user2
 
+dn: uid=user3,ou=people,dc=mulesoft,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: User Three
+sn: Three
+uid: user3
+userPassword: user3
+mail: user3@mulesoft.org
+
+dn: uid=user4,ou=people,dc=mulesoft,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: User Four
+sn: Four
+uid: user4
+userPassword: user4
+mail: user4@mulesoft.org
+mail: user4@mulesoft.com
+
 dn: cn=Administrators,ou=groups,dc=mulesoft,dc=org
 objectclass: top
 objectclass: groupOfNames

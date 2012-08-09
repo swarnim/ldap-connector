@@ -26,19 +26,20 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
         http://www.mulesoft.org/schema/mule/ldap http://www.mulesoft.org/schema/mule/ldap/current/mule-ldap.xsd">
- 
-	<ldap:config name="adminConf" url="ldap://localhost:10389/" authentication="simple" authDn="uid=admin,ou=people,dc=mulesoft,dc=org" authPassword="admin"/>
+
+	<spring:beans>
+		<spring:import resource="ldap-config.xml" />
+	</spring:beans>
 	
-	<!--
-	<ldap:config name="adminConf" url="ldap://192.168.11.129:389/" authentication="simple" authDn="cn=admin,dc=mulesoft,dc=org" authPassword="admin"/>
- 	-->	
-	
-	<!--
-		Because of DevKit limitations (authDn is @ConnectionKey and cannot be empty/null) in order to have an anonymous bind to LDAP
-		the user needs to:
-		1) Set authentication to "none" -> This is the default value!
-		2) Provide a value for authDn (that will be used as key to retrieve this connection). Recommended value is ANONYMOUS
-		3) Provide a value for authPassword
-	 -->
-	<ldap:config name="anonymousConf" url="ldap://localhost:10389/" authentication="none" authDn="ANONYMOUS" authPassword="IGNORE"/>
+    <flow name="testUpdateSingleAttributeFlow">
+    	<ldap:update-single-value-attribute config-ref="adminConf" dn="#[map-payload:dn]" attributeName="#[map-payload:attributeName]" attributeValue="#[map-payload:attributeValue]"/>
+    	<ldap:lookup config-ref="adminConf" dn="#[map-payload:dn]"/>
+	</flow>
+
+    <flow name="testUpdateMultiAttributeFlow">
+    	<ldap:update-multi-value-attribute config-ref="adminConf" dn="#[map-payload:dn]" attributeName="#[map-payload:attributeName]">
+			<ldap:attribute-values ref="#[map-payload:attributeValues]" />
+    	</ldap:update-multi-value-attribute>
+    	<ldap:lookup config-ref="adminConf" dn="#[map-payload:dn]"/>
+	</flow>
 </mule>

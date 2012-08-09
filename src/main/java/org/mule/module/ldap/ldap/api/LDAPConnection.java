@@ -182,6 +182,14 @@ public abstract class LDAPConnection
     public abstract LDAPEntry lookup(String dn) throws LDAPException;
 
     /**
+     * 
+     * @param oldDn
+     * @param newDn
+     * @throws LDAPException
+     */
+    public abstract void renameEntry(String oldDn, String newDn) throws LDAPException;
+    
+    /**
      * Returns the LDAP entry matching the given dn. The entry will contain only the
      * defined attributes.
      * 

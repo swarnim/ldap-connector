@@ -482,7 +482,7 @@ public class LDAPConnector
      * 
      * @param entry The {@link LDAPEntry} that should be added.
      * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to add entries under any of the RDN (relative DN) that compose the entry DN.
-     * @throws org.mule.module.ldap.ldap.api.InvalidAttributesException If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
+     * @throws org.mule.module.ldap.ldap.api.InvalidAttributeException If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
      *         are not part of any of the defined object classes)
      * @throws org.mule.module.ldap.ldap.api.NameAlreadyBoundException If there is already an existing entry with the same DN in the LDAP server tree.
      * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
@@ -527,7 +527,7 @@ public class LDAPConnector
      * @param dn The primary value to use as DN of the entry. If not set, then the DN will be retrieved from the map representing the entry under the key <b>dn</b>.
      * @param entry {@link Map} representation of the LDAP entry.
      * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to add entries under any of the RDN (relative DN) that compose the entry DN.
-     * @throws org.mule.module.ldap.ldap.api.InvalidAttributesException If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
+     * @throws org.mule.module.ldap.ldap.api.InvalidAttributeException If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
      *         are not part of any of the defined object classes)
      * @throws org.mule.module.ldap.ldap.api.NameAlreadyBoundException If there is already an existing entry with the same DN in the LDAP server tree.
      * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
@@ -566,13 +566,48 @@ public class LDAPConnector
      * attributes that define its structure and at least a value for all the required attributes (required attributes depend on the
      * <i>object classes</i> assigned to the entry. You can refer to RFC 4519 for standard object classes and attributes.
      * <p/>
-     * When updating a LDAP entry, all of the attributes are replaced with the ones in the new entry.
-     * 
+     * When updating a LDAP entry, only the attributes in the entry passed as parameter are updated or added. If you
+     * need to delete an attribute, you should use the delete attribute operation.
+     * <p/>
+     * <b>Example:</b> Updating one attributes and adding one.
+     * <i>Original LDAP server entry</i>:
+     * <code>
+     * dn: cn=entry,ou=group,dc=company,dc=org
+     * cn: entry
+     * attr1: Value1
+     * attr2: Value2
+     * multi1: Value3
+     * multi1: Value4
+     * objectclass: top
+     * objectclass: myentry
+     * </code>
+     * <p/>
+     * <i>Entry map passed as parameter:</i> 
+     * <code>
+     * dn: cn=entry,ou=group,dc=company,dc=org
+     * attr1: NewValue
+     * attr3: NewAttributeValue
+     * </code>
+     * <p/>
+     * <i>Resulting  LDAP server entry:</i> 
+     * <code>
+     * dn: cn=entry,ou=group,dc=company,dc=org
+     * cn: entry
+     * attr1: NewValue
+     * attr2: Value2
+     * multi1: Value3
+     * multi1: Value4
+     * attr3: NewAttributeValue
+     * objectclass: top
+     * objectclass: myentry
+     * </code>
+     * <p/>
+     *  
      * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:update}
      * 
      * @param entry The {@link LDAPEntry} that should be updated.
      * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to update entries under any of the RDN (relative DN) that compose the entry DN.
-     * @throws org.mule.module.ldap.ldap.api.InvalidAttributesException If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
+     * @throws org.mule.module.ldap.ldap.api.InvalidAttributeException If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
      *         are not part of any of the defined object classes)
      * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If there is no existing entry with the same DN in the LDAP server tree.
      * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
@@ -600,7 +635,41 @@ public class LDAPConnector
      * or string with only space chars) then the DN should be a present in the entry map as a @{link String} value
      * under the key "<b>dn</b>" (see {@link LDAPEntry#MAP_DN_KEY}).
      * <p/>
-     * When updating a LDAP entry, all of the attributes are replaced with the ones in the new entry.
+     * When updating a LDAP entry, only the attributes in the entry passed as parameter are updated or added. If you
+     * need to delete an attribute, you should use the delete attribute operation.
+     * <p/>
+     * <b>Example:</b> Updating one attributes and adding one.
+     * <i>Original LDAP server entry</i>:
+     * <code>
+     * dn: cn=entry,ou=group,dc=company,dc=org
+     * cn: entry
+     * attr1: Value1
+     * attr2: Value2
+     * multi1: Value3
+     * multi1: Value4
+     * objectclass: top
+     * objectclass: myentry
+     * </code>
+     * <p/>
+     * <i>Entry map passed as parameter:</i> 
+     * <code>
+     * dn: cn=entry,ou=group,dc=company,dc=org
+     * attr1: NewValue
+     * attr3: NewAttributeValue
+     * </code>
+     * <p/>
+     * <i>Resulting  LDAP server entry:</i> 
+     * <code>
+     * dn: cn=entry,ou=group,dc=company,dc=org
+     * cn: entry
+     * attr1: NewValue
+     * attr2: Value2
+     * multi1: Value3
+     * multi1: Value4
+     * attr3: NewAttributeValue
+     * objectclass: top
+     * objectclass: myentry
+     * </code>
      * <p/>
      * In order to represent a LDAP entry as a map, you should consider the following rules for the map key/value pair:
      * <ul>
@@ -619,7 +688,7 @@ public class LDAPConnector
      * @param dn The primary value to use as DN of the entry. If not set, then the DN will be retrieved from the map representing the entry under the key <b>dn</b>.
      * @param entry {@link Map} representation of the LDAP entry.
      * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to update entries under any of the RDN (relative DN) that compose the entry DN.
-     * @throws org.mule.module.ldap.ldap.api.InvalidAttributesException If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
+     * @throws org.mule.module.ldap.ldap.api.InvalidAttributeException If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
      *         are not part of any of the defined object classes)
      * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If there is no existing entry with the same DN in the LDAP server tree.
      * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
@@ -655,17 +724,20 @@ public class LDAPConnector
 
     /**
      * Deletes the LDAP entry represented by the provided distinguished name.
+     * <p/>
+     * This operation is idempotent. It succeeds even if the terminal atomic name is not bound in the target context, but throws
+     * {@link NameNotFoundException} if any of the intermediate contexts do not exist.
      * 
      * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:delete}
      * 
      * @param dn The DN of the LDAP entry to delete
      * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to delete the entry.
-     * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If there is no existing entry for the given DN.
+     * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If an intermediate context does not exist.
      * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error deleting the entry.
      */
     @Processor
-    public void delete(String dn) throws Exception
+    public void delete(@Optional @Default("#[payload:]") String dn) throws Exception
     {
         if(LOGGER.isDebugEnabled())
         {
@@ -681,9 +753,36 @@ public class LDAPConnector
     }
     
     /**
+     * Renames and existing LDAP entry (moves and entry from a DN to another one).
+     * 
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:rename}
+     * 
+     * @param oldDn DN of the existing entry that will be renamed.
+     * @param newDn Destination DN
+     * @throws org.mule.module.ldap.ldap.api.NameAlreadyBoundException If there is already an existing entry with the same DN as <i>newDn</i>.
+     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws Exception In case there is any other error deleting the entry.
+     */
+    @Processor
+    public void rename(String oldDn, String newDn) throws Exception
+    {
+        if(LOGGER.isDebugEnabled())
+        {
+            LOGGER.debug("About to rename entry " + oldDn + " to " + newDn);
+        }
+        
+        this.connection.renameEntry(oldDn, newDn);
+        
+        if(LOGGER.isInfoEnabled())
+        {
+            LOGGER.info("Renamed entry " + oldDn + " to " + newDn);
+        }          
+    }
+    
+    /**
      * Adds a value for an attribute in an existing LDAP entry. If the entry already contained a value for the given
-     * <i>attributeName</i> then this value will be added. If the attribute only had one value, then it should allow
-     * multiple values as this value will be added. If not, an exception will be raised.
+     * <i>attributeName</i> then this value will be added (only if the attribute is multi value and there entry didn't
+     * have the value already).
      * <p/>
      * If you want to add a value with a type different than {@link String}, then you can use the add-multi-value-attribute
      * operation and define a one element list with the value.
@@ -694,6 +793,7 @@ public class LDAPConnector
      * @param attributeName The name of the attribute to add a value to.
      * @param attributeValue The value for the attribute
      * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to update the entry.
+     * @throws org.mule.module.ldap.ldap.api.InvalidAttributeException If the attribute value is invalid or the entry already has the provided value.
      * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If there is no existing entry for the given DN.
      * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error updating the entry.
@@ -701,7 +801,6 @@ public class LDAPConnector
     @Processor
     public void addSingleValueAttribute(String dn, String attributeName, String attributeValue) throws Exception
     {
-        //TODO: Test si agrego mismo nombre/valor dos veces (se agregan dos con el mismo valor o falla?)
         if(LOGGER.isDebugEnabled())
         {
             LOGGER.debug("About to add attribute " + attributeName + " with value " + attributeValue + " to entry " + dn);
@@ -727,6 +826,7 @@ public class LDAPConnector
      * @param attributeValues The values for the attribute
      * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to update the entry.
      * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If there is no existing entry for the given DN.
+     * @throws org.mule.module.ldap.ldap.api.InvalidAttributeException If the attribute value is invalid or the entry already has the provided value.
      * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error updating the entry.
      */
@@ -811,7 +911,7 @@ public class LDAPConnector
     
     /**
      * Deletes the value matching <i>attributeValue</i> of the attribute defined by <i>attributeName</i>. If the entry didn't have
-     * the value, then the entry stays the same.
+     * the value, then the entry stays the same. If no value is specified, then the whole attribute is deleted from the entry.
      * <p/>
      * If you want to delete a value with a type different than {@link String}, then you can use the delete-multi-value-attribute
      * operation and define a one element list with the value.
@@ -827,7 +927,7 @@ public class LDAPConnector
      * @throws Exception In case there is any other error updating the entry.
      */
     @Processor
-    public void deleteSingleValueAttribute(String dn, String attributeName, String attributeValue) throws Exception
+    public void deleteSingleValueAttribute(String dn, String attributeName, @Optional String attributeValue) throws Exception
     {
         if(LOGGER.isDebugEnabled())
         {
@@ -845,7 +945,7 @@ public class LDAPConnector
 
     /**
      * Deletes all the values matching <i>attributeValues</i> of the attribute defined by <i>attributeName</i>. Values that are
-     * not present in the entry are ignored.
+     * not present in the entry are ignored. If no values are specified, then the whole attribute is deleted from the entry.
      * 
      * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:delete-multi-value-attribute}
      * 
@@ -858,7 +958,7 @@ public class LDAPConnector
      * @throws Exception In case there is any other error updating the entry.
      */
     @Processor
-    public void deleteMultiValueAttribute(String dn, String attributeName, List<Object> attributeValues) throws Exception
+    public void deleteMultiValueAttribute(String dn, String attributeName, @Optional List<Object> attributeValues) throws Exception
     {
         if(LOGGER.isDebugEnabled())
         {

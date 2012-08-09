@@ -43,7 +43,7 @@
 
     <flow name="testAdminFlow">
     	<ldap:search-one config-ref="adminConf" baseDn="dc=mulesoft,dc=org" filter="#[payload:]" scope="SUB_TREE"/>
-    	<ldap:search config-ref="adminConf" baseDn="#[groovy:payload.getDn()]" filter="(uid=user*)">
+    	<ldap:search config-ref="adminConf" baseDn="#[groovy:payload.getDn()]" filter="(uid=user*)" scope="SUB_TREE">
     		<ldap:attributes>
     			<ldap:attribute>uid</ldap:attribute>
     			<ldap:attribute>cn</ldap:attribute>

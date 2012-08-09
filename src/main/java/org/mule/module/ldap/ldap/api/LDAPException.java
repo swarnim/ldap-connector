@@ -19,6 +19,9 @@
 
 package org.mule.module.ldap.ldap.api;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.naming.NamingException;
 
 /**
@@ -33,7 +36,23 @@ public class LDAPException extends Exception
 	 * 
 	 */
     private static final long serialVersionUID = 1220777755286608188L;
+    private static Map<Class<? extends NamingException>, Class<? extends LDAPException>> EX_MAPPINGS = new HashMap<Class<? extends NamingException>, Class<? extends LDAPException>>();
 
+    static
+    {
+        EX_MAPPINGS.put(javax.naming.AuthenticationException.class, AuthenticationException.class);
+        EX_MAPPINGS.put(javax.naming.NameNotFoundException.class, NameNotFoundException.class);
+        EX_MAPPINGS.put(javax.naming.CommunicationException.class, CommunicationException.class);
+        EX_MAPPINGS.put(javax.naming.NoPermissionException.class, NoPermissionException.class);
+        EX_MAPPINGS.put(javax.naming.InvalidNameException.class, InvalidAttributeException.class);
+        EX_MAPPINGS.put(javax.naming.directory.InvalidAttributeValueException.class, InvalidAttributeException.class);
+        EX_MAPPINGS.put(javax.naming.directory.SchemaViolationException.class, InvalidEntryException.class);
+        EX_MAPPINGS.put(javax.naming.directory.InvalidAttributesException.class, InvalidEntryException.class);
+        EX_MAPPINGS.put(javax.naming.NameAlreadyBoundException.class, NameAlreadyBoundException.class);
+        EX_MAPPINGS.put(javax.naming.directory.InvalidAttributeIdentifierException.class, InvalidAttributeException.class);
+        EX_MAPPINGS.put(javax.naming.directory.AttributeInUseException.class, InvalidAttributeException.class);
+    }
+    
     public LDAPException()
     {
         super();
@@ -54,6 +73,25 @@ public class LDAPException extends Exception
         super(cause);
     }
 
+    /**
+     * 
+     * @param nex
+     * @return
+     */
+    public static LDAPException create(NamingException nex)
+    {
+        Class<? extends LDAPException> exClass = EX_MAPPINGS.get(nex.getClass());
+        try
+        {
+            return (LDAPException) exClass.getDeclaredConstructor(String.class, Throwable.class).newInstance(nex.getMessage(), nex);
+        }
+        catch(Throwable ex)
+        {
+            // Null pointer, reflection exceptions, etc.
+            return new LDAPException(nex.getMessage(), nex);
+        }
+    }
+    
     public String getCode()
     {
         if(getCause() instanceof NamingException)
