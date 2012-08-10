@@ -124,8 +124,13 @@ public abstract class AbstractLDAPConnectorTest extends FunctionalTestCase
      *
      * @param name Name of the flow to retrieve
      */
-    protected Flow lookupFlowConstruct(String name)
+    protected Flow lookupFlowConstruct(String name) throws Exception
     {
-        return (Flow) muleContext.getRegistry().lookupFlowConstruct(name);
+        Flow flow = (Flow) muleContext.getRegistry().lookupFlowConstruct(name);
+        if(flow == null)
+        {
+            throw new Exception("Flow " + name + " is not present in configuration " + getConfigResources());
+        }        
+        return flow;
     }
 }

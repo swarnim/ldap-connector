@@ -848,7 +848,7 @@ public class LDAPConnector
 
     /**
      * Updates (replaces) the value or values of the attribute defined by <i>attributeName</i> with the new value defined by
-     * <i>attributeValue</i>. 
+     * <i>attributeValue</i>. If the attribute was not present in the entry, then the value is added.
      * <p/>
      * If you want to update a value with a type different than {@link String}, then you can use the update-multi-value-attribute
      * operation and define a one element list with the value.
@@ -881,7 +881,7 @@ public class LDAPConnector
     
     /**
      * Updates (replaces) the value or values of the attribute defined by <i>attributeName</i> with the new values defined by
-     * <i>attributeValues</i>. 
+     * <i>attributeValues</i>.  If the attribute was not present in the entry, then the value is added.
      * 
      * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:update-multi-value-attribute}
      * 
