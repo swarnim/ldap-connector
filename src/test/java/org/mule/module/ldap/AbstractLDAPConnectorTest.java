@@ -106,6 +106,34 @@ public abstract class AbstractLDAPConnectorTest extends FunctionalTestCase
           }
       }
       
+      /**
+       * Run the flow specified by name using the specified payload, expect an exception
+       * and return that exception
+       *
+       * @param flowName The name of the flow to run
+       * @param payload The payload of the input event
+       * @return The exception
+       */
+       protected <U> Throwable runFlowWithPayloadAndReturnException(String flowName, U payload) throws Exception
+       {
+           try
+           {
+               Flow flow = lookupFlowConstruct(flowName);
+               MuleEvent event = getTestEvent(payload);
+               MuleEvent responseEvent = flow.process(event);
+
+               // Support for mule 3.2.x and previous
+               assertNotNull(responseEvent.getMessage().getExceptionPayload());
+               
+               return responseEvent.getMessage().getExceptionPayload().getException().getCause();
+           }
+           catch(MessagingException ex)
+           {
+               // Support for mule 3.3.x
+               return ex.getCause();
+           }
+       }
+       
     /**
     * Run the flow specified by name and assert equality on the expected output
     *

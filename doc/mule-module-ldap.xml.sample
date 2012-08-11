@@ -8,6 +8,16 @@
 	<ldap:config name="ldapConf" url="ldap://localhost:389/" authentication="none" authDn="ANONYMOUS" authPassword="NONE"/>
 <!-- END_INCLUDE(ldap:config-2) -->
 
+<!-- BEGIN_INCLUDE(ldap:login-1) -->
+	<!-- Case 1: Using Config Credentials -->
+	<ldap:login config-ref="ldapConf"/>
+<!-- END_INCLUDE(ldap:login-1) -->
+
+<!-- BEGIN_INCLUDE(ldap:login-2) -->
+	<!-- Case 1: Using New Credentials -->
+	<ldap:login config-ref="ldapConf" authDn="uid=anotherUser,ou=people,dc=mulesoft,dc=org" authPassword="secret"/>
+<!-- END_INCLUDE(ldap:login-2) -->
+
 <!-- BEGIN_INCLUDE(ldap:lookup) -->
     <ldap:lookup dn="#[header:dn]">
         <ldap:attributes ref="#[header:attributes]" />

@@ -148,6 +148,13 @@ public abstract class LDAPConnection
                                          LDAPSearchControls controls) throws LDAPException;
 
     /**
+     * 
+     * @return
+     * @throws LDAPException
+     */
+    public abstract String getBindedUserDn() throws LDAPException;
+    
+    /**
      * @param baseDn
      * @param filter
      * @param controls

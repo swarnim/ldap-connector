@@ -312,6 +312,72 @@ public class LDAPConnector
     // Operations
     
     /**
+     * Performs an LDAP bind (login) operation. After login there will be a LDAP connection pool
+     * ready to use for other operations using the authenticated user.
+     * If no values are provided to override <i>authDn</i> and <i>authPassword</i> then using
+     * this operation will just re-bind (re-authenticate) the user/password defined in the <i>config</i>
+     * element. If new values are provided for <i>authDn</i> and <i>authPassword</i>, then authentication
+     * will be performed.
+     * 
+     * <b>Examples</b>
+     * <p/>
+     * <u>Re-authenticating and returning the LDAP entry using <i>config</i> level credentials (authDn & authPassword)</u>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:login-1}
+     * <p/>
+     * <u>Authenticating and returning the LDAP entry using new credentials (authDn & authPassword)</u>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:login-2}
+     * 
+     * @return The {@link LDAPEntry} of the authenticated user.
+     * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to perform the lookup for its own LDAP entry.
+     * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If base DN is invalid (for example it doesn't exist)
+     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws Exception In case there is any other error performing the login and posterior lookup.
+     *  
+     */
+    @Processor
+    public LDAPEntry login() throws Exception
+    {
+        /*
+         * :TODO: Should a re-login be called? How do I get the values for authDn and authPassword?
+         *        At this point Connection Management already returned a connection:
+         *        1) Already opened one -> No re-bind is performed
+         *        2) A new one if authDn was never used before -> In this case there is a bind
+         * http://www.mulesoft.org/jira/browse/DEVKIT-178
+         */
+        String dn = this.connection.getBindedUserDn();
+        
+        if(LOGGER.isInfoEnabled())
+        {
+            LOGGER.info("Login was successful for user: " + (dn != null ? dn : "Anonymous"));
+        }        
+        
+        LDAPEntry entry = null;
+        
+        if(dn != null)
+        {
+            if(LOGGER.isDebugEnabled())
+            {
+                LOGGER.debug("About to retrieve authenticated user entry for: " + dn);
+            }
+            
+            entry = this.connection.lookup(dn);
+
+            if(LOGGER.isDebugEnabled())
+            {
+                LOGGER.debug("Retrieved entry: " + entry);
+            }
+        }
+        else
+        {
+            if(LOGGER.isDebugEnabled())
+            {
+                LOGGER.debug("Anoymous user returns no entry (null)");
+            }            
+        }
+        return entry;
+    }
+    
+    /**
      * Retrieves an entry from the LDAP server base on its distinguished name (DN). DNs are the unique identifiers
      * of an LDAP entry, so this method will perform a search based on this ID and so return a single entry as result
      * or throw an exception if the DN is invalid or inexistent.

@@ -320,7 +320,7 @@ public class LDAPJNDIConnection extends LDAPConnection
             {
                 String currentUrl = (String) getConn().getEnvironment().get(Context.PROVIDER_URL);
                 String currentAuth = (String) getConn().getEnvironment().get(Context.SECURITY_AUTHENTICATION);
-                String currentDn = (String) getConn().getEnvironment().get(Context.SECURITY_PRINCIPAL);
+                String currentDn = getBindedUserDn();
                 
                 logger.info("Already binded to " + currentUrl + " with " + currentAuth + " authentication as " + currentDn + ". Closing connection first.");
                 
@@ -340,6 +340,25 @@ public class LDAPJNDIConnection extends LDAPConnection
         }
     }
 
+    public String getBindedUserDn() throws LDAPException
+    {
+        if(!isClosed())
+        {
+            try
+            {
+                return (String) getConn().getEnvironment().get(Context.SECURITY_PRINCIPAL);
+            }
+            catch (NamingException nex)
+            {
+                throw handleNamingException(nex, "Cannot get binded user DN.");
+            }
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
     /**
      * @param scope
      * @return
