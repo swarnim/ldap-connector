@@ -24,6 +24,7 @@ import java.io.File;
 import org.apache.directory.server.core.schema.SchemaInterceptor;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.mule.api.MessagingException;
 import org.mule.api.MuleEvent;
 import org.mule.construct.Flow;
 import org.mule.tck.junit4.FunctionalTestCase;
@@ -85,14 +86,24 @@ public abstract class AbstractLDAPConnectorTest extends FunctionalTestCase
       */
       protected <T, U> Throwable runFlowWithPayloadAndExpectException(String flowName, Class<T> expect, U payload) throws Exception
       {
-          Flow flow = lookupFlowConstruct(flowName);
-          MuleEvent event = getTestEvent(payload);
-          MuleEvent responseEvent = flow.process(event);
+          try
+          {
+              Flow flow = lookupFlowConstruct(flowName);
+              MuleEvent event = getTestEvent(payload);
+              MuleEvent responseEvent = flow.process(event);
 
-          assertNotNull(responseEvent.getMessage().getExceptionPayload());
-          assertEquals(expect, responseEvent.getMessage().getExceptionPayload().getException().getCause().getClass());
-          
-          return responseEvent.getMessage().getExceptionPayload().getException().getCause();
+              // Support for mule 3.2.x and previous
+              assertNotNull(responseEvent.getMessage().getExceptionPayload());
+              assertEquals(expect, responseEvent.getMessage().getExceptionPayload().getException().getCause().getClass());
+              
+              return responseEvent.getMessage().getExceptionPayload().getException().getCause();
+          }
+          catch(MessagingException ex)
+          {
+              // Support for mule 3.3.x
+              assertEquals(expect, ex.getCause().getClass());
+              return ex.getCause();
+          }
       }
       
     /**

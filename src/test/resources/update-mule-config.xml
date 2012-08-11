@@ -32,7 +32,10 @@
 	</spring:beans>
 	
     <flow name="testUpdateEntryFlow">
-    	<ldap:update config-ref="adminConf"/>
+    	<ldap:update config-ref="adminConf">
+    		<!-- This shouldn't be necessary but need to add it because of -->
+    		<ldap:entry ref="#[payload:]"/>
+    	</ldap:update>    	
     	<ldap:lookup config-ref="adminConf" dn="#[groovy:payload.getDn()]"/>
 	</flow>
 </mule>
