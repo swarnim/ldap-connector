@@ -10,6 +10,7 @@
 package org.mule.module.ldap;
 
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,8 +28,10 @@ import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
+import org.mule.api.callback.SourceCallback;
 import org.mule.module.ldap.ldap.api.AuthenticationException;
 import org.mule.module.ldap.ldap.api.CommunicationException;
+import org.mule.module.ldap.ldap.api.ContextNotEmptyException;
 import org.mule.module.ldap.ldap.api.LDAPConnection;
 import org.mule.module.ldap.ldap.api.LDAPEntry;
 import org.mule.module.ldap.ldap.api.LDAPException;
@@ -43,19 +46,118 @@ import org.mule.util.StringUtils;
  * 
  * The LDAP Connector will allow to connect to any LDAP server and perform every LDAP operation:
  * <ul>
- *  <li><b>bind</b>: Authenticate against the LDAP server. This occurs automatically before each operation</li>
- *  <li><b>search</b>: Perform a LDAP search in a base DN with a given filter</li>
- *  <li><b>lookup</b>: Retrieve a unique LDAP entry</li>
- *  <li><b>create</b>: Create a new LDAP entry</li>
- *  <li><b>update</b>: Update an existing LDAP entry</li>
- *  <li><b>update attribute/s</b>: Update specific attributes of an existing LDAP entry</li>
- *  <li><b>delete</b>: Delete an existing LDAP entry</li>
- *  <li><b>delete attribute/s</b>: Delete specific attributes of an existing LDAP entry</li>
+ *  <li><a href="#bind"><b>bind</b></a>: Authenticate against the LDAP server. This occurs automatically before each operation but can also be performed on request</li>
+ *  <li><a href="#search"><b>search</b></a>: Perform a LDAP search in a base DN with a given filter</li>
+ *  <li><a href="#lookup"><b>lookup</b></a>: Retrieve a unique LDAP entry</li>
+ *  <li><a href="#add"><b>add</b></a>: Creates a new LDAP entry</li>
+ *  <li><a href="#add-single-value-attribute"><b>add attribute/s</b></a>: Add specific attributes to an existing LDAP entry</li>
+ *  <li><a href="#modify"><b>modify</b></a>: Update an existing LDAP entry</li>
+ *  <li><a href="#modify-single-value-attribute"><b>modify attribute/s</b></a>: Update specific attributes of an existing LDAP entry</li>
+ *  <li><a href="#delete"><b>delete</b></a>: Delete an existing LDAP entry</li>
+ *  <li><a href="#delete-single-value-attribute"><b>delete attribute/s</b></a>: Delete specific attributes of an existing LDAP entry</li>
  * </ul>
+ * <p/>
+ * In order to be able to use any of the operations listed before, you must define a <a href="#config"><b>config</b></a> element with the LDAP connection parameters:
+ * 
+ * <table>
+ *  <tr>
+ *  <td><b>URL</b></td>
+ *  <td>
+ * The connection URL to the LDAP server. LDAP connection URLs have the following syntax: <code>ldap[s]://hostname:port/base_dn</code>
+ * <p/>
+ * <ul>
+ *    <li><b>hostname</b>: Name (or IP address in dotted format) of the LDAP server. For example, ldap.example.com or 192.202.185.90.</li>
+ *    <li><b>port</b>: Port number of the LDAP server (for example, 696). If no port is specified, the standard LDAP port (389) or LDAPS port (636) is used.</li>
+ *    <li><b>base_dn</b>: distinguished name (DN) of an entry in the directory. This DN identifies the entry that is the starting point of the search. If no base DN is specified, the search starts at the root of the directory tree.</li>
+ * </ul>
+ * 
+ * Some examples are:
+ * <ul>
+ *    <li>ldap://localhost:389/</i>
+ *    <li>ldap://localhost:389/dc=mulesoft,dc=org</i>
+ *    <li>ldaps://localhost:636/dc=mulesoft,dc=org</i>
+ *    <li>ldaps://ldap.mulesoft.org/</i>
+ * </ul>
+ *  </td>
+ *  </tr>
+ *  <tr>
+ *  <td><b>Type</b></td>
+ *  <td>
+ * The implementation of the connection to be used. Right now the only available implementation is JNDI, though any other
+ * implementation can be used (For example using Novell libraries). If you want to create your own implementation you should
+ * extend the class {@link LDAPConnection}
+ * <ul>
+ *    <li><b>JNDI</b>: Implementation that uses the JNDI interfaces provided in the standard JRE.</i>
+ * </ul>
+ *  </td>
+ *  </tr>
+ *  <tr>
+ *  <td><b>Initial Pool Size</b></td>
+ *  <td>
+ * The string representation of an integer that represents the number of connections per connection identity to create when initially
+ * creating a connection for the identity. 
+ *  </td>
+ *  </tr>
+ *  <tr>
+ *  <td><b>Max Pool Size</b></td>
+ *  <td>
+ * The string representation of an integer that represents the maximum number of connections per connection identity that can be maintained
+ * concurrently.
+ *  </td>
+ *  </tr>
+ *  <tr>
+ *  <td><b>Pool Timeout</b></td>
+ *  <td>
+ * The string representation of an integer that represents the number of milliseconds that an idle connection may remain in the pool without
+ * being closed and removed from the pool. 
+ *  </td>
+ *  </tr>
+ *  <tr>
+ *  <td><b>Referral</b></td>
+ *  <td>
+ * Constant that holds the name of the environment property for specifying how referrals encountered by the service provider are to be processed.
+ * The value of the property is one of the following strings:
+ * <ul>
+ *    <li><b>follow</b>: Follow referrals automatically</li>
+ *    <li><b>ignore</b>: Ignore referrals</li>
+ *    <li><b>throw</b>: Throw ReferralException when a referral is encountered.</li>
+ * </ul>
+ *  </td>
+ *  </tr>
+ *  <tr>
+ *  <td><b>Extended Configuration</b></td>
+ *  <td>
+ * This is a {@link Map} instance holding extended configuration attributes that will be used in the Context environment.
+ * Values configured here have less precedence than the other values that are allowed
+ * in the module configuration.
+ * Some examples of extended properties (key: value) are:
+ * <ul>
+ *    <li><b>java.naming.language</b>: Constant that holds the name of the environment
+ *                property for specifying the preferred language to use with the service.
+ *                The value of the property is a colon-separated list of language tags as
+ *                defined in RFC 1766.</li>
+ *    <li><b>java.naming.security.authentication</b>: Constant that holds the name of the environment
+ *                property for specifying the security level to use. Its value is one of the following
+ *                strings: "none", "simple", "strong".</li>
+ *    <li><b>java.naming.security.protocol</b>: Constant that holds the name of the environment property for specifying
+ *                the security protocol to use. Its value is a string determined by the service provider (e.g. "ssl").</li>
+ *    <li><b>com.sun.jndi.ldap.connect.pool.authentication</b>: A list of space-separated authentication types of connections that may be
+ *                pooled. Valid types are "none", "simple", and "DIGEST-MD5".</li>
+ *    <li><b>com.sun.jndi.ldap.connect.pool.debug</b>: A string that indicates the level of debug output to produce. Valid values are "fine"
+ *                (trace connection creation and removal) and "all" (all debugging information).</li>
+ *    <li><b>com.sun.jndi.ldap.connect.pool.prefsize</b>: The string representation of an integer that represents the preferred number of
+ *                connections per connection identity that should be maintained concurrently.</li>
+ *    <li><b>com.sun.jndi.ldap.connect.pool.protocol</b>: A list of space-separated protocol types of connections that may be pooled. Valid types are "plain" and "ssl".</li>
+ * </ul>
+ *  </td>
+ *  </tr>
+ * </table>
  * <p/>
  * {@sample.config ../../../doc/mule-module-ldap.xml.sample ldap:config-1}
  * <p/>
  * {@sample.config ../../../doc/mule-module-ldap.xml.sample ldap:config-2}
+ * <p/>
+ * {@sample.config ../../../doc/mule-module-ldap.xml.sample ldap:config-3}
  *
  * @author Mariano Capurro (MuleSoft, Inc.)
  */
@@ -65,54 +167,18 @@ public class LDAPConnector
     private static final Logger LOGGER = Logger.getLogger(LDAPConnector.class);
     
     /**
-     * The connection URL to the LDAP server. LDAP connection URLs have the following syntax: <code>ldap[s]://hostname:port/base_dn</code>
-     * <p/>
-     * <ul>
-     *    <li><b>hostname</b>: Name (or IP address in dotted format) of the LDAP server. For example, ldap.example.com or 192.202.185.90.</li>
-     *    <li><b>port</b>: Port number of the LDAP server (for example, 696). If no port is specified, the standard LDAP port (389) or LDAPS port (636) is used.</li>
-     *    <li><b>base_dn</b>: distinguished name (DN) of an entry in the directory. This DN identifies the entry that is the starting point of the search. If no base DN is specified, the search starts at the root of the directory tree.</li>
-     * </ul>
-     * 
-     * Some examples are:
-     * <ul>
-     *    <li>ldap://localhost:389/</i>
-     *    <li>ldap://localhost:389/dc=mulesoft,dc=org</i>
-     *    <li>ldaps://localhost:636/dc=mulesoft,dc=org</i>
-     *    <li>ldaps://ldap.mulesoft.org/</i>
-     * </ul>
+     * The connection URL to the LDAP server with the following syntax: <code>ldap[s]://hostname:port/base_dn</code>.
      */
     @Configurable
     private String url;
 
     /**
-     * The implementation of the connection to be used. Right now the only available implementation is JNDI, though any other
-     * implementation can be used (For example using Novell libraries). If you want to create your own implementation you should
-     * extend the class {@link org.mule.module.ldap.ldap.api.LDAPConnection}
-     * <ul>
-     *    <li><b>JNDI</b>: Implementation that uses the JNDI interfaces provided in the standard JRE.</i>
-     * </ul>
+     * The implementation of the connection to be used. 
      */
     @Configurable
     @Optional
     @Default(value = "JNDI")
     private Type type;
-
-    /**
-     * Specifies the authentication mechanism to use. For the Sun LDAP service provider, this can be one of the following strings:
-     * <ul>
-     *    <li><b>none</b> (DEFAULT): Used for anonymous authentication.</li>
-     *    <li><b>simple</b>: Used for user/password authentication.</li>
-     *    <li><b>sasl_mech</b> (UNSUPPORTED): Where sasl_mech is a space-separated list of SASL mechanism names.
-     *             SASL is the Simple Authentication and Security Layer (RFC 2222). It specifies a challenge-response protocol in which
-     *             data is exchanged between the client and the server for the purposes of authentication and establishment of a security
-     *             layer on which to carry out subsequent communication. By using SASL, the LDAP can support any type of authentication
-     *             agreed upon by the LDAP client and server.</li>
-     * </ul>
-     */
-    @Configurable
-    @Optional
-    @Default(value = "none")
-    private String authentication;
 
     /**
      * The string representation of an integer that represents the number of connections per connection identity to create when initially
@@ -142,13 +208,7 @@ public class LDAPConnector
     private long poolTimeout;
 
     /**
-     * Constant that holds the name of the environment property for specifying how referrals encountered by the service provider are to be processed.
-     * The value of the property is one of the following strings:
-     * <ul>
-     *    <li><b>follow</b>: Follow referrals automatically</li>
-     *    <li><b>ignore</b>: Ignore referrals</li>
-     *    <li><b>throw</b>: Throw ReferralException when a referral is encountered.</li>
-     * </ul>
+     * Constant that holds the name of the environment property for specifying how referrals encountered by the service provider are to be processed (follow, ignore, throw).
      */
     @Configurable
     @Optional
@@ -156,28 +216,7 @@ public class LDAPConnector
     private Referral referral;
     
     /**
-     * This is a @{link java.util.Map} instance holding extended configuration attributes that will be used in the Context environment.
-     * Values configured here have less precedence than the other values that are allowed
-     * in the module configuration.
-     * Some examples of extended properties (key: value) are:
-     * <ul>
-     *    <li><b>java.naming.language</b>: Constant that holds the name of the environment
-     *                property for specifying the preferred language to use with the service.
-     *                The value of the property is a colon-separated list of language tags as
-     *                defined in RFC 1766.</li>
-     *    <li><b>java.naming.security.authentication</b>: Constant that holds the name of the environment
-     *                property for specifying the security level to use. Its value is one of the following
-     *                strings: "none", "simple", "strong".</li>
-     *    <li><b>java.naming.security.protocol</b>: Constant that holds the name of the environment property for specifying
-     *                the security protocol to use. Its value is a string determined by the service provider (e.g. "ssl").</li>
-     *    <li><b>com.sun.jndi.ldap.connect.pool.authentication</b>: A list of space-separated authentication types of connections that may be
-     *                pooled. Valid types are "none", "simple", and "DIGEST-MD5".</li>
-     *    <li><b>com.sun.jndi.ldap.connect.pool.debug</b>: A string that indicates the level of debug output to produce. Valid values are "fine"
-     *                (trace connection creation and removal) and "all" (all debugging information).</li>
-     *    <li><b>com.sun.jndi.ldap.connect.pool.prefsize</b>: The string representation of an integer that represents the preferred number of
-     *                connections per connection identity that should be maintained concurrently.</li>
-     *    <li><b>com.sun.jndi.ldap.connect.pool.protocol</b>: A list of space-separated protocol types of connections that may be pooled. Valid types are "plain" and "ssl".</li>
-     * </ul>
+     * This is a {@link Map} instance holding extended configuration attributes that will be used in the Context environment.
      */
     @Configurable
     @Optional
@@ -189,7 +228,6 @@ public class LDAPConnector
     private LDAPConnection connection = null;
     
     // Connection Management
-    
     /**
      * Establish the connection to the LDAP server and use connection management to handle different
      * users.
@@ -197,24 +235,35 @@ public class LDAPConnector
      * @param authDn The DN (distinguished name) of the user (for example: uid=user,ou=people,dc=mulesoft,dc=org).
      *               If using Microsoft Active Directory, instead of the DN, you can provide the user@domain (for example: user@mulesoft.org)
      * @param authPassword The password of the user
+     * @param authentication Specifies the authentication mechanism to use. For the Sun LDAP service provider, this can be one of the following strings:
+     * <ul>
+     *    <li><b>simple</b> (DEFAULT): Used for user/password authentication.</li>
+     *    <li><b>none</b>: Used for anonymous authentication.</li>
+     *    <li><b>sasl_mech</b> (UNSUPPORTED): Where sasl_mech is a space-separated list of SASL mechanism names.
+     *             SASL is the Simple Authentication and Security Layer (RFC 2222). It specifies a challenge-response protocol in which
+     *             data is exchanged between the client and the server for the purposes of authentication and establishment of a security
+     *             layer on which to carry out subsequent communication. By using SASL, the LDAP can support any type of authentication
+     *             agreed upon by the LDAP client and server.</li>
+     * </ul>
      * @throws ConnectionException Holding one of the possible values in {@link ConnectionExceptionCode}.
      */
     @Connect
-    public void connect(@ConnectionKey String authDn, String authPassword) throws ConnectionException
+    public void connect(@ConnectionKey String authDn, @Optional String authPassword, @Optional String authentication) throws ConnectionException
     {
+        
+        authentication = authentication == null ? LDAPConnection.SIMPLE_AUTHENTICATION : authentication;
         /*
          * DevKit doesn't support null values for the @Connect parameters. In order to have an anonymous bind, the
-         * authentication parameter should be "none" and a default value should be provided as value for "authDn"
-         * and "authPassword"
+         * authentication parameter should be "none" and a default value should be provided as value for "authDn".
          */
         try
         {
             if(this.connection == null)
             {
-                this.connection = LDAPConnection.getConnection(type.toString(), getUrl(), getAuthentication(), getInitialPoolSize(), getMaxPoolSize(), getPoolTimeout(), getReferral().toString(), getExtendedConfiguration());
+                this.connection = LDAPConnection.getConnection(type.toString(), getUrl(), authentication, getInitialPoolSize(), getMaxPoolSize(), getPoolTimeout(), getReferral().toString(), getExtendedConfiguration());
             }
             
-            if(LDAPConnection.NO_AUTHENTICATION.equals(getAuthentication()))
+            if(LDAPConnection.NO_AUTHENTICATION.equals(authentication))
             {
                 // Anonymous -> Ignoring authDn and authPassword
                 // For DevKit connection Management to work, authDn should be set to a value (like ANONYMOUS)
@@ -318,14 +367,15 @@ public class LDAPConnector
      * this operation will just re-bind (re-authenticate) the user/password defined in the <i>config</i>
      * element. If new values are provided for <i>authDn</i> and <i>authPassword</i>, then authentication
      * will be performed.
-     * 
-     * <b>Examples</b>
      * <p/>
-     * <u>Re-authenticating and returning the LDAP entry using <i>config</i> level credentials (authDn & authPassword)</u>
-     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:login-1}
-     * <p/>
-     * <u>Authenticating and returning the LDAP entry using new credentials (authDn & authPassword)</u>
-     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:login-2}
+     * <h4>Re-authenticating and returning the LDAP entry using <i>config</i> level credentials (authDn & authPassword)</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:bind-1}
+     * <h4>Authenticating and returning the LDAP entry using new credentials (authDn & authPassword)</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:bind-2}
+     * <h4>Authenticating as anonymous user (returns always null)</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:bind-3}
+     * <h4>Authenticating and returning the LDAP entry using credentials (authDn & authPassword) from Mule Expression</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:bind-4}
      * 
      * @return The {@link LDAPEntry} of the authenticated user.
      * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to perform the lookup for its own LDAP entry.
@@ -335,20 +385,19 @@ public class LDAPConnector
      *  
      */
     @Processor
-    public LDAPEntry login() throws Exception
+    public LDAPEntry bind() throws Exception
     {
         /*
-         * :TODO: Should a re-login be called? How do I get the values for authDn and authPassword?
-         *        At this point Connection Management already returned a connection:
-         *        1) Already opened one -> No re-bind is performed
-         *        2) A new one if authDn was never used before -> In this case there is a bind
-         * http://www.mulesoft.org/jira/browse/DEVKIT-178
+         * Force the login. By the time the connection makes it here it is already handled by the Connection Manager.
+         * :TODO: Check when the connection was binded and avoid rebinding a newly created connection by the connection manager.
          */
+        this.connection.rebind();
+        
         String dn = this.connection.getBindedUserDn();
         
         if(LOGGER.isInfoEnabled())
         {
-            LOGGER.info("Login was successful for user: " + (dn != null ? dn : "Anonymous"));
+            LOGGER.info("Bind was successful for user: " + (dn != null ? dn : "Anonymous"));
         }        
         
         LDAPEntry entry = null;
@@ -384,8 +433,13 @@ public class LDAPConnector
      * <p/>
      * Use this operation over {@link LDAPConnector#searchOne(String, String, List, SearchScope, int, long, boolean)} when you know the DN of the object you want to
      * retrieve.
-     * 
-     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:lookup}
+     * <p/>
+     * <h4>Lookup returning all attributes for the entry</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:lookup-1}
+     * <h4>Lookup returning the attributes in the list obtained by expression</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:lookup-2}
+     * <h4>Lookup returning the attributes defined in the XML config file</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:lookup-3}
      * 
      * @param dn The DN of the LDAP entry that will be retrieved.
      * @param attributes A list of the attributes that should be returned in the result. If the attributes list is empty or null, then by default all
@@ -424,8 +478,15 @@ public class LDAPConnector
     
     /**
      * Performs a LDAP search.
-     * 
-     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:search}
+     * <p/>
+     * <h4>Returning all attributes for all persons that have Doe as surname</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:search-1}
+     * <p/>
+     * <h4>Returning username and fullname for the first 100 person entries</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:search-2}
+     * <p/>
+     * <h4>Search that receives all configuration attributes using Mule Expressions</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:search-3}
      * 
      * @param baseDn The base DN of the LDAP search.
      * @param filter A valid LDAP filter. The LDAP connector supports LDAP search filters as defined in RFC 2254. Some examples are:
@@ -449,6 +510,8 @@ public class LDAPConnector
      * @param maxResults The maximum number of entries that will be returned as a result of the search. 0 indicates that all entries will be returned. 
      * @param returnObject Enables/disables returning objects returned as part of the result. If disabled, only the name and class of the object is returned.
      *                     If enabled, the object will be returned. 
+     * @param pageSize If the LDAP server supports paging results set in this attribute the size of the page. If the pageSize is less or equals than 0, then paging will be disabled.
+     * 
      * @return A {@link java.util.List} of {@link LDAPEntry} objects with the results of the search. If the search throws no results, then this is an empty list.
      * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to perform the search under the given base DN.
      * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If base DN is invalid (for example it doesn't exist)
@@ -456,32 +519,101 @@ public class LDAPConnector
      * @throws Exception In case there is any other error performing the search.
      */
     @Processor
-    public List<LDAPEntry> search(String baseDn, String filter, @Optional List<String> attributes, @Optional @Default("ONE_LEVEL") SearchScope scope, @Optional @Default("0") int timeout, @Optional @Default("0") long maxResults, @Optional @Default("false") boolean returnObject) throws Exception
+    public List<LDAPEntry> search(String baseDn, String filter, @Optional List<String> attributes, @Optional @Default("ONE_LEVEL") SearchScope scope, @Optional @Default("0") int timeout, @Optional @Default("0") long maxResults, @Optional @Default("false") boolean returnObject, @Optional @Default("0") int pageSize) throws Exception
     {
-        if(LOGGER.isDebugEnabled())
-        {
-            LOGGER.debug("About to search LDAP entries matching " + filter + " under: " + baseDn);
-        }
-        
         LDAPResultSet result = null;
-        LDAPSearchControls controls = new LDAPSearchControls();
-        if(attributes != null && attributes.size() > 0)
+        try
         {
-            controls.setAttributesToReturn(attributes.toArray(new String[0]));
+            if(LOGGER.isDebugEnabled())
+            {
+                LOGGER.debug("About to search LDAP entries matching " + filter + " under: " + baseDn);
+            }
+            
+            LDAPSearchControls controls = new LDAPSearchControls();
+            if(attributes != null && attributes.size() > 0)
+            {
+                controls.setAttributesToReturn(attributes.toArray(new String[0]));
+            }
+            controls.setMaxResults(maxResults);
+            controls.setTimeout(timeout);
+            controls.setScope(scope.getValue());
+            controls.setReturnObject(returnObject);
+            controls.setPageSize(pageSize);
+            
+            result = this.connection.search(baseDn, filter, controls);
+            
+            List<LDAPEntry> allEntries = result.getAllEntries();
+            
+            if(LOGGER.isDebugEnabled())
+            {
+                LOGGER.debug("Retrieved " + allEntries.size() + " entries");
+            }
+            
+            return allEntries;        
         }
-        controls.setMaxResults(maxResults);
-        controls.setTimeout(timeout);
-        controls.setScope(scope.getValue());
-        controls.setReturnObject(returnObject);
-        
-        result = this.connection.search(baseDn, filter, controls);
-        
-        if(LOGGER.isDebugEnabled())
+        finally
         {
-            LOGGER.debug("Retrieved " + result.getEntries().size() + " entries");
+            if(result != null)
+            {
+                result.close();
+            }
         }
-        
-        return result.getEntries();        
+    }
+    
+    @Processor(intercepting=true)
+    public void pagedResultSearch(String baseDn, String filter, @Optional List<String> attributes, @Optional @Default("ONE_LEVEL") SearchScope scope, @Optional @Default("0") int timeout, @Optional @Default("0") long maxResults, @Optional @Default("false") boolean returnObject, @Optional @Default("0") int pageSize, @Optional @Default("1") int resultPageSize, SourceCallback callback) throws Exception
+    {
+        LDAPResultSet result = null;
+        try
+        {
+            if(LOGGER.isDebugEnabled())
+            {
+                LOGGER.debug("About to search LDAP entries matching " + filter + " under: " + baseDn);
+            }
+            
+            LDAPSearchControls controls = new LDAPSearchControls();
+            if(attributes != null && attributes.size() > 0)
+            {
+                controls.setAttributesToReturn(attributes.toArray(new String[0]));
+            }
+            controls.setMaxResults(maxResults);
+            controls.setTimeout(timeout);
+            controls.setScope(scope.getValue());
+            controls.setReturnObject(returnObject);
+            controls.setPageSize(pageSize);
+            
+            result = this.connection.search(baseDn, filter, controls);
+            
+            if(resultPageSize <= 1)
+            {
+                while(result.hasNext())
+                {
+                    callback.process(result.next());
+                }
+            }
+            else
+            {
+                List<LDAPEntry> page;
+                while(result.hasNext())
+                {
+                    page = new ArrayList<LDAPEntry>(resultPageSize);
+                    
+                    for(int i=0; i < resultPageSize && result.hasNext(); i++)
+                    {
+                        page.add(result.next());
+                    }
+                    
+                    callback.process(page);
+                }
+            }
+        }
+        finally
+        {
+            if(result != null)
+            {
+                result.close();
+            }
+        }        
     }
     
     /**
@@ -491,7 +623,7 @@ public class LDAPConnector
      * Use this operation over {@link LDAPConnector#lookup(String, List)} when you know don't know the DN of the entry you need
      * to retrieve but you have a set of attributes that you know should return a single entry (for example an email address)
      * 
-     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:search-one}
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:search-one-1}
      * 
      * @param baseDn The base DN of the LDAP search.
      * @param filter A valid LDAP filter. The LDAP connector supports LDAP search filters as defined in RFC 2254. Some examples are:
@@ -529,7 +661,7 @@ public class LDAPConnector
             LOGGER.debug("Searching entries under " + baseDn + " with filter " + filter);
         }
         
-        List<LDAPEntry> results = search(baseDn, filter, attributes, scope, timeout, maxResults, returnObject);
+        List<LDAPEntry> results = search(baseDn, filter, attributes, scope, timeout, maxResults, returnObject, 0);
         
         if(results != null && results.size() > 1)
         {
@@ -544,7 +676,10 @@ public class LDAPConnector
      * attributes that define its structure and at least a value for all the required attributes (required attributes depend on the
      * <i>object classes</i> assigned to the entry. You can refer to RFC 4519 for standard object classes and attributes.
      * 
-     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:create}
+     * <h4>LDAPEntry object provided with expression</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:add-1}
+     * <h4>LDAPEntry object provided in payload</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:add-2}
      * 
      * @param entry The {@link LDAPEntry} that should be added.
      * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to add entries under any of the RDN (relative DN) that compose the entry DN.
@@ -555,25 +690,25 @@ public class LDAPConnector
      * @throws Exception In case there is any other error creating the entry.
      */
     @Processor
-    public void create(@Optional @Default("#[payload:]") LDAPEntry entry) throws Exception
+    public void add(@Optional @Default("#[payload:]") LDAPEntry entry) throws Exception
     {
         if(LOGGER.isDebugEnabled())
         {
-            LOGGER.debug("About to create entry " + entry.getDn() + ": " + entry);
+            LOGGER.debug("About to add entry " + entry.getDn() + ": " + entry);
         }        
         
         this.connection.addEntry(entry);
         
         if(LOGGER.isInfoEnabled())
         {
-            LOGGER.info("Created entry " + entry.getDn());
+            LOGGER.info("Added entry " + entry.getDn());
         }
     }
     
     /**
      * Creates a new entry in the LDAP server from a {@link Map} representation. The distinguished name (DN) of the
      * entry is first obtained from the optional parameter <i>dn</i> and if this value is blank (null, empty string
-     * or string with only space chars) then the DN should be a present in the entry map as a @{link String} value
+     * or string with only space chars) then the DN should be a present in the entry map as a {@link String} value
      * under the key "<b>dn</b>" (see {@link LDAPEntry#MAP_DN_KEY}).
      * <p/>
      * In order to represent a LDAP entry as a map, you should consider the following rules for the map key/value pair:
@@ -588,8 +723,13 @@ public class LDAPConnector
      *                 a {@link String} representing the distinguished name (for example <code>cn=andy,ou=people,dc=mulesoft,dc=org</code>).</li>
      * </ul>
      * 
-     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:create-from-map}
-     * 
+     * <h4>The map is provided as a reference and the DN is not in the map</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:add-from-map-1}
+     * <h4>The map is created in the XML file and the DN is another map entry</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:add-from-map-2}
+     * <h4>The map is provided in the payload and the DN is another map entry</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:add-from-map-3}
+     *  
      * @param dn The primary value to use as DN of the entry. If not set, then the DN will be retrieved from the map representing the entry under the key <b>dn</b>.
      * @param entry {@link Map} representation of the LDAP entry.
      * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to add entries under any of the RDN (relative DN) that compose the entry DN.
@@ -600,7 +740,7 @@ public class LDAPConnector
      * @throws Exception In case there is any other error creating the entry (for example if the DN is not passed as an argument nor in the entry map).
      */
     @Processor
-    public void createFromMap(@Optional String dn, @Optional @Default("#[payload:]") Map<String, Object> entry) throws Exception
+    public void addFromMap(@Optional String dn, @Optional @Default("#[payload:]") Map<String, Object> entry) throws Exception
     {
         // Need to remove the DN from the map, so that it only contains attributes
         String entryDn = (String) entry.remove(LDAPEntry.MAP_DN_KEY);;
@@ -616,14 +756,14 @@ public class LDAPConnector
 
         if(LOGGER.isDebugEnabled())
         {
-            LOGGER.debug("About to create entry " + entryDn + ": " + entry);
+            LOGGER.debug("About to add entry " + entryDn + ": " + entry);
         }
         
         this.connection.addEntry(new LDAPEntry(entryDn, entry));
         
         if(LOGGER.isInfoEnabled())
         {
-            LOGGER.info("Created entry " + entryDn);
+            LOGGER.info("Added entry " + entryDn);
         }
     }
     
@@ -635,41 +775,41 @@ public class LDAPConnector
      * When updating a LDAP entry, only the attributes in the entry passed as parameter are updated or added. If you
      * need to delete an attribute, you should use the delete attribute operation.
      * <p/>
-     * <b>Example:</b> Updating one attributes and adding one.
-     * <i>Original LDAP server entry</i>:
+     * <b>Example:</b> Updating one attributes and adding one.<br/><br/>
+     * <i>Original LDAP server entry</i>:<br/>
      * <code>
-     * dn: cn=entry,ou=group,dc=company,dc=org
-     * cn: entry
-     * attr1: Value1
-     * attr2: Value2
-     * multi1: Value3
-     * multi1: Value4
-     * objectclass: top
+     * dn: cn=entry,ou=group,dc=company,dc=org<br/>
+     * cn: entry<br/>
+     * attr1: Value1<br/>
+     * attr2: Value2<br/>
+     * multi1: Value3<br/>
+     * multi1: Value4<br/>
+     * objectclass: top<br/>
      * objectclass: myentry
      * </code>
-     * <p/>
-     * <i>Entry map passed as parameter:</i> 
+     * <br/><br/>
+     * <i>Entry map passed as parameter:</i><br/> 
      * <code>
-     * dn: cn=entry,ou=group,dc=company,dc=org
-     * attr1: NewValue
+     * dn: cn=entry,ou=group,dc=company,dc=org<br/>
+     * attr1: NewValue<br/>
      * attr3: NewAttributeValue
      * </code>
-     * <p/>
-     * <i>Resulting  LDAP server entry:</i> 
+     * <br/><br/>
+     * <i>Resulting  LDAP server entry:</i><br/> 
      * <code>
-     * dn: cn=entry,ou=group,dc=company,dc=org
-     * cn: entry
-     * attr1: NewValue
-     * attr2: Value2
-     * multi1: Value3
-     * multi1: Value4
-     * attr3: NewAttributeValue
-     * objectclass: top
+     * dn: cn=entry,ou=group,dc=company,dc=org<br/>
+     * cn: entry<br/>
+     * attr1: NewValue<br/>
+     * attr2: Value2<br/>
+     * multi1: Value3<br/>
+     * multi1: Value4<br/>
+     * attr3: NewAttributeValue<br/>
+     * objectclass: top<br/>
      * objectclass: myentry
      * </code>
-     * <p/>
+     * <br/><br/>
      *  
-     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:update}
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:modify}
      * 
      * @param entry The {@link LDAPEntry} that should be updated.
      * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to update entries under any of the RDN (relative DN) that compose the entry DN.
@@ -680,63 +820,63 @@ public class LDAPConnector
      * @throws Exception In case there is any other error updating the entry.
      */
     @Processor
-    public void update(@Optional @Default("#[payload:]") LDAPEntry entry) throws Exception
+    public void modify(@Optional @Default("#[payload:]") LDAPEntry entry) throws Exception
     {
         if(LOGGER.isDebugEnabled())
         {
-            LOGGER.debug("About to update entry " + entry.getDn() + ": " + entry);
+            LOGGER.debug("About to modify entry " + entry.getDn() + ": " + entry);
         }        
         
         this.connection.updateEntry(entry);
         
         if(LOGGER.isInfoEnabled())
         {
-            LOGGER.info("Updated entry " + entry.getDn());
+            LOGGER.info("Modified entry " + entry.getDn());
         }
     }
     
     /**
      * Updates an existing entry in the LDAP server from a {@link Map} representation. The distinguished name (DN) of the
      * entry is first obtained from the optional parameter <i>dn</i> and if this value is blank (null, empty string
-     * or string with only space chars) then the DN should be a present in the entry map as a @{link String} value
+     * or string with only space chars) then the DN should be a present in the entry map as a {@link String} value
      * under the key "<b>dn</b>" (see {@link LDAPEntry#MAP_DN_KEY}).
      * <p/>
      * When updating a LDAP entry, only the attributes in the entry passed as parameter are updated or added. If you
      * need to delete an attribute, you should use the delete attribute operation.
      * <p/>
-     * <b>Example:</b> Updating one attributes and adding one.
-     * <i>Original LDAP server entry</i>:
+     * <b>Example:</b> Updating one attributes and adding one.<br/><br/>
+     * <i>Original LDAP server entry</i>:<br/>
      * <code>
-     * dn: cn=entry,ou=group,dc=company,dc=org
-     * cn: entry
-     * attr1: Value1
-     * attr2: Value2
-     * multi1: Value3
-     * multi1: Value4
-     * objectclass: top
+     * dn: cn=entry,ou=group,dc=company,dc=org<br/>
+     * cn: entry<br/>
+     * attr1: Value1<br/>
+     * attr2: Value2<br/>
+     * multi1: Value3<br/>
+     * multi1: Value4<br/>
+     * objectclass: top<br/>
      * objectclass: myentry
      * </code>
-     * <p/>
-     * <i>Entry map passed as parameter:</i> 
+     * <br/><br/>
+     * <i>Entry map passed as parameter:</i><br/>
      * <code>
-     * dn: cn=entry,ou=group,dc=company,dc=org
-     * attr1: NewValue
+     * dn: cn=entry,ou=group,dc=company,dc=org<br/>
+     * attr1: NewValue<br/>
      * attr3: NewAttributeValue
      * </code>
-     * <p/>
-     * <i>Resulting  LDAP server entry:</i> 
+     * <br/><br/>
+     * <i>Resulting  LDAP server entry:</i><br/> 
      * <code>
-     * dn: cn=entry,ou=group,dc=company,dc=org
-     * cn: entry
-     * attr1: NewValue
-     * attr2: Value2
-     * multi1: Value3
-     * multi1: Value4
-     * attr3: NewAttributeValue
-     * objectclass: top
+     * dn: cn=entry,ou=group,dc=company,dc=org<br/>
+     * cn: entry<br/>
+     * attr1: NewValue<br/>
+     * attr2: Value2<br/>
+     * multi1: Value3<br/>
+     * multi1: Value4<br/>
+     * attr3: NewAttributeValue<br/>
+     * objectclass: top<br/>
      * objectclass: myentry
      * </code>
-     * <p/>
+     * <br/><br/>
      * In order to represent a LDAP entry as a map, you should consider the following rules for the map key/value pair:
      * <ul>
      *    <li><b>Single Value Attributes</b>: The key should be the name of the single value attribute (for example uid, cn, ...) as a
@@ -748,8 +888,9 @@ public class LDAPConnector
      *                 the entry map. In this case, the key should be the string <code>"dn"</code> (see {@link LDAPEntry#MAP_DN_KEY}) and the value
      *                 a {@link String} representing the distinguished name (for example <code>cn=andy,ou=people,dc=mulesoft,dc=org</code>).</li>
      * </ul>
+     * <br/><br/>
      * 
-     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:update-from-map}
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:modify-from-map}
      * 
      * @param dn The primary value to use as DN of the entry. If not set, then the DN will be retrieved from the map representing the entry under the key <b>dn</b>.
      * @param entry {@link Map} representation of the LDAP entry.
@@ -761,7 +902,7 @@ public class LDAPConnector
      * @throws Exception In case there is any other error updating the entry (for example if the DN is not passed as an argument nor in the entry map).
      */
     @Processor
-    public void updateFromMap(@Optional String dn, @Optional @Default("#[payload:]") Map<String, Object> entry) throws Exception
+    public void modifyFromMap(@Optional String dn, @Optional @Default("#[payload:]") Map<String, Object> entry) throws Exception
     {
         // Need to remove the DN from the map, so that it only contains attributes
         String entryDn = (String) entry.remove(LDAPEntry.MAP_DN_KEY);;
@@ -789,7 +930,8 @@ public class LDAPConnector
     }
 
     /**
-     * Deletes the LDAP entry represented by the provided distinguished name.
+     * Deletes the LDAP entry represented by the provided distinguished name. The entry should not have child entries, in which case a
+     * {@link ContextNotEmptyException} is thrown.
      * <p/>
      * This operation is idempotent. It succeeds even if the terminal atomic name is not bound in the target context, but throws
      * {@link NameNotFoundException} if any of the intermediate contexts do not exist.
@@ -799,6 +941,7 @@ public class LDAPConnector
      * @param dn The DN of the LDAP entry to delete
      * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to delete the entry.
      * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If an intermediate context does not exist.
+     * @throws org.mule.module.ldap.ldap.api.ContextNotEmptyException If the entry to delete has child entries.
      * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error deleting the entry.
      */
@@ -919,7 +1062,7 @@ public class LDAPConnector
      * If you want to update a value with a type different than {@link String}, then you can use the update-multi-value-attribute
      * operation and define a one element list with the value.
      * 
-     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:update-single-value-attribute}
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:modify-single-value-attribute}
      * 
      * @param dn The DN of the LDAP entry to modify
      * @param attributeName The name of the attribute to update its value.
@@ -930,7 +1073,7 @@ public class LDAPConnector
      * @throws Exception In case there is any other error updating the entry.
      */
     @Processor
-    public void updateSingleValueAttribute(String dn, String attributeName, String attributeValue) throws Exception
+    public void modifySingleValueAttribute(String dn, String attributeName, String attributeValue) throws Exception
     {
         if(LOGGER.isDebugEnabled())
         {
@@ -949,7 +1092,7 @@ public class LDAPConnector
      * Updates (replaces) the value or values of the attribute defined by <i>attributeName</i> with the new values defined by
      * <i>attributeValues</i>.  If the attribute was not present in the entry, then the value is added.
      * 
-     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:update-multi-value-attribute}
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:modify-multi-value-attribute}
      * 
      * @param dn The DN of the LDAP entry to modify
      * @param attributeName The name of the attribute to update its values.
@@ -960,18 +1103,18 @@ public class LDAPConnector
      * @throws Exception In case there is any other error updating the entry.
      */
     @Processor
-    public void updateMultiValueAttribute(String dn, String attributeName, List<Object> attributeValues) throws Exception
+    public void modifyMultiValueAttribute(String dn, String attributeName, List<Object> attributeValues) throws Exception
     {
         if(LOGGER.isDebugEnabled())
         {
-            LOGGER.debug("About to update attribute " + attributeName + " with values " + attributeValues + " to entry " + dn);
+            LOGGER.debug("About to modify attribute " + attributeName + " with values " + attributeValues + " to entry " + dn);
         }
         
         this.connection.updateAttribute(dn, new LDAPMultiValueEntryAttribute(attributeName, attributeValues));
         
         if(LOGGER.isInfoEnabled())
         {
-            LOGGER.info("Updated attribute " + attributeName + " with values " + attributeValues + " to entry " + dn);
+            LOGGER.info("Modified attribute " + attributeName + " with values " + attributeValues + " to entry " + dn);
         }          
     }
     
@@ -1004,7 +1147,7 @@ public class LDAPConnector
         
         if(LOGGER.isInfoEnabled())
         {
-            LOGGER.info("Delete value " + attributeValue + " from attribute " + attributeName + " on entry " + dn);
+            LOGGER.info("Deleted value " + attributeValue + " from attribute " + attributeName + " on entry " + dn);
         }          
         
     }
@@ -1035,7 +1178,7 @@ public class LDAPConnector
         
         if(LOGGER.isInfoEnabled())
         {
-            LOGGER.info("Delete values " + attributeValues + " from attribute " + attributeName + " on entry " + dn);
+            LOGGER.info("Deleted values " + attributeValues + " from attribute " + attributeName + " on entry " + dn);
         }          
     }
     
@@ -1139,16 +1282,6 @@ public class LDAPConnector
         this.type = type;
     }
 
-    public String getAuthentication()
-    {
-        return authentication;
-    }
-
-    public void setAuthentication(String authentication)
-    {
-        this.authentication = authentication;
-    }
-
     public int getInitialPoolSize()
     {
         return initialPoolSize;
@@ -1198,4 +1331,5 @@ public class LDAPConnector
     {
         this.extendedConfiguration = extendedConfiguration;
     }
+
 }

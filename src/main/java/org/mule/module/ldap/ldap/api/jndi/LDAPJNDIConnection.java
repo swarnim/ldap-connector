@@ -19,22 +19,21 @@
 
 package org.mule.module.ldap.ldap.api.jndi;
 
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Properties;
 
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
-import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.BasicAttribute;
 import javax.naming.directory.BasicAttributes;
 import javax.naming.directory.DirContext;
-import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.ModificationItem;
-import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
+import javax.naming.ldap.InitialLdapContext;
+import javax.naming.ldap.LdapContext;
 
 import org.apache.commons.lang.StringUtils;
 import org.mule.module.ldap.ldap.api.LDAPConnection;
@@ -42,10 +41,8 @@ import org.mule.module.ldap.ldap.api.LDAPEntry;
 import org.mule.module.ldap.ldap.api.LDAPEntryAttribute;
 import org.mule.module.ldap.ldap.api.LDAPEntryAttributes;
 import org.mule.module.ldap.ldap.api.LDAPException;
-import org.mule.module.ldap.ldap.api.LDAPMultiValueEntryAttribute;
 import org.mule.module.ldap.ldap.api.LDAPResultSet;
 import org.mule.module.ldap.ldap.api.LDAPSearchControls;
-import org.mule.module.ldap.ldap.api.LDAPSingleValueEntryAttribute;
 
 /**
  * This class is the abstraction
@@ -60,9 +57,9 @@ public class LDAPJNDIConnection extends LDAPConnection
     public static final String DEFAULT_INITIAL_CONTEXT_FACTORY = "com.sun.jndi.ldap.LdapCtxFactory";
     public static final String DEFAULT_REFERRAL = "ignore";
 
-    protected static final boolean IGNORE_CASE = true;
+    private static final boolean IGNORE_CASE = true;
 
-    protected static final String INITIAL_CONTEXT_FACTORY_ATTR = "initialContextFactory";
+    private static final String INITIAL_CONTEXT_FACTORY_ATTR = "initialContextFactory";
     
     /**
      * Final constants for managing JNDI Pool connections.
@@ -81,7 +78,7 @@ public class LDAPJNDIConnection extends LDAPConnection
     private String initialContextFactory = DEFAULT_INITIAL_CONTEXT_FACTORY;
     private String referral = DEFAULT_REFERRAL;
     
-    private DirContext conn = null;
+    private LdapContext conn = null;
 
     /**
 	 * 
@@ -267,9 +264,9 @@ public class LDAPJNDIConnection extends LDAPConnection
      * @return
      * @throws LDAPException
      */
-    private Properties buildEnvironment(String dn, String password) throws LDAPException
+    private Hashtable<String, String> buildEnvironment(String dn, String password) throws LDAPException
     {
-        Properties env = new Properties();
+        Hashtable<String, String> env = new Hashtable<String, String>();
         
         env.put(Context.REFERRAL, getReferral());
         env.put(Context.SECURITY_AUTHENTICATION, getAuthentication());
@@ -306,12 +303,32 @@ public class LDAPJNDIConnection extends LDAPConnection
     }
 
     /**
+     * 
+     * @throws LDAPException
+     * @see org.mule.module.ldap.ldap.api.LDAPConnection#rebind()
+     */
+    public void rebind() throws LDAPException
+    {
+        if(isClosed())
+        {
+            throw new LDAPException("Cannot rebind a close connection. You must first bind.");
+        }
+        else
+        {
+            String dn = getBindedUserDn();
+            String password = getBindedUserPassword();
+            bind(dn, password);
+        }
+    }
+    
+    /**
      * @param dn
      * @param password
      * @throws LDAPException
      * @see org.mule.module.ldap.ldap.api.LDAPConnection#bind(java.lang.String,
      *      java.lang.String)
      */
+    @Override
     public void bind(String dn, String password) throws LDAPException
     {
         try
@@ -322,16 +339,16 @@ public class LDAPJNDIConnection extends LDAPConnection
                 String currentAuth = (String) getConn().getEnvironment().get(Context.SECURITY_AUTHENTICATION);
                 String currentDn = getBindedUserDn();
                 
-                logger.info("Already binded to " + currentUrl + " with " + currentAuth + " authentication as " + currentDn + ". Closing connection first.");
+                logger.info("Already binded to " + currentUrl + " with " + currentAuth + " authentication as " + (currentDn != null ? currentDn : "anonymous") + ". Closing connection first.");
                 
                 close();
                 
-                logger.info("Re-binding to " + getProviderUrl() + " with " + getAuthentication() + " authentication as " + dn);
+                logger.info("Re-binding to " + getProviderUrl() + " with " + getAuthentication() + " authentication as " + (dn != null ? dn : "anonymous"));
             }
             
             logConfiguration(dn, password);
-            setConn(new InitialDirContext(buildEnvironment(dn, password)));
-            logger.info("Binded to " + getProviderUrl() + " with " + getAuthentication() + " authentication as " + dn);
+            setConn(new InitialLdapContext(buildEnvironment(dn, password), null));
+            logger.info("Binded to " + getProviderUrl() + " with " + getAuthentication() + " authentication as " + (dn != null ? dn : "anonymous"));
 
         }
         catch (NamingException nex)
@@ -340,6 +357,19 @@ public class LDAPJNDIConnection extends LDAPConnection
         }
     }
 
+    private String getBindedUserPassword() throws LDAPException
+    {
+        try
+        {
+            return (String) getConn().getEnvironment().get(Context.SECURITY_CREDENTIALS);
+        }
+        catch (NamingException nex)
+        {
+            throw handleNamingException(nex, "Cannot get binded user password.");
+        }
+    }
+    
+    @Override
     public String getBindedUserDn() throws LDAPException
     {
         if(!isClosed())
@@ -360,61 +390,6 @@ public class LDAPJNDIConnection extends LDAPConnection
     }
     
     /**
-     * @param scope
-     * @return
-     */
-    protected int transformScope(int scope)
-    {
-        switch (scope)
-        {
-            case LDAPSearchControls.OBJECT_SCOPE :
-                return SearchControls.OBJECT_SCOPE;
-            case LDAPSearchControls.ONELEVEL_SCOPE :
-                return SearchControls.ONELEVEL_SCOPE;
-            case LDAPSearchControls.SUBTREE_SCOPE :
-                return SearchControls.SUBTREE_SCOPE;
-            default :
-                return SearchControls.ONELEVEL_SCOPE;
-        }
-    }
-
-    /**
-     * @param controls
-     * @return
-     */
-    protected SearchControls buildSearchControls(LDAPSearchControls controls)
-    {
-        SearchControls ctrls = new SearchControls();
-        ctrls.setCountLimit(controls.getMaxResults());
-        ctrls.setReturningAttributes(controls.getAttributesToReturn());
-        ctrls.setReturningObjFlag(controls.isReturnObject());
-        ctrls.setSearchScope(transformScope(controls.getScope()));
-        ctrls.setTimeLimit(controls.getTimeout());
-        return ctrls;
-    }
-
-    /**
-     * @param baseDn
-     * @param matchingAttributes
-     * @return
-     * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#search(java.lang.String,
-     *      org.mule.module.ldap.ldap.api.LDAPEntryAttributes)
-     */
-    public LDAPResultSet search(String baseDn, LDAPEntryAttributes matchingAttributes) throws LDAPException
-    {
-        try
-        {
-            NamingEnumeration<SearchResult> entries = getConn().search(baseDn, buildAttributes(matchingAttributes));
-            return buildSearchResultSet(baseDn, entries);
-        }
-        catch (NamingException nex)
-        {
-            throw handleNamingException(nex, "Search failed.");
-        }        
-    }
-
-    /**
      * @param baseDn
      * @param filter
      * @param controls
@@ -423,18 +398,11 @@ public class LDAPJNDIConnection extends LDAPConnection
      * @see org.mule.module.ldap.ldap.api.LDAPConnection#search(java.lang.String,
      *      java.lang.String, org.mule.module.ldap.ldap.api.LDAPSearchControls)
      */
+    @Override
     public LDAPResultSet search(String baseDn, String filter, LDAPSearchControls controls)
         throws LDAPException
     {
-        try
-        {
-            NamingEnumeration<SearchResult> entries = getConn().search(baseDn, filter, buildSearchControls(controls));
-            return buildSearchResultSet(baseDn, entries);
-        }
-        catch (NamingException nex)
-        {
-            throw handleNamingException(nex, "Search failed.");
-        }
+        return doSearch(baseDn, filter, null, controls);
     }
 
     /**
@@ -448,63 +416,38 @@ public class LDAPJNDIConnection extends LDAPConnection
      *      java.lang.String, java.lang.Object[],
      *      org.mule.module.ldap.ldap.api.LDAPSearchControls)
      */
+    @Override
     public LDAPResultSet search(String baseDn, String filter, Object[] filterArgs, LDAPSearchControls controls)
         throws LDAPException
     {
+        return doSearch(baseDn, filter, filterArgs, controls);
+    }
+
+    private LDAPResultSet doSearch(String baseDn, String filter, Object[] filterArgs, LDAPSearchControls controls) throws LDAPException
+    {
+        LdapContext searchConn = null;
         try
         {
-            NamingEnumeration<SearchResult> entries = getConn().search(baseDn, filter, filterArgs, buildSearchControls(controls));
-            return buildSearchResultSet(baseDn, entries);
+            searchConn = controls.isPagingEnabled() ? getConn().newInstance(LDAPJNDIUtils.buildRequestControls(controls, null)) : getConn();
+            
+            NamingEnumeration<SearchResult> entries;
+            if(filterArgs != null && filterArgs.length > 0)
+            {
+                entries = searchConn.search(baseDn, filter, filterArgs, LDAPJNDIUtils.buildSearchControls(controls));
+            }
+            else
+            {
+                entries = searchConn.search(baseDn, filter, LDAPJNDIUtils.buildSearchControls(controls));
+            }
+            
+            return LDAPResultSetFactory.create(baseDn, filter, filterArgs, searchConn, controls, entries);
         }
         catch (NamingException nex)
         {
             throw handleNamingException(nex, "Search failed.");
         }
     }
-
-    /**
-     * @param baseDn
-     * @param entries
-     * @return
-     * @throws LDAPException
-     */
-    protected LDAPResultSet buildSearchResultSet(String baseDn, NamingEnumeration<SearchResult> entries)
-        throws LDAPException
-    {
-        SearchResult searchResult;
-        LDAPEntry entry;
-        String entryDn;
-        LDAPResultSet result = new LDAPResultSet();
-        while (entries.hasMoreElements())
-        {
-            searchResult = (SearchResult) entries.nextElement();
-            if (searchResult != null)
-            {
-                entryDn = searchResult.getName();
-                if (searchResult.isRelative())
-                {
-                    entryDn += "," + baseDn;
-                }
-                entry = buildEntry(entryDn, searchResult.getAttributes());
-                result.addEntry(entry);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * @param baseDn
-     * @param filter
-     * @return
-     * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#search(java.lang.String,
-     *      java.lang.String)
-     */
-    public LDAPResultSet search(String baseDn, String filter) throws LDAPException
-    {
-        return search(baseDn, filter, new LDAPSearchControls());
-    }
-
+    
     /**
      * @param dn
      * @return
@@ -515,7 +458,7 @@ public class LDAPJNDIConnection extends LDAPConnection
     {
         try
         {
-            return buildEntry(dn, getConn().getAttributes(dn));
+            return LDAPJNDIUtils.buildEntry(dn, getConn().getAttributes(dn));
         }
         catch (NamingException nex)
         {
@@ -535,7 +478,7 @@ public class LDAPJNDIConnection extends LDAPConnection
     {
         try
         {
-            return buildEntry(dn, getConn().getAttributes(dn, attributes));
+            return LDAPJNDIUtils.buildEntry(dn, getConn().getAttributes(dn, attributes));
         }
         catch (NamingException nex)
         {
@@ -825,7 +768,7 @@ public class LDAPJNDIConnection extends LDAPConnection
     /**
      * @return Returns the conn.
      */
-    protected DirContext getConn()
+    private LdapContext getConn()
     {
         return conn;
     }
@@ -833,85 +776,19 @@ public class LDAPJNDIConnection extends LDAPConnection
     /**
      * @param conn The conn to set.
      */
-    protected void setConn(DirContext conn)
+    private void setConn(LdapContext conn)
     {
         this.conn = conn;
     }
 
-    /**
-     * @param attribute
-     * @return
-     * @throws LDAPException
-     */
-    protected LDAPEntryAttribute buildAttribute(Attribute attribute) throws LDAPException
-    {
-        if (attribute != null)
-        {
-            try
-            {
-                if (attribute.size() > 1)
-                {
-                    LDAPMultiValueEntryAttribute newAttribute = new LDAPMultiValueEntryAttribute();
-                    newAttribute.setName(attribute.getID());
-                    NamingEnumeration<?> values = attribute.getAll();
-                    while (values.hasMoreElements())
-                    {
-                        newAttribute.addValue(values.next());
-                    }
-                    return newAttribute;
-                }
-                else
-                {
-                    LDAPSingleValueEntryAttribute newAttribute = new LDAPSingleValueEntryAttribute();
-                    newAttribute.setName(attribute.getID());
-                    newAttribute.setValue(attribute.get());
-                    return newAttribute;
-                }
-            }
-            catch (NamingException nex)
-            {
-                throw handleNamingException(nex, "Build attribute failed.");
-            }
-        }
-        else
-        {
-            return null;
-        }
-    }
 
-    /**
-     * @param entryDN
-     * @param attributes
-     * @return
-     * @throws LDAPException
-     */
-    protected LDAPEntry buildEntry(String entryDN, Attributes attributes) throws LDAPException
-    {
-        LDAPEntry anEntry = new LDAPEntry(entryDN);
-        if (attributes != null)
-        {
-            try
-            {
-                for (NamingEnumeration<?> attrs = attributes.getAll(); attrs.hasMore();)
-                {
-                    anEntry.addAttribute(buildAttribute((Attribute) attrs.nextElement()));
-                }
-            }
-            catch (NamingException nex)
-            {
-                throw handleNamingException(nex, "Build entry failed.");
-            }
-        }
-        return anEntry;
-
-    }
 
     /**
      * @param attrs
      * @return
      * @throws LDAPException
      */
-    protected Attributes buildAttributes(LDAPEntryAttributes attrs) throws LDAPException
+    private Attributes buildAttributes(LDAPEntryAttributes attrs) throws LDAPException
     {
         Attributes attributes = new BasicAttributes(IGNORE_CASE);
 
@@ -928,7 +805,7 @@ public class LDAPJNDIConnection extends LDAPConnection
      * @return
      * @throws LDAPException
      */
-    protected Attributes buildAttributes(LDAPEntry entry) throws LDAPException
+    private Attributes buildAttributes(LDAPEntry entry) throws LDAPException
     {
         return buildAttributes(entry.getAttributes());
     }
@@ -938,7 +815,7 @@ public class LDAPJNDIConnection extends LDAPConnection
      * @return
      * @throws LDAPException
      */
-    protected BasicAttribute buildBasicAttribute(LDAPEntryAttribute attribute) throws LDAPException
+    private BasicAttribute buildBasicAttribute(LDAPEntryAttribute attribute) throws LDAPException
     {
         if (attribute != null)
         {

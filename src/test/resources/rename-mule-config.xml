@@ -31,15 +31,12 @@
 		<spring:import resource="ldap-config.xml" />
 	</spring:beans>
 	
-    <flow name="testUpdateSingleAttributeFlow">
-    	<ldap:update-single-value-attribute config-ref="adminConf" dn="#[map-payload:dn]" attributeName="#[map-payload:attributeName]" attributeValue="#[map-payload:attributeValue]"/>
-    	<ldap:lookup config-ref="adminConf" dn="#[map-payload:dn]"/>
+    <flow name="testRenameEntryFlow">
+    	<ldap:rename config-ref="adminConf" oldDn="#[map-payload:oldDn]" newDn="#[map-payload:newDn]"/>
 	</flow>
-
-    <flow name="testUpdateMultiAttributeFlow">
-    	<ldap:update-multi-value-attribute config-ref="adminConf" dn="#[map-payload:dn]" attributeName="#[map-payload:attributeName]">
-			<ldap:attribute-values ref="#[map-payload:attributeValues]" />
-    	</ldap:update-multi-value-attribute>
-    	<ldap:lookup config-ref="adminConf" dn="#[map-payload:dn]"/>
+	
+    <flow name="testLookupEntryFlow">
+    	<ldap:lookup config-ref="adminConf" dn="#[payload:]"/>
 	</flow>
+	
 </mule>

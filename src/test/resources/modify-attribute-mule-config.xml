@@ -30,16 +30,16 @@
 	<spring:beans>
 		<spring:import resource="ldap-config.xml" />
 	</spring:beans>
-
-    <flow name="testAnonymousLogin">
-    	<ldap:login config-ref="anonymousConf" />
+	
+    <flow name="testModifySingleAttributeFlow">
+    	<ldap:modify-single-value-attribute config-ref="adminConf" dn="#[map-payload:dn]" attributeName="#[map-payload:attributeName]" attributeValue="#[map-payload:attributeValue]"/>
+    	<ldap:lookup config-ref="adminConf" dn="#[map-payload:dn]"/>
 	</flow>
 
-    <flow name="testConfigLogin">
-    	<ldap:login config-ref="adminConf" />
-	</flow>
-
-    <flow name="testAuthenticationLogin">
-    	<ldap:login config-ref="adminConf" authDn="#[map-payload:authDn]" authPassword="#[map-payload:authPassword]" />
+    <flow name="testModifyMultiAttributeFlow">
+    	<ldap:modify-multi-value-attribute config-ref="adminConf" dn="#[map-payload:dn]" attributeName="#[map-payload:attributeName]">
+			<ldap:attribute-values ref="#[map-payload:attributeValues]" />
+    	</ldap:modify-multi-value-attribute>
+    	<ldap:lookup config-ref="adminConf" dn="#[map-payload:dn]"/>
 	</flow>
 </mule>

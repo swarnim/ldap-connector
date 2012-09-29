@@ -23,31 +23,31 @@ import org.junit.Test;
 import org.mule.module.ldap.ldap.api.LDAPEntry;
 import org.mule.module.ldap.ldap.api.NameNotFoundException;
 
-public class LDAPUpdateAttributeTest extends AbstractLDAPConnectorTest
+public class LDAPModifyAttributeTest extends AbstractLDAPConnectorTest
 {
     /**
      * 
      */
-    public LDAPUpdateAttributeTest()
+    public LDAPModifyAttributeTest()
     {
     }
 
     @Override
     protected String getConfigResources()
     {
-        return "update-attribute-mule-config.xml";
+        return "modify-attribute-mule-config.xml";
     }
     
     // Single
     @Test
-    public void testUpdateExistingSingleAttributeToExistingEntry() throws Exception
+    public void testModifyExistingSingleAttributeToExistingEntry() throws Exception
     {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("dn", "uid=user1,ou=people,dc=mulesoft,dc=org");
         params.put("attributeName", "cn");
-        params.put("attributeValue", "User One Updated");
+        params.put("attributeValue", "User One Modified");
         
-        LDAPEntry result = (LDAPEntry) runFlow("testUpdateSingleAttributeFlow", params);
+        LDAPEntry result = (LDAPEntry) runFlow("testModifySingleAttributeFlow", params);
         
         assertEquals("user1", result.getAttribute("uid").getValue());
         assertEquals(params.get("attributeValue"), result.getAttribute("cn").getValue());
@@ -55,28 +55,28 @@ public class LDAPUpdateAttributeTest extends AbstractLDAPConnectorTest
     }
 
     @Test
-    public void testUpdateNonExistingSingleAttributeToExistingEntry() throws Exception
+    public void testModifyNonExistingSingleAttributeToExistingEntry() throws Exception
     {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("dn", "uid=user1,ou=people,dc=mulesoft,dc=org");
         params.put("attributeName", "telephoneNumber");
         params.put("attributeValue", "777888999100");
         
-        LDAPEntry result = (LDAPEntry) runFlow("testUpdateSingleAttributeFlow", params);
+        LDAPEntry result = (LDAPEntry) runFlow("testModifySingleAttributeFlow", params);
         
         assertEquals("user1", result.getAttribute("uid").getValue());
         assertEquals(params.get("attributeValue"), result.getAttribute("telephoneNumber").getValue());
     }
     
     @Test
-    public void testUpdateSingleAttributeValueToExistingMultiValueAttributeToExistingEntry() throws Exception
+    public void testModifySingleAttributeValueToExistingMultiValueAttributeToExistingEntry() throws Exception
     {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("dn", "uid=user3,ou=people,dc=mulesoft,dc=org");
         params.put("attributeName", "mail");
         params.put("attributeValue", "user3@new.mail.com");
         
-        LDAPEntry result = (LDAPEntry) runFlow("testUpdateSingleAttributeFlow", params);
+        LDAPEntry result = (LDAPEntry) runFlow("testModifySingleAttributeFlow", params);
         
         assertEquals("user3", result.getAttribute("uid").getValue());
         assertEquals(1, result.getAttribute("mail").getValues().size());
@@ -85,20 +85,20 @@ public class LDAPUpdateAttributeTest extends AbstractLDAPConnectorTest
     }
 
     @Test
-    public void testUpdateSingleAttributeToNonExistingDnEntry() throws Exception
+    public void testModifySingleAttributeToNonExistingDnEntry() throws Exception
     {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("dn", "uid=userX,ou=people,dc=mulesoft,dc=org");
         params.put("attributeName", "description");
         params.put("attributeValue", "Description for non existant userX");
         
-        runFlowWithPayloadAndExpectException("testUpdateSingleAttributeFlow", NameNotFoundException.class, params);
+        runFlowWithPayloadAndExpectException("testModifySingleAttributeFlow", NameNotFoundException.class, params);
     }
     
 
     // Multi
     @Test
-    public void testUpdateNewMultiAttributeToExistingEntry() throws Exception
+    public void testModifyNewMultiAttributeToExistingEntry() throws Exception
     {
         List<String> mails = new ArrayList<String>();
         mails.add("user3@mail.com");
@@ -108,7 +108,7 @@ public class LDAPUpdateAttributeTest extends AbstractLDAPConnectorTest
         params.put("attributeName", "mail");
         params.put("attributeValues", mails);
         
-        LDAPEntry result = (LDAPEntry) runFlow("testUpdateMultiAttributeFlow", params);
+        LDAPEntry result = (LDAPEntry) runFlow("testModifyMultiAttributeFlow", params);
         
         assertEquals("user3", result.getAttribute("uid").getValue());
         assertEquals(mails.size(), result.getAttribute("mail").getValues().size());

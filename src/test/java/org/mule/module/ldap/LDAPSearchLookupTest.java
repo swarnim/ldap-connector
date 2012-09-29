@@ -52,7 +52,7 @@ public class LDAPSearchLookupTest extends AbstractLDAPConnectorTest
         @SuppressWarnings("unchecked")
         List<LDAPEntry> result = (List<LDAPEntry>) runFlow("testAdminFlow", "(ou=people)");
 
-        assertEquals(4, result.size());
+        assertEquals(5, result.size());
         
         for(LDAPEntry entry : result)
         {

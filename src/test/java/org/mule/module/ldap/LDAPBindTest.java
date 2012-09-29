@@ -24,34 +24,34 @@ import org.mule.api.ConnectionExceptionCode;
 import org.mule.module.ldap.ldap.api.LDAPEntry;
 import org.mule.transport.NullPayload;
 
-public class LDAPLoginTest extends AbstractLDAPConnectorTest
+public class LDAPBindTest extends AbstractLDAPConnectorTest
 {
 
     /**
      * 
      */
-    public LDAPLoginTest()
+    public LDAPBindTest()
     {
     }
 
     @Override
     protected String getConfigResources()
     {
-        return "login-mule-config.xml";
+        return "bind-mule-config.xml";
     }
     
     @Test
-    public void testAnonymousLogin() throws Exception
+    public void testAnonymousBind() throws Exception
     {
-        NullPayload result = (NullPayload) runFlow("testAnonymousLogin", null);
+        NullPayload result = (NullPayload) runFlow("testAnonymousBind", null);
         
         assertEquals(NullPayload.class, result.getClass());
     }
     
     @Test
-    public void testConfigLogin() throws Exception
+    public void testConfigBind() throws Exception
     {
-        LDAPEntry result = (LDAPEntry) runFlow("testConfigLogin", null);
+        LDAPEntry result = (LDAPEntry) runFlow("testConfigBind", null);
         
         assertEquals("admin", result.getAttribute("uid").getValue());
         assertEquals("Administrator", result.getAttribute("cn").getValue());
@@ -59,13 +59,13 @@ public class LDAPLoginTest extends AbstractLDAPConnectorTest
     }
     
     @Test
-    public void testValidLogin() throws Exception
+    public void testValidBind() throws Exception
     {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("authDn", "uid=user1,ou=people,dc=mulesoft,dc=org");
         params.put("authPassword", "user1");
         
-        LDAPEntry result = (LDAPEntry) runFlow("testAuthenticationLogin", params);
+        LDAPEntry result = (LDAPEntry) runFlow("testAuthenticationBind", params);
         
         assertNotNull(result);        
         assertEquals("user1", result.getAttribute("uid").getValue());
@@ -73,13 +73,13 @@ public class LDAPLoginTest extends AbstractLDAPConnectorTest
     }    
     
     @Test
-    public void testInvalidUserLogin() throws Exception
+    public void testInvalidUserBind() throws Exception
     {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("authDn", "uid=userX,ou=people,dc=mulesoft,dc=org");
         params.put("authPassword", "passwordX");
         
-        Throwable ex = runFlowWithPayloadAndReturnException("testAuthenticationLogin", params);
+        Throwable ex = runFlowWithPayloadAndReturnException("testAuthenticationBind", params);
         
         // Need to do this because of issue http://www.mulesoft.org/jira/browse/DEVKIT-177
         // Once fixed the following two lines can replace all the code after this comment
@@ -100,13 +100,13 @@ public class LDAPLoginTest extends AbstractLDAPConnectorTest
     }    
     
     @Test
-    public void testInvalidPasswordLogin() throws Exception
+    public void testInvalidPasswordBind() throws Exception
     {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("authDn", "uid=user2,ou=people,dc=mulesoft,dc=org");
         params.put("authPassword", "invalidPassword");
         
-        Throwable ex = runFlowWithPayloadAndReturnException("testAuthenticationLogin", params);
+        Throwable ex = runFlowWithPayloadAndReturnException("testAuthenticationBind", params);
         
         // Need to do this because of issue http://www.mulesoft.org/jira/browse/DEVKIT-177
         // Once fixed the following two lines can replace all the code after this comment

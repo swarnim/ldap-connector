@@ -30,12 +30,16 @@
 	<spring:beans>
 		<spring:import resource="ldap-config.xml" />
 	</spring:beans>
-	
-    <flow name="testUpdateEntryFlow">
-    	<ldap:update config-ref="adminConf">
-    		<!-- This shouldn't be necessary but need to add it because of -->
-    		<ldap:entry ref="#[payload:]"/>
-    	</ldap:update>    	
-    	<ldap:lookup config-ref="adminConf" dn="#[groovy:payload.getDn()]"/>
+
+    <flow name="testAnonymousBind">
+    	<ldap:bind config-ref="anonymousConf" />
+	</flow>
+
+    <flow name="testConfigBind">
+    	<ldap:bind config-ref="adminConf" />
+	</flow>
+
+    <flow name="testAuthenticationBind">
+    	<ldap:bind config-ref="adminConf" authDn="#[map-payload:authDn]" authPassword="#[map-payload:authPassword]" />
 	</flow>
 </mule>

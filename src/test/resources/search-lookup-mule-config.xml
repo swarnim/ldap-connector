@@ -50,6 +50,18 @@
     		</ldap:attributes>
     	</ldap:search>
 	</flow>
+
+    <flow name="testSearchMaxResultsFlow">
+    	<ldap:search config-ref="adminConf" baseDn="dc=mulesoft,dc=org" filter="(uid=user*)" maxResults="#[payload:]"  scope="SUB_TREE" />
+	</flow>
+
+    <flow name="testSearchFlow">
+    	<ldap:search config-ref="adminConf" baseDn="dc=mulesoft,dc=org" filter="#[payload:]"  scope="SUB_TREE" />
+	</flow>
+
+    <flow name="testPaginatedSearchFlow">
+    	<ldap:search config-ref="adminConf" baseDn="dc=mulesoft,dc=org" filter="#[payload:]"  scope="SUB_TREE" pageSize="3" />
+	</flow>
 	
 	<!--     
     <flow name="lookup">

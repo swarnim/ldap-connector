@@ -26,15 +26,16 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
         http://www.mulesoft.org/schema/mule/ldap http://www.mulesoft.org/schema/mule/ldap/current/mule-ldap.xsd">
- 
-	<ldap:config name="adminConf" url="ldap://localhost:10389/" authDn="uid=admin,ou=people,dc=mulesoft,dc=org" authPassword="admin"/>
+
+	<spring:beans>
+		<spring:import resource="ldap-config.xml" />
+	</spring:beans>
 	
-	<!--
-	<ldap:config name="adminConf" url="ldap://192.168.11.129:389/" authentication="simple" authDn="cn=admin,dc=mulesoft,dc=org" authPassword="admin"/>
- 	-->	
-	
-	<!--
-	For anonymous authentication just need to set authentication to "none"
-	 -->
-	<ldap:config name="anonymousConf" url="ldap://localhost:10389/" authentication="none" authDn="ANONYMOUS"/>
+    <flow name="testModifyEntryFlow">
+    	<ldap:modify config-ref="adminConf">
+    		<!-- This shouldn't be necessary but need to add it because of -->
+    		<ldap:entry ref="#[payload:]"/>
+    	</ldap:modify>    	
+    	<ldap:lookup config-ref="adminConf" dn="#[groovy:payload.getDn()]"/>
+	</flow>
 </mule>

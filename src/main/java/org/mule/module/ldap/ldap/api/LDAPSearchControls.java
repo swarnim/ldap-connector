@@ -38,22 +38,31 @@ public class LDAPSearchControls implements Serializable
     public final static int SUBTREE_SCOPE = 2;
 
     private int scope = ONELEVEL_SCOPE;
+
     /**
      * Timeout in millisecons. (0 is no limit)
      */
     private int timeout = 0;
+
     /**
      * Maximun amount of entries to return (0 is no limit)
      */
     private long maxResults = 0;
+
     /**
      * Attributes to be returned for each entry. (null means all)
      */
     private String[] attributesToReturn = null;
+
     /**
 	  * 
 	  */
     private boolean returnObject = false;
+    
+    /**
+     * 
+     */
+    private int pageSize = 0;
 
     /**
 	 * 
@@ -143,4 +152,26 @@ public class LDAPSearchControls implements Serializable
         this.returnObject = returnObject;
     }
 
+    /**
+     * 
+     * @return
+     */
+    public int getPageSize()
+    {
+        return pageSize;
+    }
+
+    /**
+     * 
+     * @param pageSize
+     */
+    public void setPageSize(int pageSize)
+    {
+        this.pageSize = pageSize;
+    }
+
+    public boolean isPagingEnabled()
+    {
+        return getPageSize() > 0;
+    }
 }

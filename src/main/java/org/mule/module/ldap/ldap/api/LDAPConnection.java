@@ -36,6 +36,7 @@ public abstract class LDAPConnection
     }
 
     public static final String NO_AUTHENTICATION = "none";
+    public static final String SIMPLE_AUTHENTICATION = "simple";
     public static final String CONNECTION_TYPE_ATTR = "type";
     public static final String LDAP_URL_ATTR = "url";
     public static final String AUTHENTICATION_ATTR = "authentication";
@@ -135,6 +136,11 @@ public abstract class LDAPConnection
     public abstract void bind(String dn, String password) throws LDAPException;
 
     /**
+     * @throws LDAPException
+     */
+    public abstract void rebind() throws LDAPException;
+    
+    /**
      * @param baseDn
      * @param filter
      * @param filterArgs
@@ -162,23 +168,6 @@ public abstract class LDAPConnection
      * @throws LDAPException
      */
     public abstract LDAPResultSet search(String baseDn, String filter, LDAPSearchControls controls)
-        throws LDAPException;
-
-    /**
-     * @param baseDn
-     * @param filter
-     * @return
-     * @throws LDAPException
-     */
-    public abstract LDAPResultSet search(String baseDn, String filter) throws LDAPException;
-
-    /**
-     * @param baseDn
-     * @param matchingAttributes
-     * @return
-     * @throws LDAPException
-     */
-    public abstract LDAPResultSet search(String baseDn, LDAPEntryAttributes matchingAttributes)
         throws LDAPException;
 
     /**

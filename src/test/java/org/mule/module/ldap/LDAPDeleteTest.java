@@ -13,6 +13,7 @@ package org.mule.module.ldap;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.mule.module.ldap.ldap.api.ContextNotEmptyException;
 import org.mule.module.ldap.ldap.api.NameNotFoundException;
 
 public class LDAPDeleteTest extends AbstractLDAPConnectorTest
@@ -51,6 +52,13 @@ public class LDAPDeleteTest extends AbstractLDAPConnectorTest
     {
         runFlowWithPayloadAndExpectException("testDeleteEntryFlow", NameNotFoundException.class, "uid=inexistantUserToDelete,ou=NonInexistantOU,dc=mulesoft,dc=org");
     }
+    
+    @Test
+    public void testDeleteEntryWithChildren() throws Exception
+    {
+        runFlowWithPayloadAndExpectException("testDeleteEntryFlow", ContextNotEmptyException.class, "ou=people,dc=mulesoft,dc=org");
+    }
+
 }
 
 

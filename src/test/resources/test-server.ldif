@@ -62,6 +62,22 @@ userPassword: user4
 mail: user4@mulesoft.org
 mail: user4@mulesoft.com
 
+dn: uid=user5,ou=people,dc=mulesoft,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: User Five
+sn: Five
+uid: user5
+userPassword: user5
+mail: user5@mulesoft.org
+mail: user5@mulesoft.com
+mail: user5@mail.com
+mail: user5@company.com
+mail: user5@othercompany.com
+description: User Five Description
+
 dn: cn=Administrators,ou=groups,dc=mulesoft,dc=org
 objectclass: top
 objectclass: groupOfNames

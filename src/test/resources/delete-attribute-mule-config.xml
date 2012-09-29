@@ -26,15 +26,30 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
         http://www.mulesoft.org/schema/mule/ldap http://www.mulesoft.org/schema/mule/ldap/current/mule-ldap.xsd">
- 
-	<ldap:config name="adminConf" url="ldap://localhost:10389/" authDn="uid=admin,ou=people,dc=mulesoft,dc=org" authPassword="admin"/>
+
+	<spring:beans>
+		<spring:import resource="ldap-config.xml" />
+	</spring:beans>
 	
-	<!--
-	<ldap:config name="adminConf" url="ldap://192.168.11.129:389/" authentication="simple" authDn="cn=admin,dc=mulesoft,dc=org" authPassword="admin"/>
- 	-->	
+    <flow name="testDeleteSingleAttributeFlow">
+    	<ldap:delete-single-value-attribute config-ref="adminConf" dn="#[map-payload:dn]" attributeName="#[map-payload:attributeName]" attributeValue="#[map-payload:attributeValue]"/>
+    	<ldap:lookup config-ref="adminConf" dn="#[map-payload:dn]"/>
+	</flow>
+
+    <flow name="testDeleteSingleAttributeWithoutValueFlow">
+    	<ldap:delete-single-value-attribute config-ref="adminConf" dn="#[map-payload:dn]" attributeName="#[map-payload:attributeName]"/>
+    	<ldap:lookup config-ref="adminConf" dn="#[map-payload:dn]"/>
+	</flow>
+
+    <flow name="testDeleteMultiAttributeFlow">
+    	<ldap:delete-multi-value-attribute config-ref="adminConf" dn="#[map-payload:dn]" attributeName="#[map-payload:attributeName]">
+			<ldap:attribute-values ref="#[map-payload:attributeValues]" />
+    	</ldap:delete-multi-value-attribute>
+    	<ldap:lookup config-ref="adminConf" dn="#[map-payload:dn]"/>
+	</flow>
 	
-	<!--
-	For anonymous authentication just need to set authentication to "none"
-	 -->
-	<ldap:config name="anonymousConf" url="ldap://localhost:10389/" authentication="none" authDn="ANONYMOUS"/>
+    <flow name="testDeleteMultiAttributeWithoutValuesFlow">
+    	<ldap:delete-multi-value-attribute config-ref="adminConf" dn="#[map-payload:dn]" attributeName="#[map-payload:attributeName]"/>
+    	<ldap:lookup config-ref="adminConf" dn="#[map-payload:dn]"/>
+	</flow>
 </mule>
