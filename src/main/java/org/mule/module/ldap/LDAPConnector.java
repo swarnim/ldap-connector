@@ -585,14 +585,11 @@ public class LDAPConnector
      * limited by configuration.
      * <p/>
      * 
-     * <h4>Returning all attributes for all persons that have Doe as surname</h4>
-     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:search-1}
+     * <h4>Returning all persons one LDAP entry at a time</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:paged-result-search-1}
      * <p/>
-     * <h4>Returning username and fullname for the first 100 person entries</h4>
-     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:search-2}
-     * <p/>
-     * <h4>Search that receives all configuration attributes using Mule Expressions</h4>
-     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:search-3}
+     * <h4>Returning all persons in lists of 100 LDAP entries</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:paged-result-search-2}
      * 
      * @param baseDn The base DN of the LDAP search.
      * @param filter A valid LDAP filter. The LDAP connector supports LDAP search filters as defined in RFC 2254. Some examples are:
@@ -909,10 +906,13 @@ public class LDAPConnector
      * objectclass: top<br/>
      * objectclass: myentry
      * </code>
-     * <br/><br/>
-     *  
-     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:modify}
-     * 
+     * <p/><p/>
+     * <h4>The LDAP entry is in the payload</h4> 
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:modify-1}
+     * <p/>
+     * <h4>The LDAP entry is in a session variable</h4> 
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:modify-2}
+
      * @param entry The {@link LDAPEntry} that should be updated.
      * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to update entries under any of the RDN (relative DN) that compose the entry DN.
      * @throws org.mule.module.ldap.ldap.api.InvalidAttributeException If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
@@ -978,7 +978,7 @@ public class LDAPConnector
      * objectclass: top<br/>
      * objectclass: myentry
      * </code>
-     * <br/><br/>
+     * <p/><p/>
      * In order to represent a LDAP entry as a map, you should consider the following rules for the map key/value pair:
      * <ul>
      *    <li><b>Single Value Attributes</b>: The key should be the name of the single value attribute (for example uid, cn, ...) as a
@@ -990,9 +990,13 @@ public class LDAPConnector
      *                 the entry map. In this case, the key should be the string <code>"dn"</code> (see {@link LDAPEntry#MAP_DN_KEY}) and the value
      *                 a {@link String} representing the distinguished name (for example <code>cn=andy,ou=people,dc=mulesoft,dc=org</code>).</li>
      * </ul>
-     * <br/><br/>
-     * 
-     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:modify-from-map}
+     * <p/><p/>
+     * <h4>The map is provided as a reference and the DN is not in the map</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:modify-from-map-1}
+     * <h4>The map is created in the XML file and the DN is another map entry</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:modify-from-map-2}
+     * <h4>The map is provided in the payload and the DN is another map entry</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:modify-from-map-3}
      * 
      * @param dn The primary value to use as DN of the entry. If not set, then the DN will be retrieved from the map representing the entry under the key <b>dn</b>.
      * @param entry {@link Map} representation of the LDAP entry.
