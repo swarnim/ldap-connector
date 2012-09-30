@@ -130,7 +130,8 @@ public class PagedLDAPResultSet implements LDAPResultSet
     {
         try
         {
-            this.entries = null;
+            silentCloseEntriesEnumeration();
+            
             this.conn.setRequestControls(LDAPJNDIUtils.buildRequestControls(controls, cookie));
             if(filterArgs != null && filterArgs.length > 0)
             {
@@ -144,6 +145,25 @@ public class PagedLDAPResultSet implements LDAPResultSet
         catch(NamingException nex)
         {
             throw LDAPException.create(nex);
+        }
+    }
+    
+    private void silentCloseEntriesEnumeration()
+    {
+        if(this.entries != null)
+        {
+            try
+            {
+                this.entries.close();
+            } 
+            catch(NamingException nex)
+            {
+                // Ignore
+            }
+            finally
+            {
+                this.entries = null;
+            }
         }
     }
     

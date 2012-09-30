@@ -163,7 +163,8 @@ import org.mule.util.StringUtils;
  *
  * @author Mariano Capurro (MuleSoft, Inc.)
  */
-@Connector(name = "ldap", schemaVersion = "3.3")
+@Connector(name = "ldap", schemaVersion = "3.3", friendlyName="LDAP", minMuleVersion="3.2.0", description="LDAP Connector that allows you to connect to any LDAP server and perform every LDAP operation")
+//:TODO: New in DevKit Version 3.3.x -> Move component from CC Category. For example -> @Category(name = "org.mule.tooling.category.security", description = "Security")
 public class LDAPConnector
 {
     private static final Logger LOGGER = Logger.getLogger(LDAPConnector.class);
@@ -488,6 +489,11 @@ public class LDAPConnector
     /**
      * Performs a LDAP search returning a list with all the resulting LDAP entries.
      * <p/>
+     * For queries returning large results it is recommended to use pagination (not all LDAP servers support this or are configured to support it).
+     * For that you need to provide a page size value that should be less or equal than max results (count limit). If you are getting a
+     * Sizelimit Exceeded exception then you should check that the authenticated user has enough privileges or the LDAP server is not
+     * limited by configuration.
+     * <p/>
      * <h4>Returning all attributes for all persons that have Doe as surname</h4>
      * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:search-1}
      * <p/>
@@ -573,6 +579,12 @@ public class LDAPConnector
      * Performs a LDAP search and streams result to the rest of the flow. This means that instead of returning a list with all results it partitions the LDAP
      * search result into pages (individual entry if resultPageSize is 1) or lists of size resultPageSize.
      * <p/>
+     * For queries returning large results it is recommended to use pagination (not all LDAP servers support this or are configured to support it).
+     * For that you need to provide a page size value that should be less or equal than max results (count limit). If you are getting a
+     * Sizelimit Exceeded exception then you should check that the authenticated user has enough privileges or the LDAP server is not
+     * limited by configuration.
+     * <p/>
+     * 
      * <h4>Returning all attributes for all persons that have Doe as surname</h4>
      * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:search-1}
      * <p/>
@@ -619,9 +631,11 @@ public class LDAPConnector
         LDAPResultSet result = null;
         try
         {
+            resultPageSize = resultPageSize < 1 ? 1 : resultPageSize;
+            
             if(LOGGER.isDebugEnabled())
             {
-                LOGGER.debug("About to search LDAP entries matching " + filter + " under: " + baseDn);
+                LOGGER.debug("About to search LDAP entries matching " + filter + " under: " + baseDn + ". Returning results in pages of " + resultPageSize + " entries.");
             }
             
             LDAPSearchControls controls = new LDAPSearchControls();
@@ -637,11 +651,27 @@ public class LDAPConnector
             
             result = this.connection.search(baseDn, filter, controls);
             
-            if(resultPageSize <= 1)
+            LDAPEntry anEntry = null;
+            int entryCount = 0, pageCount = 0;
+            
+            if(resultPageSize == 1)
             {
                 while(result.hasNext())
                 {
-                    callback.process(result.next());
+                    entryCount++;
+                    anEntry = result.next();
+
+                    if(LOGGER.isDebugEnabled())
+                    {
+                        LOGGER.debug("Entry " + entryCount + " -> " + anEntry);
+                    }
+                    
+                    callback.process(anEntry);
+                    
+                    if(LOGGER.isDebugEnabled())
+                    {
+                        LOGGER.debug("Processed entry " + entryCount);
+                    }
                 }
             }
             else
@@ -650,13 +680,32 @@ public class LDAPConnector
                 while(result.hasNext())
                 {
                     page = new ArrayList<LDAPEntry>(resultPageSize);
+                    pageCount++;
                     
                     for(int i=0; i < resultPageSize && result.hasNext(); i++)
                     {
-                        page.add(result.next());
+                        entryCount++;
+                        anEntry = result.next();
+                        
+                        if(LOGGER.isDebugEnabled())
+                        {
+                            LOGGER.debug("Page " + pageCount + " / Entry " + entryCount + " -> " + anEntry);
+                        }
+                        
+                        page.add(anEntry);
+                    }
+
+                    if(LOGGER.isDebugEnabled())
+                    {
+                        LOGGER.debug("Page " + pageCount + " -> " + page);
                     }
                     
                     callback.process(page);
+                    
+                    if(LOGGER.isDebugEnabled())
+                    {
+                        LOGGER.debug("Processed page " + pageCount);
+                    }
                 }
             }
         }
