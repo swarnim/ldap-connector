@@ -74,7 +74,7 @@ public abstract class LDAPConnection
         conf.put(LDAP_URL_ATTR, url);
         conf.put(REFERRAL_ATTR, referral);
         conf.put(AUTHENTICATION_ATTR, authentication);
-        conf.put(INITIAL_POOL_CONNECTIONS_ATTR, String.valueOf(maxPoolSize));
+        conf.put(INITIAL_POOL_CONNECTIONS_ATTR, String.valueOf(initialPoolSize));
         conf.put(MAX_POOL_CONNECTIONS_ATTR, String.valueOf(maxPoolSize));
         conf.put(POOL_TIMEOUT_ATTR, String.valueOf(poolTimeout));
         

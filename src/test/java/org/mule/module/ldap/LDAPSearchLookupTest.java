@@ -60,8 +60,14 @@ public class LDAPSearchLookupTest extends AbstractLDAPConnectorTest
             assertNotNull(entry.getAttribute("cn").getValue());
             assertNull(entry.getAttribute("sn"));
         }
-        
     }    
+    
+    @Test
+    public void testPagedResultSearch() throws Exception
+    {
+        Object o = runFlow("testPagedResultSearchFlow", "(uid=user*)");
+        o.toString();
+    }
 }
 
 

@@ -44,9 +44,16 @@ public class SimpleLDAPResultSet implements LDAPResultSet
      * @see org.mule.module.ldap.ldap.api.LDAPResultSet#hasNext()
      */
     @Override
-    public boolean hasNext()
+    public boolean hasNext() throws LDAPException
     {
-        return this.entries != null ? this.entries.hasMoreElements() : false;
+        try
+        {
+            return this.entries != null ? this.entries.hasMore() : false;
+        }
+        catch(NamingException nex)
+        {
+            throw LDAPException.create(nex);
+        }
     }
 
     /**

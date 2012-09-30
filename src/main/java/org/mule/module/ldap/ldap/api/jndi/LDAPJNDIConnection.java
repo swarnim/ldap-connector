@@ -278,9 +278,13 @@ public class LDAPJNDIConnection extends LDAPConnection
         env.put(Context.INITIAL_CONTEXT_FACTORY, getInitialContextFactory());
         env.put(Context.PROVIDER_URL, getProviderUrl());
 
+
         if (isConnectionPoolEnabled())
         {
             env.put(POOL_ENABLED_ENV_PARAM, "true");
+            
+            env.put(AUTHENTICATION_ENV_PARAM, getAuthentication());
+
             if (getMaxPoolConnections() > 0)
             {
                 env.put(MAX_POOL_SIZE_ENV_PARAM, String.valueOf(getMaxPoolConnections()));
@@ -291,12 +295,14 @@ public class LDAPJNDIConnection extends LDAPConnection
                 env.put(INIT_POOL_SIZE_ENV_PARAM, String.valueOf(getInitialPoolSizeConnections()));
             }
 
-            env.put(AUTHENTICATION_ENV_PARAM, getAuthentication());
-
             if (getPoolTimeout() > 0)
             {
                 env.put(TIME_OUT_ENV_PARAM, String.valueOf(getPoolTimeout()));
             }
+        }
+        else
+        {
+            env.put(POOL_ENABLED_ENV_PARAM, "false");
         }
         return env;
 

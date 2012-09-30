@@ -79,7 +79,7 @@ public class LDAPJNDIUtils
                     LDAPMultiValueEntryAttribute newAttribute = new LDAPMultiValueEntryAttribute();
                     newAttribute.setName(attribute.getID());
                     NamingEnumeration<?> values = attribute.getAll();
-                    while (values.hasMoreElements())
+                    while (values.hasMore())
                     {
                         newAttribute.addValue(values.next());
                     }
@@ -117,7 +117,14 @@ public class LDAPJNDIUtils
         {
             if(controls.isPagingEnabled())
             {
-                return new Control[] {new PagedResultsControl(controls.getPageSize(), cookie, Control.CRITICAL)};
+                if(cookie != null)
+                {
+                    return new Control[] {new PagedResultsControl(controls.getPageSize(), cookie, Control.CRITICAL)};
+                }
+                else
+                {
+                    return new Control[] {new PagedResultsControl(controls.getPageSize(), Control.CRITICAL)};
+                }
             }
             else
             {

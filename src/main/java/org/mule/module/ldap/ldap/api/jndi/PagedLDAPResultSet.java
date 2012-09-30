@@ -36,7 +36,7 @@ public class PagedLDAPResultSet implements LDAPResultSet
     
     private NamingEnumeration<SearchResult> entries = null;
     
-    private byte[] cookie;
+    private byte[] cookie = null;
     
     /**
      * 
@@ -109,33 +109,28 @@ public class PagedLDAPResultSet implements LDAPResultSet
     @Override
     public LDAPEntry next() throws LDAPException
     {
-        // No more records in current page but there are more pages
-        if(!this.entries.hasMoreElements() && hasNext())
+        if(hasNext()) // Force navigating to next page
         {
-            getNextPage();
-        }
-        
-        SearchResult searchResult = (SearchResult) this.entries.nextElement();
-        String entryDn;
-        if (searchResult != null)
-        {
-            entryDn = searchResult.getName();
-            if (searchResult.isRelative())
+            SearchResult searchResult = (SearchResult) this.entries.nextElement();
+            String entryDn;
+            if (searchResult != null)
             {
-                entryDn += "," + baseDn;
+                entryDn = searchResult.getName();
+                if (searchResult.isRelative())
+                {
+                    entryDn += "," + baseDn;
+                }
+                return LDAPJNDIUtils.buildEntry(entryDn, searchResult.getAttributes());
             }
-            return LDAPJNDIUtils.buildEntry(entryDn, searchResult.getAttributes());
         }
-        else
-        {
-            throw new NoSuchElementException();
-        }        
+        throw new NoSuchElementException();
     }
 
     private void getNextPage() throws LDAPException
     {
         try
         {
+            this.entries = null;
             this.conn.setRequestControls(LDAPJNDIUtils.buildRequestControls(controls, cookie));
             if(filterArgs != null && filterArgs.length > 0)
             {
@@ -160,21 +155,37 @@ public class PagedLDAPResultSet implements LDAPResultSet
     @Override
     public boolean hasNext() throws LDAPException
     {
-        if(this.entries != null)
+        try
         {
-            if(!this.entries.hasMoreElements())
+            if(this.entries != null)
             {
-                this.cookie = getPagedResultsResponseControlCookie();
-                return this.cookie != null;
+                if(!this.entries.hasMore())
+                {
+                    this.cookie = getPagedResultsResponseControlCookie();
+                    if(this.cookie != null)
+                    {
+                        getNextPage();
+                        return this.entries != null && this.entries.hasMore();
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                   
+                }
+                else
+                {
+                    return true;
+                }
             }
             else
             {
-                return true;
+                return false;
             }
         }
-        else
+        catch(NamingException nex)
         {
-            return false;
+            throw LDAPException.create(nex);
         }
     }
 

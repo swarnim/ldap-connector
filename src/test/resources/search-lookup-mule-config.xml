@@ -63,6 +63,11 @@
     	<ldap:search config-ref="adminConf" baseDn="dc=mulesoft,dc=org" filter="#[payload:]"  scope="SUB_TREE" pageSize="3" />
 	</flow>
 	
+    <flow name="testPagedResultSearchFlow">
+    	<ldap:paged-result-search config-ref="adminConf" baseDn="ou=people,dc=mulesoft,dc=org" filter="#[payload:]" scope="SUB_TREE" />
+    	<logger message="#[payload:]" level="ERROR"/>
+	</flow>
+	
 	<!--     
     <flow name="lookup">
 	    <ldap:lookup dn="#[header:dn]">
