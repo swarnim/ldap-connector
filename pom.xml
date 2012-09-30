@@ -65,6 +65,15 @@
 			</exclusions>				
 		</dependency>
 	</dependencies>
+	<scm>
+	   <connection>
+	       scm:git:git://github.com:mulesoft/ldap-connector.git
+	   </connection>
+	   <developerConnection>
+	       scm:git:git@github.com:mulesoft/ldap-connector.git
+	   </developerConnection>
+	   <url>http://github.com/mulesoft/ldap-connector</url>
+	</scm>
 	<repositories>
 		<repository>
 			<id>muleforge-releases</id>
