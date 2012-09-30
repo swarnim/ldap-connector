@@ -689,13 +689,10 @@ Sizelimit Exceeded exception then you should check that the authenticated user h
 limited by configuration.
 &amp;lt;p/&amp;gt;
 
-&amp;lt;h4&amp;gt;Returning all attributes for all persons that have Doe as surname&amp;lt;/h4&amp;gt;
+&amp;lt;h4&amp;gt;Returning all persons one LDAP entry at a time&amp;lt;/h4&amp;gt;
 
 &amp;lt;p/&amp;gt;
-&amp;lt;h4&amp;gt;Returning username and fullname for the first 100 person entries&amp;lt;/h4&amp;gt;
-
-&amp;lt;p/&amp;gt;
-&amp;lt;h4&amp;gt;Search that receives all configuration attributes using Mule Expressions&amp;lt;/h4&amp;gt;&lt;/xs:documentation&gt;
+&amp;lt;h4&amp;gt;Returning all persons in lists of 100 LDAP entries&amp;lt;/h4&amp;gt;&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;PagedResultSearchType&quot;&gt;
@@ -1075,7 +1072,11 @@ attr3: NewAttributeValue&amp;lt;br/&amp;gt;
 objectclass: top&amp;lt;br/&amp;gt;
 objectclass: myentry
 &amp;lt;/code&amp;gt;
-&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt;&lt;/xs:documentation&gt;
+&amp;lt;p/&amp;gt;&amp;lt;p/&amp;gt;
+&amp;lt;h4&amp;gt;The LDAP entry is in the payload&amp;lt;/h4&amp;gt;
+
+&amp;lt;p/&amp;gt;
+&amp;lt;h4&amp;gt;The LDAP entry is in a session variable&amp;lt;/h4&amp;gt;&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;ModifyType&quot;&gt;
@@ -1158,7 +1159,7 @@ attr3: NewAttributeValue&amp;lt;br/&amp;gt;
 objectclass: top&amp;lt;br/&amp;gt;
 objectclass: myentry
 &amp;lt;/code&amp;gt;
-&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt;
+&amp;lt;p/&amp;gt;&amp;lt;p/&amp;gt;
 In order to represent a LDAP entry as a map, you should consider the following rules for the map key/value pair:
 &amp;lt;ul&amp;gt;
 &amp;lt;li&amp;gt;&amp;lt;b&amp;gt;Single Value Attributes&amp;lt;/b&amp;gt;: The key should be the name of the single value attribute (for example uid, cn, ...) as a
@@ -1170,7 +1171,12 @@ a list of strings.&amp;lt;/li&amp;gt;
 the entry map. In this case, the key should be the string &amp;lt;code&amp;gt;&quot;dn&quot;&amp;lt;/code&amp;gt; (see ) and the value
 a  representing the distinguished name (for example &amp;lt;code&amp;gt;cn=andy,ou=people,dc=mulesoft,dc=org&amp;lt;/code&amp;gt;).&amp;lt;/li&amp;gt;
 &amp;lt;/ul&amp;gt;
-&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt;&lt;/xs:documentation&gt;
+&amp;lt;p/&amp;gt;&amp;lt;p/&amp;gt;
+&amp;lt;h4&amp;gt;The map is provided as a reference and the DN is not in the map&amp;lt;/h4&amp;gt;
+
+&amp;lt;h4&amp;gt;The map is created in the XML file and the DN is another map entry&amp;lt;/h4&amp;gt;
+
+&amp;lt;h4&amp;gt;The map is provided in the payload and the DN is another map entry&amp;lt;/h4&amp;gt;&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;ModifyFromMapType&quot;&gt;
@@ -1680,6 +1686,35 @@ not present in the entry are ignored. If no values are specified, then the whole
   &lt;xs:element xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;map-to-ldap-entry&quot; substitutionGroup=&quot;mule:abstract-transformer&quot; type=&quot;mule:abstractTransformerType&quot;&gt;&lt;/xs:element&gt;
   &lt;xs:element xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;ldap-entry-to-map&quot; substitutionGroup=&quot;mule:abstract-transformer&quot; type=&quot;mule:abstractTransformerType&quot;&gt;&lt;/xs:element&gt;
   &lt;xs:element xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;ldap-entry-to-ldif&quot; substitutionGroup=&quot;mule:abstract-transformer&quot; type=&quot;mule:abstractTransformerType&quot;&gt;&lt;/xs:element&gt;
+  &lt;xs:simpleType name=&quot;SearchScopeEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;OBJECT&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;Object&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;ONE_LEVEL&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;One Level&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;SUB_TREE&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;Sub Tree&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
   &lt;xs:simpleType name=&quot;ReferralEnumType&quot;&gt;
     &lt;xs:annotation&gt;
       &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
@@ -1719,35 +1754,6 @@ not present in the entry are ignored. If no values are specified, then the whole
           &lt;xs:enumeration value=&quot;JNDI&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-        &lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-    &lt;/xs:union&gt;
-  &lt;/xs:simpleType&gt;
-  &lt;xs:simpleType name=&quot;SearchScopeEnumType&quot;&gt;
-    &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-    &lt;/xs:annotation&gt;
-    &lt;xs:union&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
-          &lt;xs:enumeration value=&quot;OBJECT&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;Object&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;ONE_LEVEL&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;One Level&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;SUB_TREE&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;Sub Tree&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:enumeration&gt;
         &lt;/xs:restriction&gt;

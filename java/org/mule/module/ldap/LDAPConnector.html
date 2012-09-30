@@ -3370,8 +3370,11 @@ From class
  objectclass: top<br/>
  objectclass: myentry
  </code>
- <br/><br/>
-  
+ <p/><p/>
+ <h4>The LDAP entry is in the payload</h4> 
+ 
+ <p/>
+ <h4>The LDAP entry is in a session variable</h4> 
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
@@ -3479,7 +3482,7 @@ From class
  objectclass: top<br/>
  objectclass: myentry
  </code>
- <br/><br/>
+ <p/><p/>
  In order to represent a LDAP entry as a map, you should consider the following rules for the map key/value pair:
  <ul>
     <li><b>Single Value Attributes</b>: The key should be the name of the single value attribute (for example uid, cn, ...) as a
@@ -3491,8 +3494,12 @@ From class
                  the entry map. In this case, the key should be the string <code>"dn"</code> (see <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>) and the value
                  a String representing the distinguished name (for example <code>cn=andy,ou=people,dc=mulesoft,dc=org</code>).</li>
  </ul>
- <br/><br/>
+ <p/><p/>
+ <h4>The map is provided as a reference and the DN is not in the map</h4>
  
+ <h4>The map is created in the XML file and the DN is another map entry</h4>
+ 
+ <h4>The map is provided in the payload and the DN is another map entry</h4>
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
@@ -3722,13 +3729,10 @@ From class
  limited by configuration.
  <p/>
  
- <h4>Returning all attributes for all persons that have Doe as surname</h4>
+ <h4>Returning all persons one LDAP entry at a time</h4>
  
  <p/>
- <h4>Returning username and fullname for the first 100 person entries</h4>
- 
- <p/>
- <h4>Search that receives all configuration attributes using Mule Expressions</h4>
+ <h4>Returning all persons in lists of 100 LDAP entries</h4>
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>

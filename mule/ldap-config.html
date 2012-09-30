@@ -1698,7 +1698,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
  This operation is idempotent. It succeeds even if the terminal atomic name is not bound in the target context, but throws
  <code><a href="../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></code> if any of the intermediate contexts do not exist.
  
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ldap:delete dn="uid=user,ou=people,dc=mulesoft,dc=org"/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ldap:delete dn="uid=userToDelete,ou=people,dc=mulesoft,dc=org"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2357,9 +2357,16 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
  objectclass: top<br/>
  objectclass: myentry
  </code>
- <br/><br/>
-  
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ldap:modify /&gt;</pre></div></p></div>
+ <p/><p/>
+ <h4>The LDAP entry is in the payload</h4> 
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;!-- Case 1: LDAP entry is in the payload --&gt;
+&lt;ldap:modify config-ref="ldapConfig"/&gt;</pre></div>
+ <p/>
+ <h4>The LDAP entry is in a session variable</h4> 
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;!-- Case 2: LDAP entry is in a session variable --&gt;
+&lt;ldap:modify config-ref="ldapConfig"&gt;
+	&lt;ldap:entry ref="#[header:session:entryToModify]"/&gt;
+&lt;/ldap:modify&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2525,7 +2532,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
  objectclass: top<br/>
  objectclass: myentry
  </code>
- <br/><br/>
+ <p/><p/>
  In order to represent a LDAP entry as a map, you should consider the following rules for the map key/value pair:
  <ul>
     <li><b>Single Value Attributes</b>: The key should be the name of the single value attribute (for example uid, cn, ...) as a
@@ -2537,9 +2544,25 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                  the entry map. In this case, the key should be the string <code>"dn"</code> (see <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>) and the value
                  a String representing the distinguished name (for example <code>cn=andy,ou=people,dc=mulesoft,dc=org</code>).</li>
  </ul>
- <br/><br/>
- 
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ldap:modify-from-map /&gt;</pre></div></p></div>
+ <p/><p/>
+ <h4>The map is provided as a reference and the DN is not in the map</h4>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;!-- Case 1: Reference an existing map object --&gt;
+&lt;ldap:modify-from-map dn="uid=user,ou=people,dc=mulesoft,dc=org" config-ref="ldapConfig"&gt;
+	&lt;ldap:entry ref="#[header:session:ldapUserMap]"/&gt;
+&lt;/ldap:modify-from-map&gt;</pre></div>
+ <h4>The map is created in the XML file and the DN is another map entry</h4>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;!-- Case 2: Reference an existing map object --&gt;
+&lt;ldap:modify-from-map config-ref="ldapConfig"&gt;
+	&lt;ldap:entry&gt;
+		&lt;ldap:entry key="dn" value-ref="#[payload.getDn()]"/&gt;
+		&lt;ldap:entry key="uid"&gt;user&lt;/ldap:entry&gt;
+		&lt;ldap:entry key="sn"&gt;Doe&lt;/ldap:entry&gt;
+		&lt;ldap:entry key="cn"&gt;John Doe&lt;/ldap:entry&gt;
+	&lt;/ldap:entry&gt;
+&lt;/ldap:modify-from-map&gt;</pre></div>
+ <h4>The map is provided in the payload and the DN is another map entry</h4>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;!-- Case 3: The map is in the payload and the DN is in the map --&gt;
+&lt;ldap:modify-from-map/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -3011,29 +3034,18 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
  limited by configuration.
  <p/>
  
- <h4>Returning all attributes for all persons that have Doe as surname</h4>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;!-- Case 1: Simple SUB_TREE search --&gt;
-    &lt;ldap:search baseDn="ou=people,dc=mulesoft,dc=org" filter="(&amp;amp;(objectClass=person)(sn=Doe))" scope="SUB_TREE"/&gt;</pre></div>
+ <h4>Returning all persons one LDAP entry at a time</h4>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;!-- Case 1: Paging control to retrieve pages of 100 entries from the LDAP server returning one entry at a time --&gt;
+    &lt;ldap:paged-result-search baseDn="ou=people,dc=mulesoft,dc=org" filter="(objectClass=person)" scope="SUB_TREE" pageSize="100" resultPageSize="1"/&gt;</pre></div>
  <p/>
- <h4>Returning username and fullname for the first 100 person entries</h4>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;!-- Case 2: Search that will return the username and fullname of at most 100 results --&gt;
-    &lt;ldap:search baseDn="ou=people,dc=mulesoft,dc=org" filter="(objectClass=person)" scope="SUB_TREE" maxResults="100"&gt;
+ <h4>Returning all persons in lists of 100 LDAP entries</h4>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;!-- Case 2: Return lists of 100 LDAP entries --&gt;
+    &lt;ldap:paged-result-search baseDn="ou=people,dc=mulesoft,dc=org" filter="(objectClass=person)" scope="SUB_TREE" resultPageSize="100"&gt;
         &lt;ldap:attributes&gt;
         	&lt;ldap:attribute&gt;uid&lt;/ldap:attribute&gt;
         	&lt;ldap:attribute&gt;cn&lt;/ldap:attribute&gt;
         &lt;/ldap:attributes&gt;    
-    &lt;/ldap:search&gt;</pre></div>
- <p/>
- <h4>Search that receives all configuration attributes using Mule Expressions</h4>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;!-- Case 3: Search that receives all attributes from Mule Expressions --&gt;
-    &lt;ldap:search baseDn="#[header:baseDn]"
-                 filter="#[header:filter]"
-                 scope="#[header:scope]"
-                 timeout="#[header:timeout]"
-                 maxResults="#[header:maxResults]"
-                 returnObject="#[returnObject]"&gt;
-        &lt;ldap:attributes ref="#[header:attributes]" /&gt;
-    &lt;/ldap:search&gt;</pre></div></p></div>
+    &lt;/ldap:paged-result-search&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
