@@ -87,7 +87,7 @@ public abstract class LDAPEntryAttribute implements Serializable
      */
     public String toLDIFString()
     {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         Iterator<Object> valuesToFormat = getValues().iterator();
         while (valuesToFormat.hasNext())
         {

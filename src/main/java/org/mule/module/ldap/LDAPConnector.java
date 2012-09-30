@@ -608,17 +608,15 @@ public class LDAPConnector
      * @param resultPageSize The size of the list this operation streams. If this value is less than 1, then it will be considered that the page size is 1.
      * @param callback Used to stream results
      * 
-     * @return The total amount of entries returned by the search.
      * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to perform the search under the given base DN.
      * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If base DN is invalid (for example it doesn't exist)
      * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error performing the search.
      */
     @Processor(intercepting=true)
-    public int pagedResultSearch(@FriendlyName("Base DN") String baseDn, String filter, @Optional List<String> attributes, @Optional @Default("ONE_LEVEL") SearchScope scope, @Optional @Default("0") @Placement(group = "Search Controls") int timeout, @Optional @Default("0") @Placement(group = "Search Controls") long maxResults, @Optional @Default("false") @Placement(group = "Search Controls") boolean returnObject, @Optional @Default("0") @Placement(group = "Search Controls") int pageSize, @Optional @Default("1") int resultPageSize, SourceCallback callback) throws Exception
+    public void pagedResultSearch(@FriendlyName("Base DN") String baseDn, String filter, @Optional List<String> attributes, @Optional @Default("ONE_LEVEL") SearchScope scope, @Optional @Default("0") @Placement(group = "Search Controls") int timeout, @Optional @Default("0") @Placement(group = "Search Controls") long maxResults, @Optional @Default("false") @Placement(group = "Search Controls") boolean returnObject, @Optional @Default("0") @Placement(group = "Search Controls") int pageSize, @Optional @Default("1") int resultPageSize, SourceCallback callback) throws Exception
     {
         LDAPResultSet result = null;
-        int total = 0;
         try
         {
             if(LOGGER.isDebugEnabled())
@@ -643,7 +641,6 @@ public class LDAPConnector
             {
                 while(result.hasNext())
                 {
-                    total++;
                     callback.process(result.next());
                 }
             }
@@ -656,14 +653,12 @@ public class LDAPConnector
                     
                     for(int i=0; i < resultPageSize && result.hasNext(); i++)
                     {
-                        total++;
                         page.add(result.next());
                     }
                     
                     callback.process(page);
                 }
             }
-            return total;
         }
         finally
         {
