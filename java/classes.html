@@ -1,0 +1,942 @@
+
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <meta name="description" content="Documentation for LDAP Connector." />
+
+<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+<title>
+
+  Class Index
+
+
+| LDAP Connector
+
+</title>
+<link href="../assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
+<link href="../assets/mule-developer-prettify.css" rel="stylesheet" type="text/css" />
+<link href="../assets/customizations.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
+<script src="../assets/search_autocomplete.js" type="text/javascript"></script>
+<script src="../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../assets/jquery-toc.js" type="text/javascript"></script>
+<script src="../assets/mule-developer-docs.js" type="text/javascript"></script>
+<script src="../assets/prettify.js" type="text/javascript"></script>
+<script type="text/javascript">
+  setToRoot("../", "../assets/");
+</script>
+<script src="../assets/mule-developer-reference.js" type="text/javascript"></script>
+<script src="../assets/navtree_data.js" type="text/javascript"></script>
+<script src="../assets/customizations.js" type="text/javascript"></script>
+<noscript>
+  <style type="text/css">
+    html,body{overflow:auto;}
+    #body-content{position:relative; top:0;}
+    #doc-content{overflow:visible;border-left:3px solid #666;}
+    #side-nav{padding:0;}
+    #side-nav .toggle-list ul {display:block;}
+    #resize-packages-nav{border-bottom:3px solid #666;}
+  </style>
+</noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "LDAP Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
+</head>
+
+
+<div id="header">
+    <div id="headerLeft">
+    
+      <span id="masthead-title">LDAP Connector</span>
+    
+    <ul id="header-tabs" class="java">
+    
+    	<li id="guide"><a href="../guide/install.html">
+	    	<span class="en">Install Guide</span>
+    	</a></li>
+    
+    	<li id="java"><a href="../java/packages.html">
+	    	<span class="en">Java API Reference</span>
+    	</a></li>
+    
+    	<li id="mule"><a href="../mule/modules.html">
+	    	<span class="en">Mule API Reference</span>
+    	</a></li>
+    
+    </ul>
+    </div>
+    <div id="headerRight">
+      <a href="http://www.mulesoft.com" tabindex="-1">
+      <img src="../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
+      
+  <div id="search" >
+      <div id="searchForm">
+          <form accept-charset="utf-8" class="gsc-search-box" 
+                onsubmit="return submit_search()">
+            <table class="gsc-search-box" cellpadding="0" cellspacing="0"><tbody>
+                <tr>
+                  <td class="gsc-input">
+                    <input id="search_autocomplete" class="gsc-input" type="text" size="33" autocomplete="off"
+                      title="search developer docs" name="q"
+                      value="search developer docs"
+                      onFocus="search_focus_changed(this, true)"
+                      onBlur="search_focus_changed(this, false)"
+                      onkeydown="return search_changed(event, true, '../')"
+                      onkeyup="return search_changed(event, false, '../')" />
+                  <div id="search_filtered_div" class="no-display">
+                      <table id="search_filtered" cellspacing=0>
+                      </table>
+                  </div>
+                  </td>
+                  <td class="gsc-search-button">
+                    <input type="submit" value="Search" title="search" id="search-button" class="gsc-search-button" />
+                  </td>
+                  <td class="gsc-clear-button">
+                    <div title="clear results" class="gsc-clear-button">&nbsp;</div>
+                  </td>
+                </tr></tbody>
+              </table>
+          </form>
+      </div><!-- searchForm -->
+  </div><!-- search -->
+      
+    </div>
+</div><!-- header -->
+
+
+  <div class="g-section g-tpl-240" id="body-content">
+    <div class="g-unit g-first side-nav-resizable" id="side-nav">
+      <div id="swapper">
+        <div id="nav-panels">
+          <div id="resize-packages-nav">
+            <div id="packages-nav">
+              <div id="index-links">
+                <a href="../java/packages.html"  >Package Index</a> |
+                <a href="../java/classes.html" class="selected">Class Index</a>
+              </div>
+              <ul>
+                
+    <li class="api apilevel-">
+  <a href="../java/org/mule/module/ldap/package-summary.html">org.mule.module.ldap</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/module/ldap/adapters/package-summary.html">org.mule.module.ldap.adapters</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/module/ldap/agents/package-summary.html">org.mule.module.ldap.agents</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/module/ldap/config/package-summary.html">org.mule.module.ldap.config</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/module/ldap/connectivity/package-summary.html">org.mule.module.ldap.connectivity</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/module/ldap/ldap/api/package-summary.html">org.mule.module.ldap.ldap.api</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/module/ldap/ldap/api/holders/package-summary.html">org.mule.module.ldap.ldap.api.holders</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/module/ldap/ldap/api/jndi/package-summary.html">org.mule.module.ldap.ldap.api.jndi</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/module/ldap/ldap/api/transformers/package-summary.html">org.mule.module.ldap.ldap.api.transformers</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/module/ldap/process/package-summary.html">org.mule.module.ldap.process</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/module/ldap/processors/package-summary.html">org.mule.module.ldap.processors</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/module/ldap/transformers/package-summary.html">org.mule.module.ldap.transformers</a></li>
+              </ul><br/>
+            </div> <!-- end packages -->
+          </div> <!-- end resize-packages -->
+          <div id="classes-nav">
+              <script>
+                /*addLoadEvent(maxPackageHeight);*/
+              </script>
+              <p style="padding:10px">Select a package to view its members</p><br/>
+          </div><!-- end classes -->
+        </div><!-- end nav-panels -->
+        <div id="nav-tree" style="display:none">
+          <div id="index-links">
+            <a href="../packages.html"  >Package Index</a> | 
+            <a href="../classes.html" class="selected">Class Index</a>
+          </div>
+        </div><!-- end nav-tree -->
+      </div><!-- end swapper -->
+    </div> <!-- end side-nav -->
+    <script>
+      if (!isMobile) {
+        $("<a href='#' id='nav-swap' onclick='swapNav();return false;' style='font-size:10px;line-height:9px;margin-left:1em;text-decoration:none;'><span id='tree-link'>Use Tree Navigation</span><span id='panel-link' style='display:none'>Use Panel Navigation</span></a>").appendTo("#side-nav");
+        chooseDefaultNav();
+        if ($("#nav-tree").is(':visible')) {
+          init_default_navtree("../");
+        } else {
+          addLoadEvent(function() {
+            scrollIntoView("packages-nav");
+            scrollIntoView("classes-nav");
+          });
+        }
+        $("#swapper").css({borderBottom:"2px solid #aaa"});
+      } else {
+        swapNav(); // tree view should be used on mobile
+      }
+    </script>
+
+
+
+<div class="g-unit" id="doc-content">
+
+<div id="jd-header">
+<h1>Class Index</h1>
+</div>
+
+<div id="jd-content">
+
+<div class="jd-letterlist">
+    <a href="#letter_A">A</a>
+    <a href="#letter_B">B</a>
+    <a href="#letter_C">C</a>
+    <a href="#letter_D">D</a>
+    <a href="#letter_I">I</a>
+    <a href="#letter_L">L</a>
+    <a href="#letter_M">M</a>
+    <a href="#letter_N">N</a>
+    <a href="#letter_P">P</a>
+    <a href="#letter_R">R</a>
+    <a href="#letter_S">S</a>
+    <a href="#letter_T">T</a>
+</div>
+
+
+
+<h2 id="letter_A">A</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/AbstractConnectedProcessor.html">AbstractConnectedProcessor</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/AbstractDefinitionParser.html">AbstractDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/AbstractDefinitionParser.ParseDelegate.html">AbstractDefinitionParser.ParseDelegate</a>&lt;T&gt;</td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/AbstractExpressionEvaluator.html">AbstractExpressionEvaluator</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/AbstractListeningMessageProcessor.html">AbstractListeningMessageProcessor</a>&lt;O&gt;</td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/AbstractMessageProcessor.html">AbstractMessageProcessor</a>&lt;O&gt;</td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/AddDefinitionParser.html">AddDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/AddFromMapDefinitionParser.html">AddFromMapDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/AddFromMapMessageProcessor.html">AddFromMapMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">AddFromMapMessageProcessor invokes the <code><a href="../java/org/mule/module/ldap/LDAPConnector.html#addFromMap(java.lang.String, java.util.Map<java.lang.String, java.lang.Object>)">addFromMap(java.lang.String, java.util.Map)</a></code> method in <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/AddMessageProcessor.html">AddMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">AddMessageProcessor invokes the <code><a href="../java/org/mule/module/ldap/LDAPConnector.html#add(org.mule.module.ldap.ldap.api.LDAPEntry)">add(org.mule.module.ldap.ldap.api.LDAPEntry)</a></code> method in <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/AddMultiValueAttributeDefinitionParser.html">AddMultiValueAttributeDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/AddMultiValueAttributeMessageProcessor.html">AddMultiValueAttributeMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">AddMultiValueAttributeMessageProcessor invokes the <code><a href="../java/org/mule/module/ldap/LDAPConnector.html#addMultiValueAttribute(java.lang.String, java.lang.String, java.util.List<java.lang.Object>)">addMultiValueAttribute(java.lang.String, java.lang.String, java.util.List)</a></code> method in <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/AddSingleValueAttributeDefinitionParser.html">AddSingleValueAttributeDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/AddSingleValueAttributeMessageProcessor.html">AddSingleValueAttributeMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">AddSingleValueAttributeMessageProcessor invokes the <code><a href="../java/org/mule/module/ldap/LDAPConnector.html#addSingleValueAttribute(java.lang.String, java.lang.String, java.lang.String)">addSingleValueAttribute(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/AuthenticationException.html">AuthenticationException</a></td>
+            <td class="jd-descrcol" width="100%">This class is the abstraction&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_B">B</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/BindDefinitionParser.html">BindDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/BindMessageProcessor.html">BindMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">BindMessageProcessor invokes the <code><a href="../java/org/mule/module/ldap/LDAPConnector.html#bind()">bind()</a></code> method in <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_C">C</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/CommunicationException.html">CommunicationException</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/ContextNotEmptyException.html">ContextNotEmptyException</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_D">D</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/agents/DefaultSplashScreenAgent.html">DefaultSplashScreenAgent</a></td>
+            <td class="jd-descrcol" width="100%">Agent implementation to add splash screen information for DevKit extensions at application startup
+ 
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/DeleteDefinitionParser.html">DeleteDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/DeleteMessageProcessor.html">DeleteMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">DeleteMessageProcessor invokes the <code><a href="../java/org/mule/module/ldap/LDAPConnector.html#delete(java.lang.String)">delete(java.lang.String)</a></code> method in <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/DeleteMultiValueAttributeDefinitionParser.html">DeleteMultiValueAttributeDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/DeleteMultiValueAttributeMessageProcessor.html">DeleteMultiValueAttributeMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">DeleteMultiValueAttributeMessageProcessor invokes the <code><a href="../java/org/mule/module/ldap/LDAPConnector.html#deleteMultiValueAttribute(java.lang.String, java.lang.String, java.util.List<java.lang.Object>)">deleteMultiValueAttribute(java.lang.String, java.lang.String, java.util.List)</a></code> method in <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/DeleteSingleValueAttributeDefinitionParser.html">DeleteSingleValueAttributeDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/DeleteSingleValueAttributeMessageProcessor.html">DeleteSingleValueAttributeMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">DeleteSingleValueAttributeMessageProcessor invokes the <code><a href="../java/org/mule/module/ldap/LDAPConnector.html#deleteSingleValueAttribute(java.lang.String, java.lang.String, java.lang.String)">deleteSingleValueAttribute(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_I">I</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
+            <td class="jd-descrcol" width="100%">This class is the abstraction&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/InvalidEntryException.html">InvalidEntryException</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_L">L</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPConnection.html">LDAPConnection</a></td>
+            <td class="jd-descrcol" width="100%">This class is the abstraction&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></td>
+            <td class="jd-descrcol" width="100%">The LDAP Connector will allow to connect to any LDAP server and perform every LDAP operation:
+ <ul>
+  <li><a href="#bind"><b>bind</b></a>: Authenticate against the LDAP server.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/adapters/LDAPConnectorCapabilitiesAdapter.html">LDAPConnectorCapabilitiesAdapter</a></td>
+            <td class="jd-descrcol" width="100%">A <code>LDAPConnectorCapabilitiesAdapter</code> is a wrapper around <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code> that implements org.mule.api.Capabilities interface.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/LDAPConnectorConfigDefinitionParser.html">LDAPConnectorConfigDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/connectivity/LDAPConnectorConnectionFactory.html">LDAPConnectorConnectionFactory</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/adapters/LDAPConnectorConnectionIdentifierAdapter.html">LDAPConnectorConnectionIdentifierAdapter</a></td>
+            <td class="jd-descrcol" width="100%">A <code>LDAPConnectorConnectionIdentifierAdapter</code> is a wrapper around <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code> that implements org.mule.api.Connection interface.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/connectivity/LDAPConnectorConnectionKey.html">LDAPConnectorConnectionKey</a></td>
+            <td class="jd-descrcol" width="100%">A tuple of connection parameters
+ 
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/connectivity/LDAPConnectorConnectionManager.html">LDAPConnectorConnectionManager</a></td>
+            <td class="jd-descrcol" width="100%">A <code>LDAPConnectorConnectionManager</code> is a wrapper around <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code> that adds connection management capabilities to the pojo.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/adapters/LDAPConnectorLifecycleAdapter.html">LDAPConnectorLifecycleAdapter</a></td>
+            <td class="jd-descrcol" width="100%">A <code>LDAPConnectorLifecycleAdapter</code> is a wrapper around <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code> that adds lifecycle methods to the pojo.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/adapters/LDAPConnectorMetadataAdapater.html">LDAPConnectorMetadataAdapater</a></td>
+            <td class="jd-descrcol" width="100%">A <code>LDAPConnectorMetadataAdapater</code> is a wrapper around <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code> that adds support for querying metadata about the extension.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/adapters/LDAPConnectorProcessAdapter.html">LDAPConnectorProcessAdapter</a></td>
+            <td class="jd-descrcol" width="100%">A <code>LDAPConnectorProcessAdapter</code> is a wrapper around <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code> that enables custom processing strategies.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></td>
+            <td class="jd-descrcol" width="100%">This class is the abstraction&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntryAttribute.html">LDAPEntryAttribute</a></td>
+            <td class="jd-descrcol" width="100%">This class is the abstraction&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntryAttributes.html">LDAPEntryAttributes</a></td>
+            <td class="jd-descrcol" width="100%">This class is the abstraction&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/holders/LDAPEntryExpressionHolder.html">LDAPEntryExpressionHolder</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/transformers/LDAPEntryExpressionHolderTransformer.html">LDAPEntryExpressionHolderTransformer</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/transformers/LdapEntryToLdifTransformer.html">LdapEntryToLdifTransformer</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/transformers/LdapEntryToMapTransformer.html">LdapEntryToMapTransformer</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td class="jd-descrcol" width="100%">This class is the abstraction&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/jndi/LDAPJNDIConnection.html">LDAPJNDIConnection</a></td>
+            <td class="jd-descrcol" width="100%">This class is the abstraction&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/jndi/LDAPJNDIUtils.html">LDAPJNDIUtils</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPMultiValueEntryAttribute.html">LDAPMultiValueEntryAttribute</a></td>
+            <td class="jd-descrcol" width="100%">This class is the abstraction&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/LdapNamespaceHandler.html">LdapNamespaceHandler</a></td>
+            <td class="jd-descrcol" width="100%">Registers bean definitions parsers for handling elements in <code>http://www.mulesoft.org/schema/mule/ldap</code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPResultSet.html">LDAPResultSet</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/jndi/LDAPResultSetFactory.html">LDAPResultSetFactory</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPSearchControls.html">LDAPSearchControls</a></td>
+            <td class="jd-descrcol" width="100%">This class is the abstraction&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPSingleValueEntryAttribute.html">LDAPSingleValueEntryAttribute</a></td>
+            <td class="jd-descrcol" width="100%">This class is the abstraction&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPUtils.html">LDAPUtils</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/LookupDefinitionParser.html">LookupDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/LookupMessageProcessor.html">LookupMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">LookupMessageProcessor invokes the <code><a href="../java/org/mule/module/ldap/LDAPConnector.html#lookup(java.lang.String, java.util.List<java.lang.String>)">lookup(java.lang.String, java.util.List)</a></code> method in <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_M">M</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/process/ManagedConnectionProcessInterceptor.html">ManagedConnectionProcessInterceptor</a>&lt;T&gt;</td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/connectivity/ManagedConnectionProcessTemplate.html">ManagedConnectionProcessTemplate</a>&lt;P&gt;</td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/transformers/MapToLdapEntryTransformer.html">MapToLdapEntryTransformer</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/ModifyDefinitionParser.html">ModifyDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/ModifyFromMapDefinitionParser.html">ModifyFromMapDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/ModifyFromMapMessageProcessor.html">ModifyFromMapMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">ModifyFromMapMessageProcessor invokes the <code><a href="../java/org/mule/module/ldap/LDAPConnector.html#modifyFromMap(java.lang.String, java.util.Map<java.lang.String, java.lang.Object>)">modifyFromMap(java.lang.String, java.util.Map)</a></code> method in <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/ModifyMessageProcessor.html">ModifyMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">ModifyMessageProcessor invokes the <code><a href="../java/org/mule/module/ldap/LDAPConnector.html#modify(org.mule.module.ldap.ldap.api.LDAPEntry)">modify(org.mule.module.ldap.ldap.api.LDAPEntry)</a></code> method in <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/ModifyMultiValueAttributeDefinitionParser.html">ModifyMultiValueAttributeDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/ModifyMultiValueAttributeMessageProcessor.html">ModifyMultiValueAttributeMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">ModifyMultiValueAttributeMessageProcessor invokes the <code><a href="../java/org/mule/module/ldap/LDAPConnector.html#modifyMultiValueAttribute(java.lang.String, java.lang.String, java.util.List<java.lang.Object>)">modifyMultiValueAttribute(java.lang.String, java.lang.String, java.util.List)</a></code> method in <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/ModifySingleValueAttributeDefinitionParser.html">ModifySingleValueAttributeDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/ModifySingleValueAttributeMessageProcessor.html">ModifySingleValueAttributeMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">ModifySingleValueAttributeMessageProcessor invokes the <code><a href="../java/org/mule/module/ldap/LDAPConnector.html#modifySingleValueAttribute(java.lang.String, java.lang.String, java.lang.String)">modifySingleValueAttribute(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_N">N</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/NameAlreadyBoundException.html">NameAlreadyBoundException</a></td>
+            <td class="jd-descrcol" width="100%">This class is the abstraction&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <td class="jd-descrcol" width="100%">This class is the abstraction&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/process/NestedProcessorChain.html">NestedProcessorChain</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td class="jd-descrcol" width="100%">This class is the abstraction&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_P">P</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/jndi/PagedLDAPResultSet.html">PagedLDAPResultSet</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/PagedResultSearchDefinitionParser.html">PagedResultSearchDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/PagedResultSearchMessageProcessor.html">PagedResultSearchMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">PagedResultSearchMessageProcessor invokes the <code><a href="../java/org/mule/module/ldap/LDAPConnector.html#pagedResultSearch(java.lang.String, java.lang.String, java.util.List<java.lang.String>, org.mule.module.ldap.SearchScope, int, long, boolean, int, int, org.mule.api.callback.SourceCallback)">pagedResultSearch(java.lang.String, java.lang.String, java.util.List, org.mule.module.ldap.SearchScope, int, long, boolean, int, int, org.mule.api.callback.SourceCallback)</a></code> method in <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/process/ProcessCallbackProcessInterceptor.html">ProcessCallbackProcessInterceptor</a>&lt;T,&nbsp;O&gt;</td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_R">R</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/Referral.html">Referral</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/transformers/ReferralEnumTransformer.html">ReferralEnumTransformer</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/RenameDefinitionParser.html">RenameDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/RenameMessageProcessor.html">RenameMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">RenameMessageProcessor invokes the <code><a href="../java/org/mule/module/ldap/LDAPConnector.html#rename(java.lang.String, java.lang.String)">rename(java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/process/RetryProcessInterceptor.html">RetryProcessInterceptor</a>&lt;T,&nbsp;O&gt;</td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_S">S</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/SearchDefinitionParser.html">SearchDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/SearchMessageProcessor.html">SearchMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">SearchMessageProcessor invokes the <code><a href="../java/org/mule/module/ldap/LDAPConnector.html#search(java.lang.String, java.lang.String, java.util.List<java.lang.String>, org.mule.module.ldap.SearchScope, int, long, boolean, int)">search(java.lang.String, java.lang.String, java.util.List, org.mule.module.ldap.SearchScope, int, long, boolean, int)</a></code> method in <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/config/SearchOneDefinitionParser.html">SearchOneDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/processors/SearchOneMessageProcessor.html">SearchOneMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">SearchOneMessageProcessor invokes the <code><a href="../java/org/mule/module/ldap/LDAPConnector.html#searchOne(java.lang.String, java.lang.String, java.util.List<java.lang.String>, org.mule.module.ldap.SearchScope, int, long, boolean)">searchOne(java.lang.String, java.lang.String, java.util.List, org.mule.module.ldap.SearchScope, int, long, boolean)</a></code> method in <code><a href="../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/SearchScope.html">SearchScope</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/transformers/SearchScopeEnumTransformer.html">SearchScopeEnumTransformer</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/ldap/api/jndi/SimpleLDAPResultSet.html">SimpleLDAPResultSet</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_T">T</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/Type.html">Type</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/module/ldap/transformers/TypeEnumTransformer.html">TypeEnumTransformer</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<div id="footer">
+Generated by <a href="http://www.mulesoft.com/devkit">Mule DevKit</a>. Document generation technology based on <a href="http://code.google.com/p/doclava/">Google's Doclava</a>.
+</div> <!-- end footer -->
+
+</div><!-- end jd-content -->
+</div><!-- end doc-content -->
+
+</div> <!-- end body-content --> 
+
+<script type="text/javascript">
+init(); /* initialize mule-developer-docs.js */
+</script>
+
+</body>
+</html>

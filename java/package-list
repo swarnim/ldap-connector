@@ -1,0 +1,13 @@
+org.mule.module.ldap
+org.mule.module.ldap.adapters
+org.mule.module.ldap.agents
+org.mule.module.ldap.config
+org.mule.module.ldap.connectivity
+org.mule.module.ldap.ldap.api
+org.mule.module.ldap.ldap.api.holders
+org.mule.module.ldap.ldap.api.jndi
+org.mule.module.ldap.ldap.api.transformers
+org.mule.module.ldap.process
+org.mule.module.ldap.processors
+org.mule.module.ldap.transformers
+
