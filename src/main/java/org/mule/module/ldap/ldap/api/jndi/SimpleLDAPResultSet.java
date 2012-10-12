@@ -57,7 +57,7 @@ public class SimpleLDAPResultSet implements LDAPResultSet
         }
         catch(SizeLimitExceededException slee)
         {
-            logger.info("Size limit exceeded. Max results is: " + this.controls.getMaxResults(), slee);
+            logger.warn("Size limit exceeded. Max results is: " + this.controls.getMaxResults(), slee);
             return false;
         }
         catch(NamingException nex)
