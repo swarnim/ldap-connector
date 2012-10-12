@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Mule Development Kit
+    Copyright 2010-2011 (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:spring="http://www.springframework.org/schema/beans"
+      xmlns:ldap="http://www.mulesoft.org/schema/mule/ldap"
+      xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/ldap http://www.mulesoft.org/schema/mule/ldap/current/mule-ldap.xsd">
+
+	<spring:bean name="extConfig" class="java.util.HashMap">
+		<spring:constructor-arg>
+			<spring:map>
+				<spring:entry key="java.naming.ldap.derefAliases" value="never"/>
+				<spring:entry key="java.naming.provider.url" value="ldap://invalidhost:1000"/>
+			</spring:map>
+		</spring:constructor-arg>
+	</spring:bean>
+	
+	<ldap:config name="simpleConf" url="ldap://localhost:10389/" authDn="uid=admin,ou=people,dc=mulesoft,dc=org" authPassword="admin"/>
+	
+	<ldap:config name="anonymousConf" url="ldap://localhost:10389/" authentication="none" authDn="ANONYMOUS"/>
+
+    <ldap:config name="embeddedExtendedConfig" url="ldap://localhost:10389/" authDn="uid=admin,ou=people,dc=mulesoft,dc=org" authPassword="admin">
+        <ldap:extended-configuration>
+            <ldap:extended-configuration key="java.naming.ldap.derefAliases">never</ldap:extended-configuration>
+            <ldap:extended-configuration key="java.naming.provider.url">ldap://invalidhost:1000</ldap:extended-configuration>
+        </ldap:extended-configuration>
+    </ldap:config>
+
+    <ldap:config name="refExtendedConfig" url="ldap://localhost:10389/" authDn="uid=admin,ou=people,dc=mulesoft,dc=org" authPassword="admin" extendedConfiguration-ref="extConfig"/>
+
+    <ldap:config name="completeConfig" url="ldap://localhost:10389/" authDn="uid=admin,ou=people,dc=mulesoft,dc=org" authPassword="admin" authentication="simple" initialPoolSize="10" maxPoolSize="20" poolTimeout="50000" referral="FOLLOW"/>
+    
+</mule>
