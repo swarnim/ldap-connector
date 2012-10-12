@@ -685,7 +685,7 @@ search result into pages (individual entry if resultPageSize is 1) or lists of s
 &amp;lt;p/&amp;gt;
 For queries returning large results it is recommended to use pagination (not all LDAP servers support this or are configured to support it).
 For that you need to provide a page size value that should be less or equal than max results (count limit). If you are getting a
-Sizelimit Exceeded exception then you should check that the authenticated user has enough privileges or the LDAP server is not
+Size Limit Exceeded exception message then you should check that the authenticated user has enough privileges or the LDAP server is not
 limited by configuration.
 &amp;lt;p/&amp;gt;
 
@@ -1686,6 +1686,25 @@ not present in the entry are ignored. If no values are specified, then the whole
   &lt;xs:element xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;map-to-ldap-entry&quot; substitutionGroup=&quot;mule:abstract-transformer&quot; type=&quot;mule:abstractTransformerType&quot;&gt;&lt;/xs:element&gt;
   &lt;xs:element xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;ldap-entry-to-map&quot; substitutionGroup=&quot;mule:abstract-transformer&quot; type=&quot;mule:abstractTransformerType&quot;&gt;&lt;/xs:element&gt;
   &lt;xs:element xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;ldap-entry-to-ldif&quot; substitutionGroup=&quot;mule:abstract-transformer&quot; type=&quot;mule:abstractTransformerType&quot;&gt;&lt;/xs:element&gt;
+  &lt;xs:simpleType name=&quot;TypeEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;JNDI&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
   &lt;xs:simpleType name=&quot;SearchScopeEnumType&quot;&gt;
     &lt;xs:annotation&gt;
       &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
@@ -1733,25 +1752,6 @@ not present in the entry are ignored. If no values are specified, then the whole
             &lt;/xs:annotation&gt;
           &lt;/xs:enumeration&gt;
           &lt;xs:enumeration value=&quot;FOLLOW&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-        &lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-    &lt;/xs:union&gt;
-  &lt;/xs:simpleType&gt;
-  &lt;xs:simpleType name=&quot;TypeEnumType&quot;&gt;
-    &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-    &lt;/xs:annotation&gt;
-    &lt;xs:union&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
-          &lt;xs:enumeration value=&quot;JNDI&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;

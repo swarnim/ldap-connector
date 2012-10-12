@@ -1267,7 +1267,7 @@ Summary:
             
             
             
-            void</nobr>
+            List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#pagedResultSearch(java.lang.String, java.lang.String, java.util.List<java.lang.String>, org.mule.module.ldap.SearchScope, int, long, boolean, int, int, org.mule.api.callback.SourceCallback)">pagedResultSearch</a></span>(String baseDn, String filter, List&lt;String&gt; attributes, <a href="../../../../../java/org/mule/module/ldap/SearchScope.html">SearchScope</a> scope, int timeout, long maxResults, boolean returnObject, int pageSize, int resultPageSize, SourceCallback callback)</nobr>
@@ -3705,7 +3705,7 @@ From class
          
          
          
-        void
+        List&lt;Object&gt;
       </span>
       <span class="sympad">pagedResultSearch</span>
       <span class="normal">(String baseDn, String filter, List&lt;String&gt; attributes, <a href="../../../../../java/org/mule/module/ldap/SearchScope.html">SearchScope</a> scope, int timeout, long maxResults, boolean returnObject, int pageSize, int resultPageSize, SourceCallback callback)</span>
@@ -3725,7 +3725,7 @@ From class
  <p/>
  For queries returning large results it is recommended to use pagination (not all LDAP servers support this or are configured to support it).
  For that you need to provide a page size value that should be less or equal than max results (count limit). If you are getting a
- Sizelimit Exceeded exception then you should check that the authenticated user has enough privileges or the LDAP server is not
+ Size Limit Exceeded exception message then you should check that the authenticated user has enough privileges or the LDAP server is not
  limited by configuration.
  <p/>
  
@@ -3793,6 +3793,10 @@ From class
           <td>Used to stream results</td>
         </tr>
       </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>A list with individual results of executing the rest of flow with each results page.</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
