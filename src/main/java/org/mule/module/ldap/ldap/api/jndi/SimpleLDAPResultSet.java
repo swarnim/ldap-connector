@@ -16,9 +16,12 @@ import java.util.NoSuchElementException;
 
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
+import javax.naming.SizeLimitExceededException;
 import javax.naming.directory.SearchResult;
 import javax.naming.ldap.LdapContext;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.mule.module.ldap.ldap.api.LDAPEntry;
 import org.mule.module.ldap.ldap.api.LDAPException;
 import org.mule.module.ldap.ldap.api.LDAPResultSet;
@@ -26,8 +29,11 @@ import org.mule.module.ldap.ldap.api.LDAPSearchControls;
 
 public class SimpleLDAPResultSet implements LDAPResultSet
 {
+    protected final Log logger = LogFactory.getLog(getClass());
+
     private NamingEnumeration<SearchResult> entries = null;
     private String baseDn = null;
+    private LDAPSearchControls controls = null;
     
     /**
      * 
@@ -36,6 +42,7 @@ public class SimpleLDAPResultSet implements LDAPResultSet
     {
         this.entries = entries;
         this.baseDn = baseDn;
+        this.controls = controls;
     }
 
     /**
@@ -49,6 +56,11 @@ public class SimpleLDAPResultSet implements LDAPResultSet
         try
         {
             return this.entries != null ? this.entries.hasMore() : false;
+        }
+        catch(SizeLimitExceededException slee)
+        {
+            logger.info("Size limit exceeded. Max results is: " + this.controls.getMaxResults(), slee);
+            return false;
         }
         catch(NamingException nex)
         {

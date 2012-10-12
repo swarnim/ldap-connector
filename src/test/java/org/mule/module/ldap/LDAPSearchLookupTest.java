@@ -13,8 +13,9 @@ package org.mule.module.ldap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -63,10 +64,32 @@ public class LDAPSearchLookupTest extends AbstractLDAPConnectorTest
     }    
     
     @Test
+    public void testSearchMaxResults() throws Exception
+    {
+        @SuppressWarnings("unchecked")
+        List<LDAPEntry> result = (List<LDAPEntry>) runFlow("testSearchMaxResultsFlow", "2");
+        
+        assertEquals(2, result.size());
+    }
+    
+    @Test
     public void testPagedResultSearch() throws Exception
     {
-        Object o = runFlow("testPagedResultSearchFlow", "(uid=user*)");
-        o.toString();
+        @SuppressWarnings("unchecked")
+        List<Object> result = (List<Object>) runFlow("testPagedResultSearchFlow", "(uid=user*)");
+        List<String> cns = new ArrayList<String>();
+        cns.add("User One");
+        cns.add("User Two");
+        cns.add("User Three");
+        cns.add("User Four");
+        cns.add("User Five");
+
+        assertEquals(5, result.size());
+
+        for(Object o : result)
+        {
+            assertTrue(cns.contains(o));
+        }
     }
 }
 

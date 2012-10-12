@@ -16,11 +16,14 @@ import java.util.NoSuchElementException;
 
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
+import javax.naming.SizeLimitExceededException;
 import javax.naming.directory.SearchResult;
 import javax.naming.ldap.Control;
 import javax.naming.ldap.LdapContext;
 import javax.naming.ldap.PagedResultsResponseControl;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.mule.module.ldap.ldap.api.LDAPEntry;
 import org.mule.module.ldap.ldap.api.LDAPException;
 import org.mule.module.ldap.ldap.api.LDAPResultSet;
@@ -28,6 +31,8 @@ import org.mule.module.ldap.ldap.api.LDAPSearchControls;
 
 public class PagedLDAPResultSet implements LDAPResultSet
 {
+    protected final Log logger = LogFactory.getLog(getClass());
+
     private String baseDn;
     private String filter;
     private Object[] filterArgs;
@@ -202,6 +207,11 @@ public class PagedLDAPResultSet implements LDAPResultSet
             {
                 return false;
             }
+        }
+        catch(SizeLimitExceededException slee)
+        {
+            logger.info("Size limit exceeded. Max results is: " + this.controls.getMaxResults(), slee);
+            return false;
         }
         catch(NamingException nex)
         {

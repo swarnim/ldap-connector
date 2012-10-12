@@ -22,6 +22,7 @@ import org.mule.api.annotations.Connect;
 import org.mule.api.annotations.ConnectionIdentifier;
 import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Disconnect;
+import org.mule.api.annotations.InvalidateConnectionOn;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.Transformer;
 import org.mule.api.annotations.ValidateConnection;
@@ -395,6 +396,7 @@ public class LDAPConnector
      *  
      */
     @Processor
+    @InvalidateConnectionOn(exception = CommunicationException.class)
     public LDAPEntry bind() throws Exception
     {
         /*
@@ -461,6 +463,7 @@ public class LDAPConnector
      * @throws Exception In case there is any other error performing the search.
      */
     @Processor
+    @InvalidateConnectionOn(exception = CommunicationException.class)
     public LDAPEntry lookup(@FriendlyName("DN") String dn, @Optional List<String> attributes) throws Exception
     {
         if(LOGGER.isDebugEnabled())
@@ -534,6 +537,7 @@ public class LDAPConnector
      * @throws Exception In case there is any other error performing the search.
      */
     @Processor
+    @InvalidateConnectionOn(exception = CommunicationException.class)
     public List<LDAPEntry> search(@FriendlyName("Base DN") String baseDn, String filter, @Optional List<String> attributes, @Optional @Default("ONE_LEVEL") SearchScope scope, @Optional @Default("0") @Placement(group = "Search Controls") int timeout, @Optional @Default("0") @Placement(group = "Search Controls") long maxResults, @Optional @Default("false") @Placement(group = "Search Controls") boolean returnObject, @Optional @Default("0") @Placement(group = "Search Controls") int pageSize) throws Exception
     {
         LDAPResultSet result = null;
@@ -616,16 +620,18 @@ public class LDAPConnector
      * @param pageSize If the LDAP server supports paging results set in this attribute the size of the page. If the pageSize is less or equals than 0, then paging will be disabled.
      * @param resultPageSize The size of the list this operation streams. If this value is less than 1, then it will be considered that the page size is 1.
      * @param callback Used to stream results
-     * 
+     * @return A list with individual results of executing the rest of flow with each results page.
      * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to perform the search under the given base DN.
      * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If base DN is invalid (for example it doesn't exist)
      * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error performing the search.
      */
     @Processor(intercepting=true)
-    public void pagedResultSearch(@FriendlyName("Base DN") String baseDn, String filter, @Optional List<String> attributes, @Optional @Default("ONE_LEVEL") SearchScope scope, @Optional @Default("0") @Placement(group = "Search Controls") int timeout, @Optional @Default("0") @Placement(group = "Search Controls") long maxResults, @Optional @Default("false") @Placement(group = "Search Controls") boolean returnObject, @Optional @Default("0") @Placement(group = "Search Controls") int pageSize, @Optional @Default("1") int resultPageSize, SourceCallback callback) throws Exception
+    @InvalidateConnectionOn(exception = CommunicationException.class)
+    public List<Object> pagedResultSearch(@FriendlyName("Base DN") String baseDn, String filter, @Optional List<String> attributes, @Optional @Default("ONE_LEVEL") SearchScope scope, @Optional @Default("0") @Placement(group = "Search Controls") int timeout, @Optional @Default("0") @Placement(group = "Search Controls") long maxResults, @Optional @Default("false") @Placement(group = "Search Controls") boolean returnObject, @Optional @Default("0") @Placement(group = "Search Controls") int pageSize, @Optional @Default("1") int resultPageSize, SourceCallback callback) throws Exception
     {
         LDAPResultSet result = null;
+        List<Object> flowResults = new ArrayList<Object>();
         try
         {
             resultPageSize = resultPageSize < 1 ? 1 : resultPageSize;
@@ -650,6 +656,7 @@ public class LDAPConnector
             
             LDAPEntry anEntry = null;
             int entryCount = 0, pageCount = 0;
+            Object flowResult;
             
             if(resultPageSize == 1)
             {
@@ -663,7 +670,12 @@ public class LDAPConnector
                         LOGGER.debug("Entry " + entryCount + " -> " + anEntry);
                     }
                     
-                    callback.process(anEntry);
+                    flowResult = callback.process(anEntry);
+                    
+                    if(flowResult != null)
+                    {
+                        flowResults.add(flowResult);
+                    }
                     
                     if(LOGGER.isDebugEnabled())
                     {
@@ -697,7 +709,12 @@ public class LDAPConnector
                         LOGGER.debug("Page " + pageCount + " -> " + page);
                     }
                     
-                    callback.process(page);
+                    flowResult = callback.process(page);
+                    
+                    if(flowResult != null)
+                    {
+                        flowResults.add(flowResult);
+                    }
                     
                     if(LOGGER.isDebugEnabled())
                     {
@@ -705,6 +722,7 @@ public class LDAPConnector
                     }
                 }
             }
+            return flowResults;
         }
         finally
         {
@@ -753,6 +771,7 @@ public class LDAPConnector
      * @throws Exception In case there is any other error performing the search.
      */
     @Processor
+    @InvalidateConnectionOn(exception = CommunicationException.class)
     public LDAPEntry searchOne(@FriendlyName("Base DN") String baseDn, String filter, @Optional List<String> attributes, @Optional @Default("ONE_LEVEL") SearchScope scope, @Optional @Default("0") @Placement(group = "Search Controls") int timeout, @Optional @Default("0") @Placement(group = "Search Controls") long maxResults, @Optional @Default("false") @Placement(group = "Search Controls") boolean returnObject) throws Exception
     {
         if(LOGGER.isDebugEnabled())
@@ -922,6 +941,7 @@ public class LDAPConnector
      * @throws Exception In case there is any other error updating the entry.
      */
     @Processor
+    @InvalidateConnectionOn(exception = CommunicationException.class)
     public void modify(@Optional @Default("#[payload:]") LDAPEntry entry) throws Exception
     {
         if(LOGGER.isDebugEnabled())
@@ -1008,6 +1028,7 @@ public class LDAPConnector
      * @throws Exception In case there is any other error updating the entry (for example if the DN is not passed as an argument nor in the entry map).
      */
     @Processor
+    @InvalidateConnectionOn(exception = CommunicationException.class)
     public void modifyFromMap(@Optional @FriendlyName("DN") String dn, @Optional @Default("#[payload:]") Map<String, Object> entry) throws Exception
     {
         // Need to remove the DN from the map, so that it only contains attributes
@@ -1052,6 +1073,7 @@ public class LDAPConnector
      * @throws Exception In case there is any other error deleting the entry.
      */
     @Processor
+    @InvalidateConnectionOn(exception = CommunicationException.class)
     public void delete(@Optional @Default("#[payload:]") @FriendlyName("DN") String dn) throws Exception
     {
         if(LOGGER.isDebugEnabled())
@@ -1079,6 +1101,7 @@ public class LDAPConnector
      * @throws Exception In case there is any other error deleting the entry.
      */
     @Processor
+    @InvalidateConnectionOn(exception = CommunicationException.class)
     public void rename(@Placement(order = 1) @FriendlyName("Current DN") String oldDn, @Placement(order = 2) @FriendlyName("New DN") String newDn) throws Exception
     {
         if(LOGGER.isDebugEnabled())
@@ -1179,6 +1202,7 @@ public class LDAPConnector
      * @throws Exception In case there is any other error updating the entry.
      */
     @Processor
+    @InvalidateConnectionOn(exception = CommunicationException.class)
     public void modifySingleValueAttribute(@FriendlyName("DN") String dn, String attributeName, String attributeValue) throws Exception
     {
         if(LOGGER.isDebugEnabled())
@@ -1209,6 +1233,7 @@ public class LDAPConnector
      * @throws Exception In case there is any other error updating the entry.
      */
     @Processor
+    @InvalidateConnectionOn(exception = CommunicationException.class)
     public void modifyMultiValueAttribute(@FriendlyName("DN") String dn, String attributeName, List<Object> attributeValues) throws Exception
     {
         if(LOGGER.isDebugEnabled())
@@ -1242,6 +1267,7 @@ public class LDAPConnector
      * @throws Exception In case there is any other error updating the entry.
      */
     @Processor
+    @InvalidateConnectionOn(exception = CommunicationException.class)
     public void deleteSingleValueAttribute(@FriendlyName("DN") String dn, String attributeName, @Optional String attributeValue) throws Exception
     {
         if(LOGGER.isDebugEnabled())
@@ -1273,6 +1299,7 @@ public class LDAPConnector
      * @throws Exception In case there is any other error updating the entry.
      */
     @Processor
+    @InvalidateConnectionOn(exception = CommunicationException.class)
     public void deleteMultiValueAttribute(@FriendlyName("DN") String dn, String attributeName, @Optional List<Object> attributeValues) throws Exception
     {
         if(LOGGER.isDebugEnabled())

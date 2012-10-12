@@ -52,7 +52,7 @@
 	</flow>
 
     <flow name="testSearchMaxResultsFlow">
-    	<ldap:search config-ref="adminConf" baseDn="dc=mulesoft,dc=org" filter="(uid=user*)" maxResults="#[payload:]"  scope="SUB_TREE" />
+    	<ldap:search config-ref="adminConf" baseDn="dc=mulesoft,dc=org" filter="(uid=user*)" maxResults="#[payload:]"  scope="SUB_TREE"/>
 	</flow>
 
     <flow name="testSearchFlow">
@@ -65,7 +65,7 @@
 	
     <flow name="testPagedResultSearchFlow">
     	<ldap:paged-result-search config-ref="adminConf" baseDn="ou=people,dc=mulesoft,dc=org" filter="#[payload:]" scope="SUB_TREE" />
-    	<logger message="#[payload:]" level="ERROR"/>
+    	<set-payload value="#[payload.getAttribute('cn').getValue()]" />
 	</flow>
 	
 	<!--     
