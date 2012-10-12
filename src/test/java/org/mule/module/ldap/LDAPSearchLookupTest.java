@@ -89,6 +89,16 @@ public class LDAPSearchLookupTest extends AbstractLDAPConnectorTest
             assertTrue(cns.contains(o));
         }
     }
+    
+    @Test
+    public void testPagedResultSearchAsync() throws Exception
+    {
+        @SuppressWarnings("unchecked")
+        List<Object> result = (List<Object>) runFlow("testPagedResultSearchAsyncFlow", "(uid=user*)");
+
+        //assertEquals(0, result.size());
+    }
+    
 }
 
 

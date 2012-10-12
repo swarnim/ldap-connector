@@ -67,7 +67,14 @@
     	<ldap:paged-result-search config-ref="adminConf" baseDn="ou=people,dc=mulesoft,dc=org" filter="#[payload:]" scope="SUB_TREE" />
     	<set-payload value="#[payload.getAttribute('cn').getValue()]" />
 	</flow>
-	
+
+    <flow name="testPagedResultSearchAsyncFlow">
+    	<ldap:paged-result-search config-ref="adminConf" baseDn="ou=people,dc=mulesoft,dc=org" filter="#[payload:]" scope="SUB_TREE" />
+        <async>
+            <set-payload value="#[payload.getAttribute('cn').getValue()]" />
+        </async>	
+	</flow>
+
 	<!--     
     <flow name="lookup">
 	    <ldap:lookup dn="#[header:dn]">

@@ -584,7 +584,7 @@ public class LDAPConnector
      * <p/>
      * For queries returning large results it is recommended to use pagination (not all LDAP servers support this or are configured to support it).
      * For that you need to provide a page size value that should be less or equal than max results (count limit). If you are getting a
-     * Sizelimit Exceeded exception then you should check that the authenticated user has enough privileges or the LDAP server is not
+     * Size Limit Exceeded exception message then you should check that the authenticated user has enough privileges or the LDAP server is not
      * limited by configuration.
      * <p/>
      * 
