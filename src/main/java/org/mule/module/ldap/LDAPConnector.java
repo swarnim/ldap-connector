@@ -350,10 +350,10 @@ public class LDAPConnector
         {
             return this.connection != null && !this.connection.isClosed();
         }
-        catch (LDAPException ex)
+        catch (Exception ex)
         {
             LOGGER.error("Unable to validate LDAP connection", ex);
-            throw ex;
+            return false;
         }        
     }
 
