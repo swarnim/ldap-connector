@@ -227,10 +227,9 @@ public class LDAPJNDIConnection extends LDAPConnection
 
     /**
      * @return
-     * @throws LDAPException
      * @see org.mule.module.ldap.ldap.api.LDAPConnection#isClosed()
      */
-    public boolean isClosed() throws LDAPException
+    public boolean isClosed()
     {
         return getConn() == null;
     }

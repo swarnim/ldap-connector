@@ -315,10 +315,9 @@ public class LDAPConnector
 
     /**
      * Disconnect the current connection
-     * @throws LDAPException In case there is any problem closing the connection to the LDAP server.
      */
     @Disconnect
-    public void disconnect() throws LDAPException
+    public void disconnect()
     {
         if (this.connection != null)
         {
@@ -328,8 +327,7 @@ public class LDAPConnector
             }
             catch (LDAPException ex)
             {
-                LOGGER.error("Unable to close connection to LDAP", ex);
-                throw ex;
+                LOGGER.error("Unable to close connection to LDAP. Forcing close anyway.", ex);
             }
             finally
             {
@@ -344,7 +342,7 @@ public class LDAPConnector
      * @return boolean <i>true</i> if the connection is still valid or <i>false</i> otherwise.
      */
     @ValidateConnection
-    public boolean isConnected() throws LDAPException
+    public boolean isConnected()
     {
         try
         {
@@ -352,7 +350,7 @@ public class LDAPConnector
         }
         catch (Exception ex)
         {
-            LOGGER.error("Unable to validate LDAP connection", ex);
+            LOGGER.error("Unable to validate LDAP connection. Returning that LDAP is not connected.", ex);
             return false;
         }        
     }
