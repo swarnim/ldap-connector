@@ -31,10 +31,6 @@ import java.util.Map;
 public class LDAPEntry implements Serializable
 {
     public static final String MAP_DN_KEY = "dn";
-    
-    /**
-	 * 
-	 */
     private static final long serialVersionUID = 194192089581212405L;
 
     private String dn = null;

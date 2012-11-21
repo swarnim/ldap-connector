@@ -19,6 +19,7 @@ import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Connect;
 import org.mule.api.annotations.ConnectionIdentifier;
+import org.mule.api.annotations.ConnectivityTesting;
 import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Disconnect;
 import org.mule.api.annotations.InvalidateConnectionOn;
@@ -26,6 +27,7 @@ import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.Transformer;
 import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.display.FriendlyName;
+import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
@@ -258,7 +260,7 @@ public class LDAPConnector
      * @throws ConnectionException Holding one of the possible values in {@link ConnectionExceptionCode}.
      */
     @Connect
-    public void connect(@ConnectionKey @FriendlyName("Principal DN") String authDn, @Optional @FriendlyName("Password") String authPassword, @Optional String authentication) throws ConnectionException
+    public void connect(@ConnectionKey @FriendlyName("Principal DN") String authDn, @Optional @FriendlyName("Password") @Password String authPassword, @Optional String authentication) throws ConnectionException
     {
         
         authentication = authentication == null ? LDAPConnection.SIMPLE_AUTHENTICATION : authentication;
@@ -418,7 +420,15 @@ public class LDAPConnector
                 LOGGER.debug("About to retrieve authenticated user entry for: " + dn);
             }
             
-            entry = this.connection.lookup(dn);
+            try
+            {
+                entry = this.connection.lookup(dn);
+            }
+            catch(LDAPException ex)
+            {
+                // In some cases like Active Directory the DN will be an email address: username@domain
+                LOGGER.warn("Cannot retrieve entry for dn: " + dn, ex);
+            }
 
             if(LOGGER.isDebugEnabled())
             {
@@ -1461,5 +1471,4 @@ public class LDAPConnector
     {
         this.extendedConfiguration = extendedConfiguration;
     }
-
 }
