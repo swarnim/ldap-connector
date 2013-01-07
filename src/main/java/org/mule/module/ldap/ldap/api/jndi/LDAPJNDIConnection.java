@@ -17,6 +17,7 @@
 
 package org.mule.module.ldap.ldap.api.jndi;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
@@ -75,7 +76,8 @@ public class LDAPJNDIConnection extends LDAPConnection
     private String authentication = NO_AUTHENTICATION;
     private String initialContextFactory = DEFAULT_INITIAL_CONTEXT_FACTORY;
     private String referral = DEFAULT_REFERRAL;
-    
+    private Map<String, String> extendedEnvironment = null;
+        
     private LdapContext conn = null;
 
     /**
@@ -152,13 +154,30 @@ public class LDAPJNDIConnection extends LDAPConnection
     {
         if (conf != null)
         {
+            extendedEnvironment = new HashMap<String, String>(conf);
+            extendedEnvironment.remove(CONNECTION_TYPE_ATTR);
+            
             setAuthentication(getConfValue(conf, AUTHENTICATION_ATTR, NO_AUTHENTICATION));
+            extendedEnvironment.remove(AUTHENTICATION_ATTR);
+            
             setInitialContextFactory(getConfValue(conf, INITIAL_CONTEXT_FACTORY_ATTR, DEFAULT_INITIAL_CONTEXT_FACTORY));
+            extendedEnvironment.remove(INITIAL_CONTEXT_FACTORY_ATTR);
+            
             setInitialPoolSizeConnections(getConfValue(conf, INITIAL_POOL_CONNECTIONS_ATTR, DEFAULT_INITIAL_POOL_CONNECTIONS));
+            extendedEnvironment.remove(INITIAL_POOL_CONNECTIONS_ATTR);
+
             setMaxPoolConnections(getConfValue(conf, MAX_POOL_CONNECTIONS_ATTR, DEFAULT_MAX_POOL_CONNECTIONS));
+            extendedEnvironment.remove(MAX_POOL_CONNECTIONS_ATTR);
+
             setPoolTimeout(getConfValue(conf, POOL_TIMEOUT_ATTR, DEFAULT_POOL_TIMEOUT));
+            extendedEnvironment.remove(POOL_TIMEOUT_ATTR);
+            
             setProviderUrl(getConfValue(conf, LDAP_URL_ATTR, null));
+            extendedEnvironment.remove(LDAP_URL_ATTR);
+            
             setReferral(getConfValue(conf, REFERRAL_ATTR, DEFAULT_REFERRAL));
+            extendedEnvironment.remove(REFERRAL_ATTR);
+            
         }
     }
 
@@ -212,6 +231,10 @@ public class LDAPJNDIConnection extends LDAPConnection
         else
         {
             conf.append("pool: disabled");
+        }
+        if(extendedEnvironment != null && extendedEnvironment.size() > 0)
+        {
+            conf.append(", extended: " + extendedEnvironment);
         }
         conf.append("}");
         logger.debug(conf.toString());
@@ -301,6 +324,12 @@ public class LDAPJNDIConnection extends LDAPConnection
         {
             env.put(POOL_ENABLED_ENV_PARAM, "false");
         }
+        
+        if(extendedEnvironment != null && extendedEnvironment.size() > 0)
+        {
+            env.putAll(extendedEnvironment);
+        }
+        
         return env;
 
     }
