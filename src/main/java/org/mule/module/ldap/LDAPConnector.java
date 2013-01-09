@@ -805,6 +805,7 @@ public class LDAPConnector
      * @throws Exception In case there is any other error creating the entry.
      */
     @Processor
+    @InvalidateConnectionOn(exception = CommunicationException.class)
     public void add(@Optional @Default("#[payload:]") LDAPEntry entry) throws Exception
     {
         if(LOGGER.isDebugEnabled())
@@ -858,7 +859,7 @@ public class LDAPConnector
     public void addFromMap(@Optional @FriendlyName("DN") String dn, @Optional @Default("#[payload:]") Map<String, Object> entry) throws Exception
     {
         // Need to remove the DN from the map, so that it only contains attributes
-        String entryDn = (String) entry.remove(LDAPEntry.MAP_DN_KEY);;
+        String entryDn = (String) entry.remove(LDAPEntry.MAP_DN_KEY);
         
         if(!StringUtils.isBlank(dn))
         {
@@ -868,6 +869,8 @@ public class LDAPConnector
         {
             LOGGER.debug("DN is blank. Retrieved DN from entry map (key = " + LDAPEntry.MAP_DN_KEY + "): " + entryDn);
         }
+        
+        LOGGER.info ( "The dn is \"" + entryDn + "\"" );
 
         if(LOGGER.isDebugEnabled())
         {
