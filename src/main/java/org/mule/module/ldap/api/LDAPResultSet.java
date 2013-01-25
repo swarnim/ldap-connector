@@ -6,7 +6,7 @@
  * LICENSE.md file.
  */
 
-package org.mule.module.ldap.ldap.api;
+package org.mule.module.ldap.api;
 
 import java.util.List;
 

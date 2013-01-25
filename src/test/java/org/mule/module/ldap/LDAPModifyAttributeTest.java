@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.mule.module.ldap.ldap.api.LDAPEntry;
-import org.mule.module.ldap.ldap.api.NameNotFoundException;
+import org.mule.module.ldap.api.LDAPEntry;
+import org.mule.module.ldap.api.NameNotFoundException;
 
 public class LDAPModifyAttributeTest extends AbstractLDAPConnectorTest
 {

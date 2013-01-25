@@ -31,17 +31,17 @@ import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.callback.SourceCallback;
-import org.mule.module.ldap.ldap.api.AuthenticationException;
-import org.mule.module.ldap.ldap.api.CommunicationException;
-import org.mule.module.ldap.ldap.api.ContextNotEmptyException;
-import org.mule.module.ldap.ldap.api.LDAPConnection;
-import org.mule.module.ldap.ldap.api.LDAPEntry;
-import org.mule.module.ldap.ldap.api.LDAPException;
-import org.mule.module.ldap.ldap.api.LDAPMultiValueEntryAttribute;
-import org.mule.module.ldap.ldap.api.LDAPResultSet;
-import org.mule.module.ldap.ldap.api.LDAPSearchControls;
-import org.mule.module.ldap.ldap.api.LDAPSingleValueEntryAttribute;
-import org.mule.module.ldap.ldap.api.NameNotFoundException;
+import org.mule.module.ldap.api.AuthenticationException;
+import org.mule.module.ldap.api.CommunicationException;
+import org.mule.module.ldap.api.ContextNotEmptyException;
+import org.mule.module.ldap.api.LDAPConnection;
+import org.mule.module.ldap.api.LDAPEntry;
+import org.mule.module.ldap.api.LDAPException;
+import org.mule.module.ldap.api.LDAPMultiValueEntryAttribute;
+import org.mule.module.ldap.api.LDAPResultSet;
+import org.mule.module.ldap.api.LDAPSearchControls;
+import org.mule.module.ldap.api.LDAPSingleValueEntryAttribute;
+import org.mule.module.ldap.api.NameNotFoundException;
 import org.mule.util.StringUtils;
 
 /**
@@ -386,9 +386,9 @@ public class LDAPConnector
      * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:bind-4}
      * 
      * @return The {@link LDAPEntry} of the authenticated user.
-     * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to perform the lookup for its own LDAP entry.
-     * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If base DN is invalid (for example it doesn't exist)
-     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to perform the lookup for its own LDAP entry.
+     * @throws org.mule.module.ldap.api.NameNotFoundException If base DN is invalid (for example it doesn't exist)
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error performing the login and posterior lookup.
      *  
      */
@@ -454,10 +454,10 @@ public class LDAPConnector
      * @param attributes A list of the attributes that should be returned in the result. If the attributes list is empty or null, then by default all
      *        LDAP entry attributes are returned.
      * @return The {@link LDAPEntry} for the given <code>dn</code> parameter.
-     * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to perform the lookup for the given DN.
-     * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If base DN is invalid (for example it doesn't exist)
-     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
-     * @throws Exception In case there is any other error performing the search.
+     * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to perform the lookup for the given DN.
+     * @throws org.mule.module.ldap.api.NameNotFoundException If base DN is invalid (for example it doesn't exist)
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws Exception In case there is any other error performing the lookup.
      */
     @Processor
     @InvalidateConnectionOn(exception = CommunicationException.class)
@@ -484,6 +484,30 @@ public class LDAPConnector
         }
         
         return entry;
+    }
+
+    /**
+     * Checks whether a LDAP entry exists in the LDAP server or not.
+     * <h4>Check if LDAP entry exists</h4>
+     * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:exists-1}
+     * @param dn The DN of the LDAP entry that will be retrieved.
+     * @return true if the LDAP entry represented by <code>dn</code> exists or false if not
+     * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to perform the lookup for the given DN.
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws Exception In case there is any other error checking for entry existence.
+     */
+    @Processor
+    @InvalidateConnectionOn(exception = CommunicationException.class)
+    public boolean exists(@FriendlyName("DN") String dn) throws Exception
+    {
+        try
+        {
+            return lookup(dn, null) != null;
+        }
+        catch(NameNotFoundException nnfe)
+        {
+            return false;
+        }
     }
     
     /**
@@ -528,9 +552,9 @@ public class LDAPConnector
      * @param pageSize If the LDAP server supports paging results set in this attribute the size of the page. If the pageSize is less or equals than 0, then paging will be disabled.
      * 
      * @return A {@link java.util.List} of {@link LDAPEntry} objects with the results of the search. If the search throws no results, then this is an empty list.
-     * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to perform the search under the given base DN.
-     * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If base DN is invalid (for example it doesn't exist)
-     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to perform the search under the given base DN.
+     * @throws org.mule.module.ldap.api.NameNotFoundException If base DN is invalid (for example it doesn't exist)
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error performing the search.
      */
     @Processor
@@ -616,22 +640,27 @@ public class LDAPConnector
      *                     If enabled, the object will be returned. 
      * @param pageSize If the LDAP server supports paging results set in this attribute the size of the page. If the pageSize is less or equals than 0, then paging will be disabled.
      * @param resultPageSize The size of the list this operation streams. If this value is less than 1, then it will be considered that the page size is 1.
+     * @param resultOffset Considering the results are paged in resultPageSize pages, then this is the first page that should be retrieved.
+     * @param resultPageCount How many pages of size <i>resultPageSize</i> starting at <i>resultOffset</i> should be returned/processed. If zero (0) or less or if <i>resultPageCount</i> is greater than the total amount of pages, then all pages are returned.
+     * @param orderBy Name of the LDAP attribute used to sort results.
      * @param callback Used to stream results
      * @return A list with individual results of executing the rest of flow with each results page.
-     * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to perform the search under the given base DN.
-     * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If base DN is invalid (for example it doesn't exist)
-     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to perform the search under the given base DN.
+     * @throws org.mule.module.ldap.api.NameNotFoundException If base DN is invalid (for example it doesn't exist)
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error performing the search.
      */
     @Processor(intercepting=true)
     @InvalidateConnectionOn(exception = CommunicationException.class)
-    public List<Object> pagedResultSearch(@FriendlyName("Base DN") String baseDn, String filter, @Optional List<String> attributes, @Optional @Default("ONE_LEVEL") SearchScope scope, @Optional @Default("0") @Placement(group = "Search Controls") int timeout, @Optional @Default("0") @Placement(group = "Search Controls") long maxResults, @Optional @Default("false") @Placement(group = "Search Controls") boolean returnObject, @Optional @Default("0") @Placement(group = "Search Controls") int pageSize, @Optional @Default("1") int resultPageSize, SourceCallback callback) throws Exception
+    public List<Object> pagedResultSearch(@FriendlyName("Base DN") String baseDn, String filter, @Optional List<String> attributes, @Optional @Default("ONE_LEVEL") SearchScope scope, @Optional @Default("0") @Placement(group = "Search Controls") int timeout, @Optional @Default("0") @Placement(group = "Search Controls") long maxResults, @Optional @Default("false") @Placement(group = "Search Controls") boolean returnObject, @Optional @Default("0") @Placement(group = "Search Controls") int pageSize, @Optional @Default("1") @Placement(group = "Results Paging") int resultPageSize, @Optional @Default("0") @Placement(group = "Results Paging") int resultOffset, @Optional @Default("0") @Placement(group = "Results Paging") int resultPageCount, @Optional @Default("") @Placement(group = "Search Controls") String orderBy, SourceCallback callback) throws Exception
     {
         LDAPResultSet result = null;
         List<Object> flowResults = new ArrayList<Object>();
         try
         {
             resultPageSize = resultPageSize < 1 ? 1 : resultPageSize;
+            resultOffset = resultOffset <= 0 ? 0 : resultOffset;
+            resultPageCount = resultPageCount <= 0 ? 0 : resultPageCount;
             
             if(LOGGER.isDebugEnabled())
             {
@@ -648,6 +677,7 @@ public class LDAPConnector
             controls.setScope(scope.getValue());
             controls.setReturnObject(returnObject);
             controls.setPageSize(pageSize);
+            controls.setOrderBy(orderBy);
             
             result = this.connection.search(baseDn, filter, controls);
             
@@ -657,7 +687,13 @@ public class LDAPConnector
             
             if(resultPageSize == 1)
             {
-                while(result.hasNext())
+                if(LOGGER.isDebugEnabled())
+                {
+                    LOGGER.debug("Offest is " + resultOffset + ". Skipping the first " + resultOffset + " entries");
+                }
+                skipEntries(result, resultOffset);
+                
+                while(result.hasNext() && (resultPageCount == 0 || entryCount < resultPageCount))
                 {
                     entryCount++;
                     anEntry = result.next();
@@ -683,7 +719,14 @@ public class LDAPConnector
             else
             {
                 List<LDAPEntry> page;
-                while(result.hasNext())
+                
+                if(LOGGER.isDebugEnabled())
+                {
+                    LOGGER.debug("Offest is " + resultOffset + ". Skipping the first " + resultOffset + " pages of size " + resultPageSize);
+                }
+                skipEntries(result, resultPageSize * resultOffset);
+                
+                while(result.hasNext() && (resultPageCount == 0 || pageCount < resultPageCount))
                 {
                     page = new ArrayList<LDAPEntry>(resultPageSize);
                     pageCount++;
@@ -729,6 +772,23 @@ public class LDAPConnector
             }
         }        
     }
+
+    /*
+     * LDAP doesn't support paging, so all results are always returned. In order to skip
+     * pages, the results should be ignored.
+     */
+    private void skipEntries(LDAPResultSet result, int totalEntriesToSkip) throws LDAPException
+    {
+        if(result != null && totalEntriesToSkip > 0)
+        {
+            int count = 0;
+            while(result.hasNext() && count < totalEntriesToSkip)
+            {
+                count++;
+                result.next(); // skip
+            }
+        }
+    }
     
     /**
      * Performs a LDAP search that is supposed to return a unique result. If the search returns more than one result, then a
@@ -762,9 +822,9 @@ public class LDAPConnector
      * @param returnObject Enables/disables returning objects returned as part of the result. If disabled, only the name and class of the object is returned.
      *                     If enabled, the object will be returned. 
      * @return A {@link LDAPEntry} with the first element of the search result or null if there are no results.
-     * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to perform the search under the given base DN.
-     * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If base DN is invalid (for example it doesn't exist)
-     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to perform the search under the given base DN.
+     * @throws org.mule.module.ldap.api.NameNotFoundException If base DN is invalid (for example it doesn't exist)
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error performing the search.
      */
     @Processor
@@ -797,11 +857,11 @@ public class LDAPConnector
      * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:add-2}
      * 
      * @param entry The {@link LDAPEntry} that should be added.
-     * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to add entries under any of the RDN (relative DN) that compose the entry DN.
-     * @throws org.mule.module.ldap.ldap.api.InvalidAttributeException If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
+     * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to add entries under any of the RDN (relative DN) that compose the entry DN.
+     * @throws org.mule.module.ldap.api.InvalidAttributeException If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
      *         are not part of any of the defined object classes)
-     * @throws org.mule.module.ldap.ldap.api.NameAlreadyBoundException If there is already an existing entry with the same DN in the LDAP server tree.
-     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws org.mule.module.ldap.api.NameAlreadyBoundException If there is already an existing entry with the same DN in the LDAP server tree.
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error creating the entry.
      */
     @Processor
@@ -848,14 +908,15 @@ public class LDAPConnector
      *  
      * @param dn The primary value to use as DN of the entry. If not set, then the DN will be retrieved from the map representing the entry under the key <b>dn</b>.
      * @param entry {@link Map} representation of the LDAP entry.
-     * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to add entries under any of the RDN (relative DN) that compose the entry DN.
-     * @throws org.mule.module.ldap.ldap.api.InvalidAttributeException If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
+     * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to add entries under any of the RDN (relative DN) that compose the entry DN.
+     * @throws org.mule.module.ldap.api.InvalidAttributeException If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
      *         are not part of any of the defined object classes)
-     * @throws org.mule.module.ldap.ldap.api.NameAlreadyBoundException If there is already an existing entry with the same DN in the LDAP server tree.
-     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws org.mule.module.ldap.api.NameAlreadyBoundException If there is already an existing entry with the same DN in the LDAP server tree.
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error creating the entry (for example if the DN is not passed as an argument nor in the entry map).
      */
     @Processor
+    @InvalidateConnectionOn(exception = CommunicationException.class)
     public void addFromMap(@Optional @FriendlyName("DN") String dn, @Optional @Default("#[payload:]") Map<String, Object> entry) throws Exception
     {
         // Need to remove the DN from the map, so that it only contains attributes
@@ -933,11 +994,11 @@ public class LDAPConnector
      * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:modify-2}
 
      * @param entry The {@link LDAPEntry} that should be updated.
-     * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to update entries under any of the RDN (relative DN) that compose the entry DN.
-     * @throws org.mule.module.ldap.ldap.api.InvalidAttributeException If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
+     * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to update entries under any of the RDN (relative DN) that compose the entry DN.
+     * @throws org.mule.module.ldap.api.InvalidAttributeException If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
      *         are not part of any of the defined object classes)
-     * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If there is no existing entry with the same DN in the LDAP server tree.
-     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws org.mule.module.ldap.api.NameNotFoundException If there is no existing entry with the same DN in the LDAP server tree.
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error updating the entry.
      */
     @Processor
@@ -1020,11 +1081,11 @@ public class LDAPConnector
      * 
      * @param dn The primary value to use as DN of the entry. If not set, then the DN will be retrieved from the map representing the entry under the key <b>dn</b>.
      * @param entry {@link Map} representation of the LDAP entry.
-     * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to update entries under any of the RDN (relative DN) that compose the entry DN.
-     * @throws org.mule.module.ldap.ldap.api.InvalidAttributeException If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
+     * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to update entries under any of the RDN (relative DN) that compose the entry DN.
+     * @throws org.mule.module.ldap.api.InvalidAttributeException If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
      *         are not part of any of the defined object classes)
-     * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If there is no existing entry with the same DN in the LDAP server tree.
-     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws org.mule.module.ldap.api.NameNotFoundException If there is no existing entry with the same DN in the LDAP server tree.
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error updating the entry (for example if the DN is not passed as an argument nor in the entry map).
      */
     @Processor
@@ -1066,10 +1127,10 @@ public class LDAPConnector
      * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:delete}
      * 
      * @param dn The DN of the LDAP entry to delete
-     * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to delete the entry.
-     * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If an intermediate context does not exist.
-     * @throws org.mule.module.ldap.ldap.api.ContextNotEmptyException If the entry to delete has child entries.
-     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to delete the entry.
+     * @throws org.mule.module.ldap.api.NameNotFoundException If an intermediate context does not exist.
+     * @throws org.mule.module.ldap.api.ContextNotEmptyException If the entry to delete has child entries.
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error deleting the entry.
      */
     @Processor
@@ -1096,8 +1157,8 @@ public class LDAPConnector
      * 
      * @param oldDn DN of the existing entry that will be renamed.
      * @param newDn Destination DN
-     * @throws org.mule.module.ldap.ldap.api.NameAlreadyBoundException If there is already an existing entry with the same DN as <i>newDn</i>.
-     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws org.mule.module.ldap.api.NameAlreadyBoundException If there is already an existing entry with the same DN as <i>newDn</i>.
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error deleting the entry.
      */
     @Processor
@@ -1130,13 +1191,14 @@ public class LDAPConnector
      * @param dn The DN of the LDAP entry to modify
      * @param attributeName The name of the attribute to add a value to.
      * @param attributeValue The value for the attribute
-     * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to update the entry.
-     * @throws org.mule.module.ldap.ldap.api.InvalidAttributeException If the attribute value is invalid or the entry already has the provided value.
-     * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If there is no existing entry for the given DN.
-     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to update the entry.
+     * @throws org.mule.module.ldap.api.InvalidAttributeException If the attribute value is invalid or the entry already has the provided value.
+     * @throws org.mule.module.ldap.api.NameNotFoundException If there is no existing entry for the given DN.
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error updating the entry.
      */
     @Processor
+    @InvalidateConnectionOn(exception = CommunicationException.class)
     public void addSingleValueAttribute(@FriendlyName("DN") String dn, String attributeName, String attributeValue) throws Exception
     {
         if(LOGGER.isDebugEnabled())
@@ -1162,13 +1224,14 @@ public class LDAPConnector
      * @param dn The DN of the LDAP entry to modify
      * @param attributeName The name of the attribute to add values to.
      * @param attributeValues The values for the attribute
-     * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to update the entry.
-     * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If there is no existing entry for the given DN.
-     * @throws org.mule.module.ldap.ldap.api.InvalidAttributeException If the attribute value is invalid or the entry already has the provided value.
-     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to update the entry.
+     * @throws org.mule.module.ldap.api.NameNotFoundException If there is no existing entry for the given DN.
+     * @throws org.mule.module.ldap.api.InvalidAttributeException If the attribute value is invalid or the entry already has the provided value.
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error updating the entry.
      */
     @Processor
+    @InvalidateConnectionOn(exception = CommunicationException.class)
     public void addMultiValueAttribute(@FriendlyName("DN") String dn, String attributeName, List<Object> attributeValues) throws Exception
     {
         if(LOGGER.isDebugEnabled())
@@ -1196,9 +1259,9 @@ public class LDAPConnector
      * @param dn The DN of the LDAP entry to modify
      * @param attributeName The name of the attribute to update its value.
      * @param attributeValue The new value for the attribute
-     * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to update the entry.
-     * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If there is no existing entry for the given DN.
-     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to update the entry.
+     * @throws org.mule.module.ldap.api.NameNotFoundException If there is no existing entry for the given DN.
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error updating the entry.
      */
     @Processor
@@ -1227,9 +1290,9 @@ public class LDAPConnector
      * @param dn The DN of the LDAP entry to modify
      * @param attributeName The name of the attribute to update its values.
      * @param attributeValues The new values for the attribute
-     * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to update the entry.
-     * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If there is no existing entry for the given DN.
-     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to update the entry.
+     * @throws org.mule.module.ldap.api.NameNotFoundException If there is no existing entry for the given DN.
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error updating the entry.
      */
     @Processor
@@ -1261,9 +1324,9 @@ public class LDAPConnector
      * @param dn The DN of the LDAP entry to modify
      * @param attributeName The name of the attribute to delete its value.
      * @param attributeValue The value that should be deleted.
-     * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to update the entry.
-     * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If there is no existing entry for the given DN.
-     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to update the entry.
+     * @throws org.mule.module.ldap.api.NameNotFoundException If there is no existing entry for the given DN.
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error updating the entry.
      */
     @Processor
@@ -1293,9 +1356,9 @@ public class LDAPConnector
      * @param dn The DN of the LDAP entry to modify
      * @param attributeName The name of the attribute to delete its values.
      * @param attributeValues The values that should be deleted.
-     * @throws org.mule.module.ldap.ldap.api.NoPermissionException If the current binded user has no permissions to update the entry.
-     * @throws org.mule.module.ldap.ldap.api.NameNotFoundException If there is no existing entry for the given DN.
-     * @throws org.mule.module.ldap.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
+     * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to update the entry.
+     * @throws org.mule.module.ldap.api.NameNotFoundException If there is no existing entry for the given DN.
+     * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
      * @throws Exception In case there is any other error updating the entry.
      */
     @Processor

@@ -9,43 +9,43 @@
 /*
  * Project: Leonards Common Libraries
  * This class is member of leonards.common.ldap
- * File: NameNotFoundException.java
+ * File: NoPermissionException.java
  *
  * Property of Leonards / Mindpool
- * Created on Jun 23, 2006 (12:56:19 AM) 
+ * Created on Jun 25, 2006 (9:12:54 AM) 
  */
 
-package org.mule.module.ldap.ldap.api;
+package org.mule.module.ldap.api;
 
 /**
  * This class is the abstraction
  * 
  * @author mariano
  */
-public class NameNotFoundException extends LDAPException
+public class NoPermissionException extends LDAPException
 {
 
     /**
 	 * 
 	 */
-    private static final long serialVersionUID = -4610170776459043832L;
+    private static final long serialVersionUID = -5581541484202999596L;
 
-    public NameNotFoundException()
+    public NoPermissionException()
     {
         super();
     }
 
-    public NameNotFoundException(String message, Throwable cause)
+    public NoPermissionException(String message, Throwable cause)
     {
         super(message, cause);
     }
 
-    public NameNotFoundException(String message)
+    public NoPermissionException(String message)
     {
         super(message);
     }
 
-    public NameNotFoundException(Throwable cause)
+    public NoPermissionException(Throwable cause)
     {
         super(cause);
     }

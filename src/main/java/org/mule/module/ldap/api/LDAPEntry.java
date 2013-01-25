@@ -15,7 +15,7 @@
  * Created on Jun 22, 2006 (1:01:40 AM) 
  */
 
-package org.mule.module.ldap.ldap.api;
+package org.mule.module.ldap.api;
 
 import java.io.Serializable;
 import java.util.Collection;

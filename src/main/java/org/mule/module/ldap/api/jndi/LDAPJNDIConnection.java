@@ -15,7 +15,7 @@
  * Created on Jun 22, 2006 (10:43:40 PM) 
  */
 
-package org.mule.module.ldap.ldap.api.jndi;
+package org.mule.module.ldap.api.jndi;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -35,13 +35,13 @@ import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
 
 import org.apache.commons.lang.StringUtils;
-import org.mule.module.ldap.ldap.api.LDAPConnection;
-import org.mule.module.ldap.ldap.api.LDAPEntry;
-import org.mule.module.ldap.ldap.api.LDAPEntryAttribute;
-import org.mule.module.ldap.ldap.api.LDAPEntryAttributes;
-import org.mule.module.ldap.ldap.api.LDAPException;
-import org.mule.module.ldap.ldap.api.LDAPResultSet;
-import org.mule.module.ldap.ldap.api.LDAPSearchControls;
+import org.mule.module.ldap.api.LDAPConnection;
+import org.mule.module.ldap.api.LDAPEntry;
+import org.mule.module.ldap.api.LDAPEntryAttribute;
+import org.mule.module.ldap.api.LDAPEntryAttributes;
+import org.mule.module.ldap.api.LDAPException;
+import org.mule.module.ldap.api.LDAPResultSet;
+import org.mule.module.ldap.api.LDAPSearchControls;
 
 /**
  * This class is the abstraction
@@ -148,7 +148,7 @@ public class LDAPJNDIConnection extends LDAPConnection
     /**
      * @param conf
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#initialize(leonards.common.conf.Configuration)
+     * @see org.mule.module.ldap.api.LDAPConnection#initialize(leonards.common.conf.Configuration)
      */
     protected void initialize(Map<String, String> conf) throws LDAPException
     {
@@ -250,7 +250,7 @@ public class LDAPJNDIConnection extends LDAPConnection
 
     /**
      * @return
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#isClosed()
+     * @see org.mule.module.ldap.api.LDAPConnection#isClosed()
      */
     public boolean isClosed()
     {
@@ -259,7 +259,7 @@ public class LDAPJNDIConnection extends LDAPConnection
 
     /**
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#close()
+     * @see org.mule.module.ldap.api.LDAPConnection#close()
      */
     public void close() throws LDAPException
     {
@@ -337,7 +337,7 @@ public class LDAPJNDIConnection extends LDAPConnection
     /**
      * 
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#rebind()
+     * @see org.mule.module.ldap.api.LDAPConnection#rebind()
      */
     public void rebind() throws LDAPException
     {
@@ -357,7 +357,7 @@ public class LDAPJNDIConnection extends LDAPConnection
      * @param dn
      * @param password
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#bind(java.lang.String,
+     * @see org.mule.module.ldap.api.LDAPConnection#bind(java.lang.String,
      *      java.lang.String)
      */
     @Override
@@ -427,8 +427,8 @@ public class LDAPJNDIConnection extends LDAPConnection
      * @param controls
      * @return
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#search(java.lang.String,
-     *      java.lang.String, org.mule.module.ldap.ldap.api.LDAPSearchControls)
+     * @see org.mule.module.ldap.api.LDAPConnection#search(java.lang.String,
+     *      java.lang.String, org.mule.module.ldap.api.LDAPSearchControls)
      */
     @Override
     public LDAPResultSet search(String baseDn, String filter, LDAPSearchControls controls)
@@ -444,9 +444,9 @@ public class LDAPJNDIConnection extends LDAPConnection
      * @param controls
      * @return
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#search(java.lang.String,
+     * @see org.mule.module.ldap.api.LDAPConnection#search(java.lang.String,
      *      java.lang.String, java.lang.Object[],
-     *      org.mule.module.ldap.ldap.api.LDAPSearchControls)
+     *      org.mule.module.ldap.api.LDAPSearchControls)
      */
     @Override
     public LDAPResultSet search(String baseDn, String filter, Object[] filterArgs, LDAPSearchControls controls)
@@ -484,7 +484,7 @@ public class LDAPJNDIConnection extends LDAPConnection
      * @param dn
      * @return
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#lookup(java.lang.String)
+     * @see org.mule.module.ldap.api.LDAPConnection#lookup(java.lang.String)
      */
     public LDAPEntry lookup(String dn) throws LDAPException
     {
@@ -503,7 +503,7 @@ public class LDAPJNDIConnection extends LDAPConnection
      * @param attributes
      * @return
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#lookup(java.lang.String,
+     * @see org.mule.module.ldap.api.LDAPConnection#lookup(java.lang.String,
      *      java.lang.String[])
      */
     public LDAPEntry lookup(String dn, String[] attributes) throws LDAPException
@@ -521,7 +521,7 @@ public class LDAPJNDIConnection extends LDAPConnection
     /**
      * @param entry
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#addEntry(org.mule.module.ldap.ldap.api.LDAPEntry)
+     * @see org.mule.module.ldap.api.LDAPConnection#addEntry(org.mule.module.ldap.api.LDAPEntry)
      */
     public void addEntry(LDAPEntry entry) throws LDAPException
     {
@@ -546,7 +546,7 @@ public class LDAPJNDIConnection extends LDAPConnection
     /**
      * @param entry
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#updateEntry(org.mule.module.ldap.ldap.api.LDAPEntry)
+     * @see org.mule.module.ldap.api.LDAPConnection#updateEntry(org.mule.module.ldap.api.LDAPEntry)
      */
     public void updateEntry(LDAPEntry entry) throws LDAPException
     {
@@ -570,7 +570,7 @@ public class LDAPJNDIConnection extends LDAPConnection
     /**
      * @param entry
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#deleteEntry(org.mule.module.ldap.ldap.api.LDAPEntry)
+     * @see org.mule.module.ldap.api.LDAPConnection#deleteEntry(org.mule.module.ldap.api.LDAPEntry)
      */
     public void deleteEntry(LDAPEntry entry) throws LDAPException
     {
@@ -580,7 +580,7 @@ public class LDAPJNDIConnection extends LDAPConnection
     /**
      * @param dn
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#deleteEntry(java.lang.String)
+     * @see org.mule.module.ldap.api.LDAPConnection#deleteEntry(java.lang.String)
      */
     public void deleteEntry(String dn) throws LDAPException
     {
@@ -609,7 +609,7 @@ public class LDAPJNDIConnection extends LDAPConnection
      * @param oldDn
      * @param newDn
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#renameEntry(java.lang.String, java.lang.String)
+     * @see org.mule.module.ldap.api.LDAPConnection#renameEntry(java.lang.String, java.lang.String)
      */
     public void renameEntry(String oldDn, String newDn) throws LDAPException
     {
@@ -637,8 +637,8 @@ public class LDAPJNDIConnection extends LDAPConnection
      * @param dn
      * @param attribute
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#addAttribute(java.lang.String,
-     *      org.mule.module.ldap.ldap.api.LDAPEntryAttribute)
+     * @see org.mule.module.ldap.api.LDAPConnection#addAttribute(java.lang.String,
+     *      org.mule.module.ldap.api.LDAPEntryAttribute)
      */
     public void addAttribute(String dn, LDAPEntryAttribute attribute) throws LDAPException
     {
@@ -658,8 +658,8 @@ public class LDAPJNDIConnection extends LDAPConnection
      * @param dn
      * @param attribute
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#updateAttribute(java.lang.String,
-     *      org.mule.module.ldap.ldap.api.LDAPEntryAttribute)
+     * @see org.mule.module.ldap.api.LDAPConnection#updateAttribute(java.lang.String,
+     *      org.mule.module.ldap.api.LDAPEntryAttribute)
      */
     public void updateAttribute(String dn, LDAPEntryAttribute attribute) throws LDAPException
     {
@@ -680,8 +680,8 @@ public class LDAPJNDIConnection extends LDAPConnection
      * @param dn
      * @param attribute
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPConnection#deleteAttribute(java.lang.String,
-     *      org.mule.module.ldap.ldap.api.LDAPEntryAttribute)
+     * @see org.mule.module.ldap.api.LDAPConnection#deleteAttribute(java.lang.String,
+     *      org.mule.module.ldap.api.LDAPEntryAttribute)
      */
     public void deleteAttribute(String dn, LDAPEntryAttribute attribute) throws LDAPException
     {

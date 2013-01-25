@@ -19,7 +19,7 @@ import java.util.NoSuchElementException;
 import org.junit.Test;
 import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
-import org.mule.module.ldap.ldap.api.LDAPEntry;
+import org.mule.module.ldap.api.LDAPEntry;
 import org.mule.transport.NullPayload;
 
 public class LDAPBindTest extends AbstractLDAPConnectorTest

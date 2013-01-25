@@ -17,13 +17,13 @@ import org.mule.module.ldap.api.InvalidEntryException;
 import org.mule.module.ldap.api.LDAPEntry;
 import org.mule.module.ldap.api.NameAlreadyBoundException;
 
-public class LDAPAddTest extends AbstractLDAPConnectorTest
+public class LDAPExistsTest extends AbstractLDAPConnectorTest
 {
 
     /**
      * 
      */
-    public LDAPAddTest()
+    public LDAPExistsTest()
     {
     }
 

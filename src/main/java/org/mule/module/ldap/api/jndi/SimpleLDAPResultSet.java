@@ -6,7 +6,7 @@
  * LICENSE.md file.
  */
 
-package org.mule.module.ldap.ldap.api.jndi;
+package org.mule.module.ldap.api.jndi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +20,10 @@ import javax.naming.ldap.LdapContext;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.mule.module.ldap.ldap.api.LDAPEntry;
-import org.mule.module.ldap.ldap.api.LDAPException;
-import org.mule.module.ldap.ldap.api.LDAPResultSet;
-import org.mule.module.ldap.ldap.api.LDAPSearchControls;
+import org.mule.module.ldap.api.LDAPEntry;
+import org.mule.module.ldap.api.LDAPException;
+import org.mule.module.ldap.api.LDAPResultSet;
+import org.mule.module.ldap.api.LDAPSearchControls;
 
 public class SimpleLDAPResultSet implements LDAPResultSet
 {
@@ -46,7 +46,7 @@ public class SimpleLDAPResultSet implements LDAPResultSet
     /**
      * 
      * @return
-     * @see org.mule.module.ldap.ldap.api.LDAPResultSet#hasNext()
+     * @see org.mule.module.ldap.api.LDAPResultSet#hasNext()
      */
     @Override
     public boolean hasNext() throws LDAPException
@@ -70,7 +70,7 @@ public class SimpleLDAPResultSet implements LDAPResultSet
      * 
      * @return
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPResultSet#next()
+     * @see org.mule.module.ldap.api.LDAPResultSet#next()
      */
     @Override
     public LDAPEntry next() throws LDAPException
@@ -95,7 +95,7 @@ public class SimpleLDAPResultSet implements LDAPResultSet
 
     /**
      * @throws LDAPException
-     * @see org.mule.module.ldap.ldap.api.LDAPResultSet#close()
+     * @see org.mule.module.ldap.api.LDAPResultSet#close()
      */
     @Override
     public void close() throws LDAPException

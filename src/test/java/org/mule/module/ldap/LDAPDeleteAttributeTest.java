@@ -21,8 +21,8 @@ import java.util.Map;
 import javax.naming.NamingException;
 
 import org.junit.Test;
-import org.mule.module.ldap.ldap.api.LDAPEntry;
-import org.mule.module.ldap.ldap.api.LDAPException;
+import org.mule.module.ldap.api.LDAPEntry;
+import org.mule.module.ldap.api.LDAPException;
 
 public class LDAPDeleteAttributeTest extends AbstractLDAPConnectorTest
 {

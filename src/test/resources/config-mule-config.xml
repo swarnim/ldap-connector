@@ -47,7 +47,9 @@
         </ldap:extended-configuration>
     </ldap:config>
 
-    <ldap:config name="refExtendedConfig" url="ldap://localhost:10389/" authDn="uid=admin,ou=people,dc=mulesoft,dc=org" authPassword="admin" extendedConfiguration-ref="extConfig"/>
+    <ldap:config name="refExtendedConfig" url="ldap://localhost:10389/" authDn="uid=admin,ou=people,dc=mulesoft,dc=org" authPassword="admin">
+    	<ldap:extended-configuration ref="extConfig"/>
+    </ldap:config>
 
     <ldap:config name="completeConfig" url="ldap://localhost:10389/" authDn="uid=admin,ou=people,dc=mulesoft,dc=org" authPassword="admin" authentication="simple" initialPoolSize="10" maxPoolSize="20" poolTimeout="50000" referral="FOLLOW"/>
     

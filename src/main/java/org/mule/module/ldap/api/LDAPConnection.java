@@ -6,14 +6,14 @@
  * LICENSE.md file.
  */
 
-package org.mule.module.ldap.ldap.api;
+package org.mule.module.ldap.api;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.mule.module.ldap.ldap.api.jndi.LDAPJNDIConnection;
+import org.mule.module.ldap.api.jndi.LDAPJNDIConnection;
 
 /**
  * This class is the abstraction

@@ -15,7 +15,7 @@
  * Created on Jun 22, 2006 (12:59:56 AM) 
  */
 
-package org.mule.module.ldap.ldap.api;
+package org.mule.module.ldap.api;
 
 import java.util.HashMap;
 import java.util.Map;

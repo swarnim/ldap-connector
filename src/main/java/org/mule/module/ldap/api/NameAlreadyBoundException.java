@@ -15,7 +15,7 @@
  * Created on Jun 25, 2006 (9:30:46 AM) 
  */
 
-package org.mule.module.ldap.ldap.api;
+package org.mule.module.ldap.api;
 
 /**
  * This class is the abstraction

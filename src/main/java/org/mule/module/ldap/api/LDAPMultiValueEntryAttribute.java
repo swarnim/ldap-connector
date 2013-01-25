@@ -15,7 +15,7 @@
  * Created on Jun 24, 2006 (11:58:07 PM) 
  */
 
-package org.mule.module.ldap.ldap.api;
+package org.mule.module.ldap.api;
 
 import java.util.ArrayList;
 import java.util.Collection;

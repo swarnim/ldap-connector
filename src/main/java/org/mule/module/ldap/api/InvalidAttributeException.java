@@ -9,45 +9,44 @@
 /*
  * Project: Leonards Common Libraries
  * This class is member of leonards.common.ldap
- * File: NoPermissionException.java
+ * File: InvalidAttributeException.java
  *
  * Property of Leonards / Mindpool
- * Created on Jun 25, 2006 (9:12:54 AM) 
+ * Created on Jun 25, 2006 (9:30:24 AM) 
  */
 
-package org.mule.module.ldap.ldap.api;
+package org.mule.module.ldap.api;
 
 /**
  * This class is the abstraction
  * 
  * @author mariano
  */
-public class NoPermissionException extends LDAPException
+public class InvalidAttributeException extends LDAPException
 {
 
     /**
 	 * 
 	 */
-    private static final long serialVersionUID = -5581541484202999596L;
+    private static final long serialVersionUID = 1608293876428310202L;
 
-    public NoPermissionException()
+    public InvalidAttributeException()
     {
         super();
     }
 
-    public NoPermissionException(String message, Throwable cause)
+    public InvalidAttributeException(String message, Throwable cause)
     {
         super(message, cause);
     }
 
-    public NoPermissionException(String message)
+    public InvalidAttributeException(String message)
     {
         super(message);
     }
 
-    public NoPermissionException(Throwable cause)
+    public InvalidAttributeException(Throwable cause)
     {
         super(cause);
     }
-
 }

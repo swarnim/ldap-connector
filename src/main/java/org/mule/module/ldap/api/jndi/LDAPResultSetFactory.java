@@ -6,14 +6,14 @@
  * LICENSE.md file.
  */
 
-package org.mule.module.ldap.ldap.api.jndi;
+package org.mule.module.ldap.api.jndi;
 
 import javax.naming.NamingEnumeration;
 import javax.naming.directory.SearchResult;
 import javax.naming.ldap.LdapContext;
 
-import org.mule.module.ldap.ldap.api.LDAPResultSet;
-import org.mule.module.ldap.ldap.api.LDAPSearchControls;
+import org.mule.module.ldap.api.LDAPResultSet;
+import org.mule.module.ldap.api.LDAPSearchControls;
 
 public class LDAPResultSetFactory
 {

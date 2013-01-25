@@ -6,7 +6,7 @@
  * LICENSE.md file.
  */
 
-package org.mule.module.ldap.ldap.api.jndi;
+package org.mule.module.ldap.api.jndi;
 
 import java.io.IOException;
 
@@ -18,12 +18,12 @@ import javax.naming.directory.SearchControls;
 import javax.naming.ldap.Control;
 import javax.naming.ldap.PagedResultsControl;
 
-import org.mule.module.ldap.ldap.api.LDAPEntry;
-import org.mule.module.ldap.ldap.api.LDAPEntryAttribute;
-import org.mule.module.ldap.ldap.api.LDAPException;
-import org.mule.module.ldap.ldap.api.LDAPMultiValueEntryAttribute;
-import org.mule.module.ldap.ldap.api.LDAPSearchControls;
-import org.mule.module.ldap.ldap.api.LDAPSingleValueEntryAttribute;
+import org.mule.module.ldap.api.LDAPEntry;
+import org.mule.module.ldap.api.LDAPEntryAttribute;
+import org.mule.module.ldap.api.LDAPException;
+import org.mule.module.ldap.api.LDAPMultiValueEntryAttribute;
+import org.mule.module.ldap.api.LDAPSearchControls;
+import org.mule.module.ldap.api.LDAPSingleValueEntryAttribute;
 
 public class LDAPJNDIUtils
 {

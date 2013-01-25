@@ -15,7 +15,7 @@
  * Created on Jun 25, 2006 (10:19:01 AM) 
  */
 
-package org.mule.module.ldap.ldap.api;
+package org.mule.module.ldap.api;
 
 import java.io.Serializable;
 
@@ -58,10 +58,15 @@ public class LDAPSearchControls implements Serializable
     private boolean returnObject = false;
     
     /**
-     * 
+     * Page size to retrieve results from LDAP
      */
     private int pageSize = 0;
 
+    /**
+     * Order by attribute name
+     */
+    private String orderBy = null;
+    
     /**
 	 * 
 	 */
@@ -168,8 +173,39 @@ public class LDAPSearchControls implements Serializable
         this.pageSize = pageSize;
     }
 
+    /**
+     * 
+     * @return
+     */
     public boolean isPagingEnabled()
     {
         return getPageSize() > 0;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public String getOrderBy()
+    {
+        return orderBy;
+    }
+
+    /**
+     * 
+     * @param orderBy
+     */
+    public void setOrderBy(String orderBy)
+    {
+        this.orderBy = orderBy;
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    public boolean isOrderBySet()
+    {
+        return getOrderBy() != null;
     }
 }

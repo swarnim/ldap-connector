@@ -9,43 +9,43 @@
 /*
  * Project: Leonards Common Libraries
  * This class is member of leonards.common.ldap
- * File: AuthenticationException.java
+ * File: NameNotFoundException.java
  *
  * Property of Leonards / Mindpool
- * Created on Jun 23, 2006 (12:58:02 AM) 
+ * Created on Jun 23, 2006 (12:56:19 AM) 
  */
 
-package org.mule.module.ldap.ldap.api;
+package org.mule.module.ldap.api;
 
 /**
  * This class is the abstraction
  * 
  * @author mariano
  */
-public class AuthenticationException extends LDAPException
+public class NameNotFoundException extends LDAPException
 {
 
     /**
 	 * 
 	 */
-    private static final long serialVersionUID = 6434067405937564392L;
+    private static final long serialVersionUID = -4610170776459043832L;
 
-    public AuthenticationException()
+    public NameNotFoundException()
     {
         super();
     }
 
-    public AuthenticationException(String message, Throwable cause)
+    public NameNotFoundException(String message, Throwable cause)
     {
         super(message, cause);
     }
 
-    public AuthenticationException(String message)
+    public NameNotFoundException(String message)
     {
         super(message);
     }
 
-    public AuthenticationException(Throwable cause)
+    public NameNotFoundException(Throwable cause)
     {
         super(cause);
     }

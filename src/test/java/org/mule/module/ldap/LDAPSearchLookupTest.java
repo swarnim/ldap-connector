@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.mule.module.ldap.ldap.api.LDAPEntry;
+import org.mule.module.ldap.api.LDAPEntry;
 
 public class LDAPSearchLookupTest extends AbstractLDAPConnectorTest
 {

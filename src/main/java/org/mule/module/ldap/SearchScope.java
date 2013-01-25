@@ -8,7 +8,7 @@
 
 package org.mule.module.ldap;
 
-import org.mule.module.ldap.ldap.api.LDAPSearchControls;
+import org.mule.module.ldap.api.LDAPSearchControls;
 
 public enum SearchScope
 {
