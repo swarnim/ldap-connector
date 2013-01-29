@@ -290,7 +290,7 @@ Summary:
   <td>
  The implementation of the connection to be used. Right now the only available implementation is JNDI, though any other
  implementation can be used (For example using Novell libraries). If you want to create your own implementation you should
- extend the class <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPConnection.html">LDAPConnection</a></code>
+ extend the class <code><a href="../java/org/mule/module/ldap/api/LDAPConnection.html">LDAPConnection</a></code>
  <ul>
     <li><b>JNDI</b>: Implementation that uses the JNDI interfaces provided in the standard JRE.</i>
  </ul>
@@ -411,7 +411,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/ldap-config.html#ldap-entry-to-ldif">&lt;ldap:ldap-entry-to-ldif&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Transforms a <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to a String in LDIF representation (RFC 2849).</div>
+        <div class="jd-descrdiv">Transforms a <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to a String in LDIF representation (RFC 2849).</div>
         
   </td></tr>
 
@@ -421,7 +421,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/ldap-config.html#ldap-entry-to-map">&lt;ldap:ldap-entry-to-map&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Creates the Map representation of an <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code>.</div>
+        <div class="jd-descrdiv">Creates the Map representation of an <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code>.</div>
         
   </td></tr>
 
@@ -431,7 +431,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/ldap-config.html#map-to-ldap-entry">&lt;ldap:map-to-ldap-entry&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Creates a <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> from its Map representation.</div>
+        <div class="jd-descrdiv">Creates a <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> from its Map representation.</div>
         
   </td></tr>
 
@@ -453,7 +453,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/ldap-config.html#add">&lt;ldap:add&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Creates a new <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server.</div>
+        <div class="jd-descrdiv">Creates a new <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server.</div>
         
   </td></tr>
 
@@ -531,6 +531,16 @@ Summary:
 	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/ldap-config.html#exists">&lt;ldap:exists&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Checks whether a LDAP entry exists in the LDAP server or not.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/ldap-config.html#lookup">&lt;ldap:lookup&gt;</a></nobr>
         
         <div class="jd-descrdiv">Retrieves an entry from the LDAP server base on its distinguished name (DN).</div>
@@ -539,17 +549,17 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/ldap-config.html#modify">&lt;ldap:modify&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Updates an existing <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server.</div>
+        <div class="jd-descrdiv">Updates an existing <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server.</div>
         
   </td></tr>
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/ldap-config.html#modify-from-map">&lt;ldap:modify-from-map&gt;</a></nobr>
         
@@ -559,7 +569,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/ldap-config.html#modify-multi-value-attribute">&lt;ldap:modify-multi-value-attribute&gt;</a></nobr>
         
@@ -570,7 +580,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/ldap-config.html#modify-single-value-attribute">&lt;ldap:modify-single-value-attribute&gt;</a></nobr>
         
@@ -581,7 +591,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/ldap-config.html#paged-result-search">&lt;ldap:paged-result-search&gt;</a></nobr>
         
@@ -591,7 +601,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/ldap-config.html#rename">&lt;ldap:rename&gt;</a></nobr>
         
@@ -601,7 +611,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/ldap-config.html#search">&lt;ldap:search&gt;</a></nobr>
         
@@ -611,7 +621,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/ldap-config.html#search-one">&lt;ldap:search-one&gt;</a></nobr>
         
@@ -785,7 +795,7 @@ create one. That lookup mechanism is done in the connection pool via the use of 
 <p>The user of the connector can configure the pool by adding a <code>connection-pooling-profile</code> to the connector configuration like this:</p>
 <pre>
     &lt;ldap:connection-pooling-profile maxActive="10" maxIdle="10"
-                             exhaustedAction="WHEN_EXHAUSTED_GROW" maxWait="120"/&gt;
+                             exhaustedAction="WHEN_EXHAUSTED_GROW" maxWait="120" minEvictionMillis="60000" evictionCheckIntervalMillis="30000"/&gt;
 </pre>
 <p>The following is a list of connection attributes, each connection attribute can be configured at the config element level or
 they can also be added to each processor. If they are used at the processor level they get the benefit of full expression
@@ -907,7 +917,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Creates a new <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server. The entry should contain the distinguished name (DN), the <i>objectClass</i>
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server. The entry should contain the distinguished name (DN), the <i>objectClass</i>
  attributes that define its structure and at least a value for all the required attributes (required attributes depend on the
  <i>object classes</i> assigned to the entry. You can refer to RFC 4519 for standard object classes and attributes.
  
@@ -938,8 +948,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>entry</nobr></td>
                         <td class="jd-descrcol">#[payload:]</td>
-                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> that should be added.</td>
-                        <td class="jd-descrcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> that should be added.</td>
+                        <td class="jd-descrcol"><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -1003,20 +1013,20 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to add entries under any of the RDN (relative DN) that compose the entry DN.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
             <td>If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
          are not part of any of the defined object classes)</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NameAlreadyBoundException.html">NameAlreadyBoundException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NameAlreadyBoundException.html">NameAlreadyBoundException</a></td>
             <td>If there is already an existing entry with the same DN in the LDAP server tree.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>
         <tr>
@@ -1047,7 +1057,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
   <div class="jd-tagdata jd-tagdescr"><p>Creates a new entry in the LDAP server from a Map representation. The distinguished name (DN) of the
  entry is first obtained from the optional parameter <i>dn</i> and if this value is blank (null, empty string
  or string with only space chars) then the DN should be a present in the entry map as a String value
- under the key "<b>dn</b>" (see <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>).
+ under the key "<b>dn</b>" (see <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>).
  <p/>
  In order to represent a LDAP entry as a map, you should consider the following rules for the map key/value pair:
  <ul>
@@ -1057,7 +1067,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                  as a String and the value should be a List holding the multiple values of the attribute. Usually it will be
                  a list of strings.</li>
     <li><b>Distinguished name</b>: As an alternative to passing the DN as a separate argument of the operation, you can include it in
-                 the entry map. In this case, the key should be the string <code>"dn"</code> (see <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>) and the value
+                 the entry map. In this case, the key should be the string <code>"dn"</code> (see <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>) and the value
                  a String representing the distinguished name (for example <code>cn=andy,ou=people,dc=mulesoft,dc=org</code>).</li>
  </ul>
  
@@ -1186,20 +1196,20 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to add entries under any of the RDN (relative DN) that compose the entry DN.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
             <td>If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
          are not part of any of the defined object classes)</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NameAlreadyBoundException.html">NameAlreadyBoundException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NameAlreadyBoundException.html">NameAlreadyBoundException</a></td>
             <td>If there is already an existing entry with the same DN in the LDAP server tree.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>
         <tr>
@@ -1355,19 +1365,19 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to update the entry.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If there is no existing entry for the given DN.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
             <td>If the attribute value is invalid or the entry already has the provided value.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>
         <tr>
@@ -1511,19 +1521,19 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to update the entry.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
             <td>If the attribute value is invalid or the entry already has the provided value.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If there is no existing entry for the given DN.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>
         <tr>
@@ -1642,8 +1652,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></td>
-                <td class="jd-descrcol">The <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> of the authenticated user.</td>
+                <td class="jd-descrcol"><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></td>
+                <td class="jd-descrcol">The <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> of the authenticated user.</td>
              </tr>
          </table>
   </div>
@@ -1655,15 +1665,15 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to perform the lookup for its own LDAP entry.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If base DN is invalid (for example it doesn't exist)</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>
         <tr>
@@ -1693,10 +1703,10 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Deletes the LDAP entry represented by the provided distinguished name. The entry should not have child entries, in which case a
- <code><a href="../java/org/mule/module/ldap/ldap/api/ContextNotEmptyException.html">ContextNotEmptyException</a></code> is thrown.
+ <code><a href="../java/org/mule/module/ldap/api/ContextNotEmptyException.html">ContextNotEmptyException</a></code> is thrown.
  <p/>
  This operation is idempotent. It succeeds even if the terminal atomic name is not bound in the target context, but throws
- <code><a href="../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></code> if any of the intermediate contexts do not exist.
+ <code><a href="../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></code> if any of the intermediate contexts do not exist.
  
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ldap:delete dn="uid=userToDelete,ou=people,dc=mulesoft,dc=org"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
@@ -1783,19 +1793,19 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to delete the entry.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If an intermediate context does not exist.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/ContextNotEmptyException.html">ContextNotEmptyException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/ContextNotEmptyException.html">ContextNotEmptyException</a></td>
             <td>If the entry to delete has child entries.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>
         <tr>
@@ -1950,15 +1960,15 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to update the entry.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If there is no existing entry for the given DN.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>
         <tr>
@@ -2101,20 +2111,156 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to update the entry.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If there is no existing entry for the given DN.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>
         <tr>
             <td>Exception</td>
             <td>In case there is any other error updating the entry.
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="exists"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;ldap:exists&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Checks whether a LDAP entry exists in the LDAP server or not.
+ <h4>Check if LDAP entry exists</h4>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ldap:exists dn="ou=people, dc=domain, dc=org"/&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>dn</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The DN of the LDAP entry that will be retrieved.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>authDn</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The DN (distinguished name) of the user (for example: uid=user,ou=people,dc=mulesoft,dc=org).
+               If using Microsoft Active Directory, instead of the DN, you can provide the user@domain (for example: user@mulesoft.org)</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>authPassword</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The password of the user</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>authentication</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the authentication mechanism to use. For the Sun LDAP service provider, this can be one of the following strings:
+ <ul>
+    <li><b>simple</b> (DEFAULT): Used for user/password authentication.</li>
+    <li><b>none</b>: Used for anonymous authentication.</li>
+    <li><b>sasl_mech</b> (UNSUPPORTED): Where sasl_mech is a space-separated list of SASL mechanism names.
+             SASL is the Simple Authentication and Security Layer (RFC 2222). It specifies a challenge-response protocol in which
+             data is exchanged between the client and the server for the purposes of authentication and establishment of a security
+             layer on which to carry out subsequent communication. By using SASL, the LDAP can support any type of authentication
+             agreed upon by the LDAP client and server.</li>
+ </ul></td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
+          
+        </table>
+  </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                <td class="jd-descrcol">boolean</td>
+                <td class="jd-descrcol">true if the LDAP entry represented by <code>dn</code> exists or false if not</td>
+             </tr>
+         </table>
+  </div>
+    
+  
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
+        <tr>
+            <td><a href="../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td>If the current binded user has no permissions to perform the lookup for the given DN.</td>
+        </tr>
+        <tr>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
+        </tr>
+        <tr>
+            <td><a href="../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <td>Only in case throwException is true and the LDAP entry does not exist.</td>
+        </tr>
+        <tr>
+            <td>Exception</td>
+            <td>In case there is any other error checking for entry existence.
 </td>
         </tr>
       </table>
@@ -2269,8 +2415,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></td>
-                <td class="jd-descrcol">The <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> for the given <code>dn</code> parameter.</td>
+                <td class="jd-descrcol"><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></td>
+                <td class="jd-descrcol">The <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> for the given <code>dn</code> parameter.</td>
              </tr>
          </table>
   </div>
@@ -2282,20 +2428,20 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to perform the lookup for the given DN.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If base DN is invalid (for example it doesn't exist)</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>
         <tr>
             <td>Exception</td>
-            <td>In case there is any other error performing the search.
+            <td>In case there is any other error performing the lookup.
 </td>
         </tr>
       </table>
@@ -2318,7 +2464,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Updates an existing <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server. The entry should contain an existing distinguished name (DN), the <i>objectClass</i>
+  <div class="jd-tagdata jd-tagdescr"><p>Updates an existing <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server. The entry should contain an existing distinguished name (DN), the <i>objectClass</i>
  attributes that define its structure and at least a value for all the required attributes (required attributes depend on the
  <i>object classes</i> assigned to the entry. You can refer to RFC 4519 for standard object classes and attributes.
  <p/>
@@ -2386,8 +2532,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>entry</nobr></td>
                         <td class="jd-descrcol">#[payload:]</td>
-                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> that should be updated.</td>
-                        <td class="jd-descrcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> that should be updated.</td>
+                        <td class="jd-descrcol"><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -2451,20 +2597,20 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to update entries under any of the RDN (relative DN) that compose the entry DN.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
             <td>If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
          are not part of any of the defined object classes)</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If there is no existing entry with the same DN in the LDAP server tree.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>
         <tr>
@@ -2495,7 +2641,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
   <div class="jd-tagdata jd-tagdescr"><p>Updates an existing entry in the LDAP server from a Map representation. The distinguished name (DN) of the
  entry is first obtained from the optional parameter <i>dn</i> and if this value is blank (null, empty string
  or string with only space chars) then the DN should be a present in the entry map as a String value
- under the key "<b>dn</b>" (see <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>).
+ under the key "<b>dn</b>" (see <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>).
  <p/>
  When updating a LDAP entry, only the attributes in the entry passed as parameter are updated or added. If you
  need to delete an attribute, you should use the delete attribute operation.
@@ -2541,7 +2687,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                  as a String and the value should be a List holding the multiple values of the attribute. Usually it will be
                  a list of strings.</li>
     <li><b>Distinguished name</b>: As an alternative to passing the DN as a separate argument of the operation, you can include it in
-                 the entry map. In this case, the key should be the string <code>"dn"</code> (see <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>) and the value
+                 the entry map. In this case, the key should be the string <code>"dn"</code> (see <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>) and the value
                  a String representing the distinguished name (for example <code>cn=andy,ou=people,dc=mulesoft,dc=org</code>).</li>
  </ul>
  <p/><p/>
@@ -2670,20 +2816,20 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to update entries under any of the RDN (relative DN) that compose the entry DN.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
             <td>If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
          are not part of any of the defined object classes)</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If there is no existing entry with the same DN in the LDAP server tree.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>
         <tr>
@@ -2838,15 +2984,15 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to update the entry.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If there is no existing entry for the given DN.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>
         <tr>
@@ -2989,15 +3135,15 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to update the entry.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If there is no existing entry for the given DN.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>
         <tr>
@@ -3175,6 +3321,42 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
                 
                     <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>resultOffset</nobr></td>
+                        <td class="jd-descrcol">0</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Considering the results are paged in resultPageSize pages, then this is the first page that should be retrieved.</td>
+                        <td class="jd-descrcol">int</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>resultPageCount</nobr></td>
+                        <td class="jd-descrcol">0</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>How many pages of size <i>resultPageSize</i> starting at <i>resultOffset</i> should be returned/processed. If zero (0) or less or if <i>resultPageCount</i> is greater than the total amount of pages, then all pages are returned.</td>
+                        <td class="jd-descrcol">int</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>orderBy</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Name of the LDAP attribute used to sort results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>callback</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol">Used to stream results</td>
@@ -3188,7 +3370,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
-                    <tr class="alt-color api apilevel-" >
+                    <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>authDn</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The DN (distinguished name) of the user (for example: uid=user,ou=people,dc=mulesoft,dc=org).
@@ -3199,7 +3381,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
-                    <tr class=" api apilevel-" >
+                    <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>authPassword</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The password of the user</td>
@@ -3209,7 +3391,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
-                    <tr class="alt-color api apilevel-" >
+                    <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>authentication</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the authentication mechanism to use. For the Sun LDAP service provider, this can be one of the following strings:
@@ -3268,6 +3450,12 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
               
                 
               
+                
+              
+                
+              
+                
+              
           </table>
       </div>
   
@@ -3293,15 +3481,15 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to perform the search under the given base DN.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If base DN is invalid (for example it doesn't exist)</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>
         <tr>
@@ -3428,11 +3616,11 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NameAlreadyBoundException.html">NameAlreadyBoundException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NameAlreadyBoundException.html">NameAlreadyBoundException</a></td>
             <td>If there is already an existing entry with the same DN as <i>newDn</i>.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>
         <tr>
@@ -3696,8 +3884,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol">List&lt;<a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a>&gt;</td>
-                <td class="jd-descrcol">A java.util.List of <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> objects with the results of the search. If the search throws no results, then this is an empty list.</td>
+                <td class="jd-descrcol">List&lt;<a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a>&gt;</td>
+                <td class="jd-descrcol">A java.util.List of <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> objects with the results of the search. If the search throws no results, then this is an empty list.</td>
              </tr>
          </table>
   </div>
@@ -3709,15 +3897,15 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to perform the search under the given base DN.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If base DN is invalid (for example it doesn't exist)</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>
         <tr>
@@ -3945,8 +4133,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></td>
-                <td class="jd-descrcol">A <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> with the first element of the search result or null if there are no results.</td>
+                <td class="jd-descrcol"><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></td>
+                <td class="jd-descrcol">A <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> with the first element of the search result or null if there are no results.</td>
              </tr>
          </table>
   </div>
@@ -3958,15 +4146,15 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to perform the search under the given base DN.</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If base DN is invalid (for example it doesn't exist)</td>
         </tr>
         <tr>
-            <td><a href="../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td><a href="../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>
         <tr>
@@ -4022,7 +4210,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Transforms a <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to a String in LDIF representation (RFC 2849).
+  <div class="jd-tagdata jd-tagdescr"><p>Transforms a <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to a String in LDIF representation (RFC 2849).
  
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ldap:ldap-entry-to-ldif/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
@@ -4044,8 +4232,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>entry</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">The <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to transform to LDIF.</td>
-                        <td class="jd-descrcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></td>
+                        <td class="jd-descrcol">The <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to transform to LDIF.</td>
+                        <td class="jd-descrcol"><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -4135,11 +4323,11 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Creates the Map representation of an <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code>.
+  <div class="jd-tagdata jd-tagdescr"><p>Creates the Map representation of an <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code>.
  <p/>
  The resulting map has the name of the attributes as String keys and the values for these keys are:
  <ul>
-    <li><b>Distinguished name</b>: The DN is the value of the special string key <code>"dn"</code> (see <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>).</li>
+    <li><b>Distinguished name</b>: The DN is the value of the special string key <code>"dn"</code> (see <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>).</li>
     <li><b>Single Value Attributes</b>: The value is an Object (most of the cases a String and in some cases, like userPassword, a <code>byte[]</code>).</li>
     <li><b>Multi-value Attributes</b>: The value is a List containing all the values for the attribute (most of the cases a String and in some cases, like userPassword, a <code>byte[]</code>).</li>
  </ul>
@@ -4164,8 +4352,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>entry</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">The <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to transform to map.</td>
-                        <td class="jd-descrcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></td>
+                        <td class="jd-descrcol">The <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to transform to map.</td>
+                        <td class="jd-descrcol"><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -4255,13 +4443,13 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Creates a <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> from its Map representation. This transformer won't check that the entry is valid. The only validation
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> from its Map representation. This transformer won't check that the entry is valid. The only validation
  that is performed is the presence of the distinguished name.
  <p/>
  In order to represent a LDAP entry as a map, you should consider the following rules for the map key/value pair:
  <ul>
     <li><b>Distinguished name</b>: The map should have a special attribute for the distinguish name. In this case, the key should be the string
-                 <code>"dn"</code> (see <code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>) and the value a String representing the distinguished name
+                 <code>"dn"</code> (see <code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>) and the value a String representing the distinguished name
                  (for example <code>cn=andy,ou=people,dc=mulesoft,dc=org</code>).</li>
     <li><b>Single Value Attributes</b>: The key should be the name of the single value attribute (for example uid, cn, ...) as a
                  String and the value is just the value of the attribute (most of the times represented by a String.</li>
@@ -4364,8 +4552,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></td>
-                <td class="jd-descrcol"><code><a href="../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> object.</td>
+                <td class="jd-descrcol"><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></td>
+                <td class="jd-descrcol"><code><a href="../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> object.</td>
              </tr>
          </table>
   </div>

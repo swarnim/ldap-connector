@@ -209,21 +209,23 @@
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/ldap/agents/package-summary.html">org.mule.module.ldap.agents</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/ldap/api/package-summary.html">org.mule.module.ldap.api</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/ldap/api/holders/package-summary.html">org.mule.module.ldap.api.holders</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/ldap/api/jndi/package-summary.html">org.mule.module.ldap.api.jndi</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/ldap/api/transformers/package-summary.html">org.mule.module.ldap.api.transformers</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/ldap/config/package-summary.html">org.mule.module.ldap.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/ldap/connectivity/package-summary.html">org.mule.module.ldap.connectivity</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../java/org/mule/module/ldap/ldap/api/package-summary.html">org.mule.module.ldap.ldap.api</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../java/org/mule/module/ldap/ldap/api/holders/package-summary.html">org.mule.module.ldap.ldap.api.holders</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../java/org/mule/module/ldap/ldap/api/jndi/package-summary.html">org.mule.module.ldap.ldap.api.jndi</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../java/org/mule/module/ldap/ldap/api/transformers/package-summary.html">org.mule.module.ldap.ldap.api.transformers</a></li>
-    <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/ldap/process/package-summary.html">org.mule.module.ldap.process</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/ldap/processors/package-summary.html">org.mule.module.ldap.processors</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/ldap/security/package-summary.html">org.mule.module.ldap.security</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/ldap/transformers/package-summary.html">org.mule.module.ldap.transformers</a></li>
               </ul><br/>
@@ -514,7 +516,7 @@ Summary:
   <td>
  The implementation of the connection to be used. Right now the only available implementation is JNDI, though any other
  implementation can be used (For example using Novell libraries). If you want to create your own implementation you should
- extend the class <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPConnection.html">LDAPConnection</a></code>
+ extend the class <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPConnection.html">LDAPConnection</a></code>
  <ul>
     <li><b>JNDI</b>: Implementation that uses the JNDI interfaces provided in the standard JRE.</i>
  </ul>
@@ -655,7 +657,7 @@ Summary:
           private
           
           
-          <a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPConnection.html">LDAPConnection</a></nobr></td>
+          <a href="../../../../../java/org/mule/module/ldap/api/LDAPConnection.html">LDAPConnection</a></nobr></td>
           <td class="jd-linkcol"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#connection">connection</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
@@ -795,9 +797,9 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#add(org.mule.module.ldap.ldap.api.LDAPEntry)">add</a></span>(<a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#add(org.mule.module.ldap.api.LDAPEntry)">add</a></span>(<a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</nobr>
         
-        <div class="jd-descrdiv">Creates a new <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server.</div>
+        <div class="jd-descrdiv">Creates a new <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server.</div>
   
   </td></tr>
 
@@ -864,7 +866,7 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></nobr>
+            <a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#bind()">bind</a></span>()</nobr>
@@ -978,13 +980,32 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#disconnect()">disconnect</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Disconnect the current connection</div>
+        <div class="jd-descrdiv">Disconnect the current connection
+</div>
   
   </td></tr>
 
 
 	 
     <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#exists(java.lang.String)">exists</a></span>(String dn)</nobr>
+        
+        <div class="jd-descrdiv">Checks whether a LDAP entry exists in the LDAP server or not.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1000,7 +1021,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1016,7 +1037,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1032,7 +1053,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1048,7 +1069,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1064,7 +1085,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1080,7 +1101,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1096,7 +1117,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1114,7 +1135,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1124,9 +1145,27 @@ Summary:
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#ldapEntryToLdif(org.mule.module.ldap.ldap.api.LDAPEntry)">ldapEntryToLdif</a></span>(<a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#ldapEntryToLdif(org.mule.module.ldap.api.LDAPEntry)">ldapEntryToLdif</a></span>(<a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</nobr>
         
-        <div class="jd-descrdiv">Transforms a <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to a String in LDIF representation (RFC 2849).</div>
+        <div class="jd-descrdiv">Transforms a <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to a String in LDIF representation (RFC 2849).</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            Map&lt;String,&nbsp;Object&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#ldapEntryToMap(org.mule.module.ldap.api.LDAPEntry)">ldapEntryToMap</a></span>(<a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</nobr>
+        
+        <div class="jd-descrdiv">Creates the Map representation of an <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code>.</div>
   
   </td></tr>
 
@@ -1137,27 +1176,9 @@ Summary:
             
             
             
-            static
-            
-            Map&lt;String,&nbsp;Object&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#ldapEntryToMap(org.mule.module.ldap.ldap.api.LDAPEntry)">ldapEntryToMap</a></span>(<a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</nobr>
-        
-        <div class="jd-descrdiv">Creates the Map representation of an <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code>.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
             
             
-            
-            
-            
-            <a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></nobr>
+            <a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#lookup(java.lang.String, java.util.List<java.lang.String>)">lookup</a></span>(String dn, List&lt;String&gt; attributes)</nobr>
@@ -1168,25 +1189,25 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             
             static
             
-            <a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></nobr>
+            <a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#mapToLdapEntry(java.util.Map<java.lang.String, java.lang.Object>)">mapToLdapEntry</a></span>(Map&lt;String,&nbsp;Object&gt; entry)</nobr>
         
-        <div class="jd-descrdiv">Creates a <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> from its Map representation.</div>
+        <div class="jd-descrdiv">Creates a <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> from its Map representation.</div>
   
   </td></tr>
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1196,15 +1217,15 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#modify(org.mule.module.ldap.ldap.api.LDAPEntry)">modify</a></span>(<a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#modify(org.mule.module.ldap.api.LDAPEntry)">modify</a></span>(<a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</nobr>
         
-        <div class="jd-descrdiv">Updates an existing <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server.</div>
+        <div class="jd-descrdiv">Updates an existing <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server.</div>
   
   </td></tr>
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1222,7 +1243,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1241,7 +1262,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1260,7 +1281,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1270,7 +1291,7 @@ Summary:
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#pagedResultSearch(java.lang.String, java.lang.String, java.util.List<java.lang.String>, org.mule.module.ldap.SearchScope, int, long, boolean, int, int, org.mule.api.callback.SourceCallback)">pagedResultSearch</a></span>(String baseDn, String filter, List&lt;String&gt; attributes, <a href="../../../../../java/org/mule/module/ldap/SearchScope.html">SearchScope</a> scope, int timeout, long maxResults, boolean returnObject, int pageSize, int resultPageSize, SourceCallback callback)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#pagedResultSearch(java.lang.String, java.lang.String, java.util.List<java.lang.String>, org.mule.module.ldap.SearchScope, int, long, boolean, int, int, int, int, java.lang.String, org.mule.api.callback.SourceCallback)">pagedResultSearch</a></span>(String baseDn, String filter, List&lt;String&gt; attributes, <a href="../../../../../java/org/mule/module/ldap/SearchScope.html">SearchScope</a> scope, int timeout, long maxResults, boolean returnObject, int pageSize, int resultPageSize, int resultOffset, int resultPageCount, String orderBy, SourceCallback callback)</nobr>
         
         <div class="jd-descrdiv">Performs a LDAP search and streams result to the rest of the flow.</div>
   
@@ -1278,7 +1299,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1296,14 +1317,14 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             
             
             
-            List&lt;<a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a>&gt;</nobr>
+            List&lt;<a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#search(java.lang.String, java.lang.String, java.util.List<java.lang.String>, org.mule.module.ldap.SearchScope, int, long, boolean, int)">search</a></span>(String baseDn, String filter, List&lt;String&gt; attributes, <a href="../../../../../java/org/mule/module/ldap/SearchScope.html">SearchScope</a> scope, int timeout, long maxResults, boolean returnObject, int pageSize)</nobr>
@@ -1314,14 +1335,14 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             
             
             
-            <a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></nobr>
+            <a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/ldap/LDAPConnector.html#searchOne(java.lang.String, java.lang.String, java.util.List<java.lang.String>, org.mule.module.ldap.SearchScope, int, long, boolean)">searchOne</a></span>(String baseDn, String filter, List&lt;String&gt; attributes, <a href="../../../../../java/org/mule/module/ldap/SearchScope.html">SearchScope</a> scope, int timeout, long maxResults, boolean returnObject)</nobr>
@@ -1332,7 +1353,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1348,7 +1369,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1364,7 +1385,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1380,7 +1401,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1396,7 +1417,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1412,7 +1433,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1428,7 +1449,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1729,7 +1750,7 @@ From class
         private 
          
          
-        <a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPConnection.html">LDAPConnection</a>
+        <a href="../../../../../java/org/mule/module/ldap/api/LDAPConnection.html">LDAPConnection</a>
       </span>
         connection
     </h4>
@@ -2026,7 +2047,7 @@ From class
 
 
 
-<A NAME="add(org.mule.module.ldap.ldap.api.LDAPEntry)"></A>
+<A NAME="add(org.mule.module.ldap.api.LDAPEntry)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2039,7 +2060,7 @@ From class
         void
       </span>
       <span class="sympad">add</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2051,7 +2072,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Creates a new <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server. The entry should contain the distinguished name (DN), the <i>objectClass</i>
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server. The entry should contain the distinguished name (DN), the <i>objectClass</i>
  attributes that define its structure and at least a value for all the required attributes (required attributes depend on the
  <i>object classes</i> assigned to the entry. You can refer to RFC 4519 for standard object classes and attributes.
  
@@ -2064,7 +2085,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>entry</td>
-          <td>The <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> that should be added.</td>
+          <td>The <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> that should be added.</td>
         </tr>
       </table>
   </div>
@@ -2072,20 +2093,20 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to add entries under any of the RDN (relative DN) that compose the entry DN.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
             <td>If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
          are not part of any of the defined object classes)</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameAlreadyBoundException.html">NameAlreadyBoundException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameAlreadyBoundException.html">NameAlreadyBoundException</a></td>
             <td>If there is already an existing entry with the same DN in the LDAP server tree.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>  
         <tr>
@@ -2128,7 +2149,7 @@ From class
   <div class="jd-tagdata jd-tagdescr"><p>Creates a new entry in the LDAP server from a Map representation. The distinguished name (DN) of the
  entry is first obtained from the optional parameter <i>dn</i> and if this value is blank (null, empty string
  or string with only space chars) then the DN should be a present in the entry map as a String value
- under the key "<b>dn</b>" (see <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>).
+ under the key "<b>dn</b>" (see <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>).
  <p/>
  In order to represent a LDAP entry as a map, you should consider the following rules for the map key/value pair:
  <ul>
@@ -2138,7 +2159,7 @@ From class
                  as a String and the value should be a List holding the multiple values of the attribute. Usually it will be
                  a list of strings.</li>
     <li><b>Distinguished name</b>: As an alternative to passing the DN as a separate argument of the operation, you can include it in
-                 the entry map. In this case, the key should be the string <code>"dn"</code> (see <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>) and the value
+                 the entry map. In this case, the key should be the string <code>"dn"</code> (see <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>) and the value
                  a String representing the distinguished name (for example <code>cn=andy,ou=people,dc=mulesoft,dc=org</code>).</li>
  </ul>
  
@@ -2165,20 +2186,20 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to add entries under any of the RDN (relative DN) that compose the entry DN.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
             <td>If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
          are not part of any of the defined object classes)</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameAlreadyBoundException.html">NameAlreadyBoundException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameAlreadyBoundException.html">NameAlreadyBoundException</a></td>
             <td>If there is already an existing entry with the same DN in the LDAP server tree.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>  
         <tr>
@@ -2244,19 +2265,19 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to update the entry.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If there is no existing entry for the given DN.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
             <td>If the attribute value is invalid or the entry already has the provided value.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>  
         <tr>
@@ -2325,19 +2346,19 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to update the entry.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
             <td>If the attribute value is invalid or the entry already has the provided value.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If there is no existing entry for the given DN.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>  
         <tr>
@@ -2362,7 +2383,7 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a>
+        <a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a>
       </span>
       <span class="sympad">bind</span>
       <span class="normal">()</span>
@@ -2394,21 +2415,21 @@ From class
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>The <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> of the authenticated user.</li></ul>
+      <ul class="nolist"><li>The <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> of the authenticated user.</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to perform the lookup for its own LDAP entry.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If base DN is invalid (for example it doesn't exist)</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>  
         <tr>
@@ -2555,10 +2576,10 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Deletes the LDAP entry represented by the provided distinguished name. The entry should not have child entries, in which case a
- <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/ContextNotEmptyException.html">ContextNotEmptyException</a></code> is thrown.
+ <code><a href="../../../../../java/org/mule/module/ldap/api/ContextNotEmptyException.html">ContextNotEmptyException</a></code> is thrown.
  <p/>
  This operation is idempotent. It succeeds even if the terminal atomic name is not bound in the target context, but throws
- <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></code> if any of the intermediate contexts do not exist.
+ <code><a href="../../../../../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></code> if any of the intermediate contexts do not exist.
  
  </p></div>
   <div class="jd-tagdata">
@@ -2574,19 +2595,19 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to delete the entry.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If an intermediate context does not exist.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/ContextNotEmptyException.html">ContextNotEmptyException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/ContextNotEmptyException.html">ContextNotEmptyException</a></td>
             <td>If the entry to delete has child entries.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>  
         <tr>
@@ -2651,15 +2672,15 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to update the entry.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If there is no existing entry for the given DN.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>  
         <tr>
@@ -2727,15 +2748,15 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to update the entry.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If there is no existing entry for the given DN.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>  
         <tr>
@@ -2775,13 +2796,72 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Disconnect the current connection</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Disconnect the current connection
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="exists(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        boolean
+      </span>
+      <span class="sympad">exists</span>
+      <span class="normal">(String dn)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Checks whether a LDAP entry exists in the LDAP server or not.
+ <h4>Check if LDAP entry exists</h4>
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>dn</td>
+          <td>The DN of the LDAP entry that will be retrieved.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>true if the LDAP entry represented by <code>dn</code> exists or false if not</li></ul>
+  </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
-            <td>In case there is any problem closing the connection to the LDAP server.
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <td>If the current binded user has no permissions to perform the lookup for the given DN.</td>
+        </tr>  
+        <tr>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
+            <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
+        </tr>  
+        <tr>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <td>Only in case throwException is true and the LDAP entry does not exist.</td>
+        </tr>  
+        <tr>
+            <th>Exception</td>
+            <td>In case there is any other error checking for entry existence.
 </td>
         </tr>
       </table>
@@ -3039,21 +3119,12 @@ From class
       <ul class="nolist"><li>boolean <i>true</i> if the connection is still valid or <i>false</i> otherwise.
 </li></ul>
   </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
 
     </div>
 </div>
 
 
-<A NAME="ldapEntryToLdif(org.mule.module.ldap.ldap.api.LDAPEntry)"></A>
+<A NAME="ldapEntryToLdif(org.mule.module.ldap.api.LDAPEntry)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3066,7 +3137,7 @@ From class
         String
       </span>
       <span class="sympad">ldapEntryToLdif</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3078,7 +3149,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Transforms a <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to a String in LDIF representation (RFC 2849).
+  <div class="jd-tagdata jd-tagdescr"><p>Transforms a <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to a String in LDIF representation (RFC 2849).
  
  </p></div>
   <div class="jd-tagdata">
@@ -3086,7 +3157,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>entry</td>
-          <td>The <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to transform to LDIF.</td>
+          <td>The <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to transform to LDIF.</td>
         </tr>
       </table>
   </div>
@@ -3100,7 +3171,7 @@ From class
 </div>
 
 
-<A NAME="ldapEntryToMap(org.mule.module.ldap.ldap.api.LDAPEntry)"></A>
+<A NAME="ldapEntryToMap(org.mule.module.ldap.api.LDAPEntry)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3113,7 +3184,7 @@ From class
         Map&lt;String,&nbsp;Object&gt;
       </span>
       <span class="sympad">ldapEntryToMap</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3125,11 +3196,11 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Creates the Map representation of an <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code>.
+  <div class="jd-tagdata jd-tagdescr"><p>Creates the Map representation of an <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code>.
  <p/>
  The resulting map has the name of the attributes as String keys and the values for these keys are:
  <ul>
-    <li><b>Distinguished name</b>: The DN is the value of the special string key <code>"dn"</code> (see <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>).</li>
+    <li><b>Distinguished name</b>: The DN is the value of the special string key <code>"dn"</code> (see <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>).</li>
     <li><b>Single Value Attributes</b>: The value is an Object (most of the cases a String and in some cases, like userPassword, a <code>byte[]</code>).</li>
     <li><b>Multi-value Attributes</b>: The value is a List containing all the values for the attribute (most of the cases a String and in some cases, like userPassword, a <code>byte[]</code>).</li>
  </ul>
@@ -3140,7 +3211,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>entry</td>
-          <td>The <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to transform to map.</td>
+          <td>The <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to transform to map.</td>
         </tr>
       </table>
   </div>
@@ -3164,7 +3235,7 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a>
+        <a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a>
       </span>
       <span class="sympad">lookup</span>
       <span class="normal">(String dn, List&lt;String&gt; attributes)</span>
@@ -3208,26 +3279,26 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>The <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> for the given <code>dn</code> parameter.</li></ul>
+      <ul class="nolist"><li>The <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> for the given <code>dn</code> parameter.</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to perform the lookup for the given DN.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If base DN is invalid (for example it doesn't exist)</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>  
         <tr>
             <th>Exception</td>
-            <td>In case there is any other error performing the search.
+            <td>In case there is any other error performing the lookup.
 </td>
         </tr>
       </table>
@@ -3247,7 +3318,7 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a>
+        <a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a>
       </span>
       <span class="sympad">mapToLdapEntry</span>
       <span class="normal">(Map&lt;String,&nbsp;Object&gt; entry)</span>
@@ -3262,13 +3333,13 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Creates a <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> from its Map representation. This transformer won't check that the entry is valid. The only validation
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> from its Map representation. This transformer won't check that the entry is valid. The only validation
  that is performed is the presence of the distinguished name.
  <p/>
  In order to represent a LDAP entry as a map, you should consider the following rules for the map key/value pair:
  <ul>
     <li><b>Distinguished name</b>: The map should have a special attribute for the distinguish name. In this case, the key should be the string
-                 <code>"dn"</code> (see <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>) and the value a String representing the distinguished name
+                 <code>"dn"</code> (see <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>) and the value a String representing the distinguished name
                  (for example <code>cn=andy,ou=people,dc=mulesoft,dc=org</code>).</li>
     <li><b>Single Value Attributes</b>: The key should be the name of the single value attribute (for example uid, cn, ...) as a
                  String and the value is just the value of the attribute (most of the times represented by a String.</li>
@@ -3289,7 +3360,7 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li><code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> object.</li></ul>
+      <ul class="nolist"><li><code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> object.</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
@@ -3306,7 +3377,7 @@ From class
 </div>
 
 
-<A NAME="modify(org.mule.module.ldap.ldap.api.LDAPEntry)"></A>
+<A NAME="modify(org.mule.module.ldap.api.LDAPEntry)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3319,7 +3390,7 @@ From class
         void
       </span>
       <span class="sympad">modify</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3331,7 +3402,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Updates an existing <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server. The entry should contain an existing distinguished name (DN), the <i>objectClass</i>
+  <div class="jd-tagdata jd-tagdescr"><p>Updates an existing <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server. The entry should contain an existing distinguished name (DN), the <i>objectClass</i>
  attributes that define its structure and at least a value for all the required attributes (required attributes depend on the
  <i>object classes</i> assigned to the entry. You can refer to RFC 4519 for standard object classes and attributes.
  <p/>
@@ -3381,7 +3452,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>entry</td>
-          <td>The <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> that should be updated.</td>
+          <td>The <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> that should be updated.</td>
         </tr>
       </table>
   </div>
@@ -3389,20 +3460,20 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to update entries under any of the RDN (relative DN) that compose the entry DN.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
             <td>If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
          are not part of any of the defined object classes)</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If there is no existing entry with the same DN in the LDAP server tree.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>  
         <tr>
@@ -3445,7 +3516,7 @@ From class
   <div class="jd-tagdata jd-tagdescr"><p>Updates an existing entry in the LDAP server from a Map representation. The distinguished name (DN) of the
  entry is first obtained from the optional parameter <i>dn</i> and if this value is blank (null, empty string
  or string with only space chars) then the DN should be a present in the entry map as a String value
- under the key "<b>dn</b>" (see <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>).
+ under the key "<b>dn</b>" (see <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>).
  <p/>
  When updating a LDAP entry, only the attributes in the entry passed as parameter are updated or added. If you
  need to delete an attribute, you should use the delete attribute operation.
@@ -3491,7 +3562,7 @@ From class
                  as a String and the value should be a List holding the multiple values of the attribute. Usually it will be
                  a list of strings.</li>
     <li><b>Distinguished name</b>: As an alternative to passing the DN as a separate argument of the operation, you can include it in
-                 the entry map. In this case, the key should be the string <code>"dn"</code> (see <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>) and the value
+                 the entry map. In this case, the key should be the string <code>"dn"</code> (see <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html#MAP_DN_KEY">MAP_DN_KEY</a></code>) and the value
                  a String representing the distinguished name (for example <code>cn=andy,ou=people,dc=mulesoft,dc=org</code>).</li>
  </ul>
  <p/><p/>
@@ -3518,20 +3589,20 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to update entries under any of the RDN (relative DN) that compose the entry DN.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/InvalidAttributeException.html">InvalidAttributeException</a></td>
             <td>If the structure of the entry is invalid (for example there are missing required attributes or it has attributes that
          are not part of any of the defined object classes)</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If there is no existing entry with the same DN in the LDAP server tree.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>  
         <tr>
@@ -3596,15 +3667,15 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to update the entry.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If there is no existing entry for the given DN.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>  
         <tr>
@@ -3672,15 +3743,15 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to update the entry.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If there is no existing entry for the given DN.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>  
         <tr>
@@ -3695,7 +3766,7 @@ From class
 </div>
 
 
-<A NAME="pagedResultSearch(java.lang.String, java.lang.String, java.util.List<java.lang.String>, org.mule.module.ldap.SearchScope, int, long, boolean, int, int, org.mule.api.callback.SourceCallback)"></A>
+<A NAME="pagedResultSearch(java.lang.String, java.lang.String, java.util.List<java.lang.String>, org.mule.module.ldap.SearchScope, int, long, boolean, int, int, int, int, java.lang.String, org.mule.api.callback.SourceCallback)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3708,7 +3779,7 @@ From class
         List&lt;Object&gt;
       </span>
       <span class="sympad">pagedResultSearch</span>
-      <span class="normal">(String baseDn, String filter, List&lt;String&gt; attributes, <a href="../../../../../java/org/mule/module/ldap/SearchScope.html">SearchScope</a> scope, int timeout, long maxResults, boolean returnObject, int pageSize, int resultPageSize, SourceCallback callback)</span>
+      <span class="normal">(String baseDn, String filter, List&lt;String&gt; attributes, <a href="../../../../../java/org/mule/module/ldap/SearchScope.html">SearchScope</a> scope, int timeout, long maxResults, boolean returnObject, int pageSize, int resultPageSize, int resultOffset, int resultPageCount, String orderBy, SourceCallback callback)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3789,6 +3860,18 @@ From class
           <td>The size of the list this operation streams. If this value is less than 1, then it will be considered that the page size is 1.</td>
         </tr>
         <tr>
+          <th>resultOffset</td>
+          <td>Considering the results are paged in resultPageSize pages, then this is the first page that should be retrieved.</td>
+        </tr>
+        <tr>
+          <th>resultPageCount</td>
+          <td>How many pages of size <i>resultPageSize</i> starting at <i>resultOffset</i> should be returned/processed. If zero (0) or less or if <i>resultPageCount</i> is greater than the total amount of pages, then all pages are returned.</td>
+        </tr>
+        <tr>
+          <th>orderBy</td>
+          <td>Name of the LDAP attribute used to sort results.</td>
+        </tr>
+        <tr>
           <th>callback</td>
           <td>Used to stream results</td>
         </tr>
@@ -3802,15 +3885,15 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to perform the search under the given base DN.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If base DN is invalid (for example it doesn't exist)</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>  
         <tr>
@@ -3870,11 +3953,11 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameAlreadyBoundException.html">NameAlreadyBoundException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameAlreadyBoundException.html">NameAlreadyBoundException</a></td>
             <td>If there is already an existing entry with the same DN as <i>newDn</i>.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>  
         <tr>
@@ -3899,7 +3982,7 @@ From class
          
          
          
-        List&lt;<a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a>&gt;
+        List&lt;<a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a>&gt;
       </span>
       <span class="sympad">search</span>
       <span class="normal">(String baseDn, String filter, List&lt;String&gt; attributes, <a href="../../../../../java/org/mule/module/ldap/SearchScope.html">SearchScope</a> scope, int timeout, long maxResults, boolean returnObject, int pageSize)</span>
@@ -3983,21 +4066,21 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>A java.util.List of <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> objects with the results of the search. If the search throws no results, then this is an empty list.</li></ul>
+      <ul class="nolist"><li>A java.util.List of <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> objects with the results of the search. If the search throws no results, then this is an empty list.</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to perform the search under the given base DN.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If base DN is invalid (for example it doesn't exist)</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>  
         <tr>
@@ -4022,7 +4105,7 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a>
+        <a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a>
       </span>
       <span class="sympad">searchOne</span>
       <span class="normal">(String baseDn, String filter, List&lt;String&gt; attributes, <a href="../../../../../java/org/mule/module/ldap/SearchScope.html">SearchScope</a> scope, int timeout, long maxResults, boolean returnObject)</span>
@@ -4094,21 +4177,21 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>A <code><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> with the first element of the search result or null if there are no results.</li></ul>
+      <ul class="nolist"><li>A <code><a href="../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> with the first element of the search result or null if there are no results.</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NoPermissionException.html">NoPermissionException</a></td>
             <td>If the current binded user has no permissions to perform the search under the given base DN.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/NameNotFoundException.html">NameNotFoundException</a></td>
             <td>If base DN is invalid (for example it doesn't exist)</td>
         </tr>  
         <tr>
-            <th><a href="../../../../../java/org/mule/module/ldap/ldap/api/LDAPException.html">LDAPException</a></td>
+            <th><a href="../../../../../java/org/mule/module/ldap/api/LDAPException.html">LDAPException</a></td>
             <td>In case there is any other exception, mainly related to connectivity problems or referrals.</td>
         </tr>  
         <tr>

@@ -209,21 +209,23 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/agents/package-summary.html">org.mule.module.ldap.agents</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/ldap/api/package-summary.html">org.mule.module.ldap.api</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/ldap/api/holders/package-summary.html">org.mule.module.ldap.api.holders</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/ldap/api/jndi/package-summary.html">org.mule.module.ldap.api.jndi</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/ldap/api/transformers/package-summary.html">org.mule.module.ldap.api.transformers</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/config/package-summary.html">org.mule.module.ldap.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/connectivity/package-summary.html">org.mule.module.ldap.connectivity</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/ldap/ldap/api/package-summary.html">org.mule.module.ldap.ldap.api</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/ldap/ldap/api/holders/package-summary.html">org.mule.module.ldap.ldap.api.holders</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/ldap/ldap/api/jndi/package-summary.html">org.mule.module.ldap.ldap.api.jndi</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/ldap/ldap/api/transformers/package-summary.html">org.mule.module.ldap.ldap.api.transformers</a></li>
-    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/process/package-summary.html">org.mule.module.ldap.process</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/processors/package-summary.html">org.mule.module.ldap.processors</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/ldap/security/package-summary.html">org.mule.module.ldap.security</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/transformers/package-summary.html">org.mule.module.ldap.transformers</a></li>
               </ul><br/>
@@ -247,6 +249,7 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/ldap/processors/DeleteMessageProcessor.html">DeleteMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/ldap/processors/DeleteMultiValueAttributeMessageProcessor.html">DeleteMultiValueAttributeMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/ldap/processors/DeleteSingleValueAttributeMessageProcessor.html">DeleteSingleValueAttributeMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/ldap/processors/ExistsMessageProcessor.html">ExistsMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/ldap/processors/LookupMessageProcessor.html">LookupMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/ldap/processors/ModifyFromMapMessageProcessor.html">ModifyFromMapMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/ldap/processors/ModifyMessageProcessor.html">ModifyMessageProcessor</a></li>
@@ -603,7 +606,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>PagedResultSearchMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/ldap/LDAPConnector.html#pagedResultSearch(java.lang.String, java.lang.String, java.util.List<java.lang.String>, org.mule.module.ldap.SearchScope, int, long, boolean, int, int, org.mule.api.callback.SourceCallback)">pagedResultSearch(java.lang.String, java.lang.String, java.util.List, org.mule.module.ldap.SearchScope, int, long, boolean, int, int, org.mule.api.callback.SourceCallback)</a></code> method in <code><a href="../../../../../../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+<p>PagedResultSearchMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/ldap/LDAPConnector.html#pagedResultSearch(java.lang.String, java.lang.String, java.util.List<java.lang.String>, org.mule.module.ldap.SearchScope, int, long, boolean, int, int, int, int, java.lang.String, org.mule.api.callback.SourceCallback)">pagedResultSearch(java.lang.String, java.lang.String, java.util.List, org.mule.module.ldap.SearchScope, int, long, boolean, int, int, int, int, java.lang.String, org.mule.api.callback.SourceCallback)</a></code> method in <code><a href="../../../../../../java/org/mule/module/ldap/LDAPConnector.html">LDAPConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  
 </p>
 
@@ -858,13 +861,46 @@ org.mule.api.lifecycle.Stoppable
           protected
           
           
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/ldap/processors/PagedResultSearchMessageProcessor.html#_orderByType">_orderByType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
           int</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/module/ldap/processors/PagedResultSearchMessageProcessor.html#_pageSizeType">_pageSizeType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          int</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/ldap/processors/PagedResultSearchMessageProcessor.html#_resultOffsetType">_resultOffsetType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
       <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          int</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/ldap/processors/PagedResultSearchMessageProcessor.html#_resultPageCountType">_resultPageCountType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
@@ -875,7 +911,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
@@ -886,7 +922,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
@@ -897,7 +933,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
@@ -908,7 +944,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
@@ -919,7 +955,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
@@ -930,7 +966,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
@@ -941,13 +977,24 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
           
           Object</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/module/ldap/processors/PagedResultSearchMessageProcessor.html#maxResults">maxResults</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/ldap/processors/PagedResultSearchMessageProcessor.html#orderBy">orderBy</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -959,6 +1006,28 @@ org.mule.api.lifecycle.Stoppable
           
           Object</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/module/ldap/processors/PagedResultSearchMessageProcessor.html#pageSize">pageSize</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/ldap/processors/PagedResultSearchMessageProcessor.html#resultOffset">resultOffset</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/ldap/processors/PagedResultSearchMessageProcessor.html#resultPageCount">resultPageCount</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -1443,6 +1512,24 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/PagedResultSearchMessageProcessor.html#setOrderBy(java.lang.Object)">setOrderBy</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets orderBy</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/PagedResultSearchMessageProcessor.html#setPageSize(java.lang.Object)">setPageSize</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets pageSize</div>
@@ -1451,7 +1538,43 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/PagedResultSearchMessageProcessor.html#setResultOffset(java.lang.Object)">setResultOffset</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets resultOffset</div>
+  
+  </td></tr>
+
+
+	 
     <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/PagedResultSearchMessageProcessor.html#setResultPageCount(java.lang.Object)">setResultPageCount</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets resultPageCount</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1469,7 +1592,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1487,7 +1610,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1505,7 +1628,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1523,7 +1646,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1539,7 +1662,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1670,6 +1793,24 @@ From class
             
             
             
+            MuleEvent</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractListeningMessageProcessor.html#processEvent(org.mule.api.MuleEvent)">processEvent</a></span>(MuleEvent event)</nobr>
+        
+        <div class="jd-descrdiv">Implements <code><a href="null#processEvent(org.mule.api.MuleEvent)">processEvent(org.mule.api.MuleEvent)</a></code>.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -1714,7 +1855,7 @@ From class
             
             
             
-            void</nobr>
+            O</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractMessageProcessor.html#findOrCreate(java.lang.Class, boolean, org.mule.api.MuleEvent)">findOrCreate</a></span>(Class moduleClass, boolean shouldAutoCreate, MuleEvent muleEvent)</nobr>
@@ -1752,26 +1893,6 @@ From class
             
             
             
-            O</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractMessageProcessor.html#getModuleObject()">getModuleObject</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieves moduleObject
- 
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
             MuleContext</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -1785,7 +1906,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1805,7 +1926,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1823,7 +1944,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1841,7 +1962,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2069,7 +2190,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractExpressionEvaluator.html#evaluateAndTransform(org.mule.api.MuleContext, org.mule.api.MuleEvent, java.lang.reflect.Type, java.lang.String, java.lang.Object)">evaluateAndTransform</a></span>(MuleContext muleContext, MuleEvent event, Type expectedType, String expectedMimeType, Object source)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractExpressionEvaluator.html#evaluateAndTransform(org.mule.api.MuleContext, org.mule.api.MuleMessage, java.lang.reflect.Type, java.lang.String, java.lang.Object)">evaluateAndTransform</a></span>(MuleContext muleContext, MuleMessage muleMessage, Type expectedType, String expectedMimeType, Object source)</nobr>
         
   </td></tr>
 
@@ -2082,10 +2203,10 @@ From class
             
             
             
-            boolean</nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractExpressionEvaluator.html#isAssignableFrom(java.lang.reflect.Type, java.lang.Class)">isAssignableFrom</a></span>(Type expectedType, Class clazz)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractExpressionEvaluator.html#evaluateAndTransform(org.mule.api.MuleContext, org.mule.api.MuleEvent, java.lang.reflect.Type, java.lang.String, java.lang.Object)">evaluateAndTransform</a></span>(MuleContext muleContext, MuleEvent event, Type expectedType, String expectedMimeType, Object source)</nobr>
         
   </td></tr>
 
@@ -2101,13 +2222,29 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractExpressionEvaluator.html#isList(java.lang.reflect.Type)">isList</a></span>(Type type)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractExpressionEvaluator.html#isAssignableFrom(java.lang.reflect.Type, java.lang.Class)">isAssignableFrom</a></span>(Type expectedType, Class clazz)</nobr>
         
   </td></tr>
 
 
 	 
     <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractExpressionEvaluator.html#isList(java.lang.reflect.Type)">isList</a></span>(Type type)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2125,7 +2262,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2141,7 +2278,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2155,6 +2292,22 @@ From class
         
         <div class="jd-descrdiv">Checks whether the specified class parameter is an instance of Map</div>
   
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractExpressionEvaluator.html#transform(org.mule.api.MuleContext, org.mule.api.MuleMessage, java.lang.reflect.Type, java.lang.String, java.lang.Object)">transform</a></span>(MuleContext muleContext, MuleMessage message, Type expectedType, String expectedMimeType, Object source)</nobr>
+        
   </td></tr>
 
 
@@ -2462,6 +2615,22 @@ From interface
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">process</span>(Object arg0)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            MuleEvent</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">processEvent</span>(MuleEvent arg0)</nobr>
         
   </td></tr>
 
@@ -2962,6 +3131,36 @@ From interface
 
 
 
+<A NAME="_orderByType"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        String
+      </span>
+        _orderByType
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
 <A NAME="_pageSizeType"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2973,6 +3172,66 @@ From interface
         int
       </span>
         _pageSizeType
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="_resultOffsetType"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        int
+      </span>
+        _resultOffsetType
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="_resultPageCountType"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        int
+      </span>
+        _resultPageCountType
     </h4>
       <div class="api-level">
         
@@ -3232,6 +3491,36 @@ From interface
 
 
 
+<A NAME="orderBy"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        Object
+      </span>
+        orderBy
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
 <A NAME="pageSize"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -3243,6 +3532,66 @@ From interface
         Object
       </span>
         pageSize
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="resultOffset"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        Object
+      </span>
+        resultOffset
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="resultPageCount"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        Object
+      </span>
+        resultPageCount
     </h4>
       <div class="api-level">
         
@@ -3803,6 +4152,47 @@ From interface
 </div>
 
 
+<A NAME="setOrderBy(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setOrderBy</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets orderBy</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="setPageSize(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -3829,6 +4219,88 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Sets pageSize</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setResultOffset(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setResultOffset</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets resultOffset</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setResultPageCount(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setResultPageCount</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets resultPageCount</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">

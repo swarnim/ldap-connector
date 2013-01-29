@@ -209,21 +209,23 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/agents/package-summary.html">org.mule.module.ldap.agents</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/ldap/api/package-summary.html">org.mule.module.ldap.api</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/ldap/api/holders/package-summary.html">org.mule.module.ldap.api.holders</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/ldap/api/jndi/package-summary.html">org.mule.module.ldap.api.jndi</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/ldap/api/transformers/package-summary.html">org.mule.module.ldap.api.transformers</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/config/package-summary.html">org.mule.module.ldap.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/connectivity/package-summary.html">org.mule.module.ldap.connectivity</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/ldap/ldap/api/package-summary.html">org.mule.module.ldap.ldap.api</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/ldap/ldap/api/holders/package-summary.html">org.mule.module.ldap.ldap.api.holders</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/ldap/ldap/api/jndi/package-summary.html">org.mule.module.ldap.ldap.api.jndi</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/ldap/ldap/api/transformers/package-summary.html">org.mule.module.ldap.ldap.api.transformers</a></li>
-    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/process/package-summary.html">org.mule.module.ldap.process</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/processors/package-summary.html">org.mule.module.ldap.processors</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/ldap/security/package-summary.html">org.mule.module.ldap.security</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/transformers/package-summary.html">org.mule.module.ldap.transformers</a></li>
               </ul><br/>
@@ -876,7 +878,7 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          <a href="../../../../../../java/org/mule/module/ldap/ldap/api/LDAPConnection.html">LDAPConnection</a></nobr></td>
+          <a href="../../../../../../java/org/mule/module/ldap/api/LDAPConnection.html">LDAPConnection</a></nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#connection">connection</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
@@ -1266,9 +1268,9 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#add(org.mule.module.ldap.ldap.api.LDAPEntry)">add</a></span>(<a href="../../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#add(org.mule.module.ldap.api.LDAPEntry)">add</a></span>(<a href="../../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</nobr>
         
-        <div class="jd-descrdiv">Creates a new <code><a href="../../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server.</div>
+        <div class="jd-descrdiv">Creates a new <code><a href="../../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server.</div>
   
   </td></tr>
 
@@ -1335,7 +1337,7 @@ From class
             
             
             
-            <a href="../../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></nobr>
+            <a href="../../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#bind()">bind</a></span>()</nobr>
@@ -1449,13 +1451,32 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#disconnect()">disconnect</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Disconnect the current connection</div>
+        <div class="jd-descrdiv">Disconnect the current connection
+</div>
   
   </td></tr>
 
 
 	 
     <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#exists(java.lang.String)">exists</a></span>(String dn)</nobr>
+        
+        <div class="jd-descrdiv">Checks whether a LDAP entry exists in the LDAP server or not.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1471,7 +1492,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1487,7 +1508,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1503,7 +1524,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1519,7 +1540,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1535,7 +1556,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1551,7 +1572,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1567,7 +1588,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1585,7 +1606,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1595,9 +1616,27 @@ From class
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#ldapEntryToLdif(org.mule.module.ldap.ldap.api.LDAPEntry)">ldapEntryToLdif</a></span>(<a href="../../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#ldapEntryToLdif(org.mule.module.ldap.api.LDAPEntry)">ldapEntryToLdif</a></span>(<a href="../../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</nobr>
         
-        <div class="jd-descrdiv">Transforms a <code><a href="../../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to a String in LDIF representation (RFC 2849).</div>
+        <div class="jd-descrdiv">Transforms a <code><a href="../../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> to a String in LDIF representation (RFC 2849).</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            Map&lt;String,&nbsp;Object&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#ldapEntryToMap(org.mule.module.ldap.api.LDAPEntry)">ldapEntryToMap</a></span>(<a href="../../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</nobr>
+        
+        <div class="jd-descrdiv">Creates the Map representation of an <code><a href="../../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code>.</div>
   
   </td></tr>
 
@@ -1608,27 +1647,9 @@ From class
             
             
             
-            static
-            
-            Map&lt;String,&nbsp;Object&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#ldapEntryToMap(org.mule.module.ldap.ldap.api.LDAPEntry)">ldapEntryToMap</a></span>(<a href="../../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</nobr>
-        
-        <div class="jd-descrdiv">Creates the Map representation of an <code><a href="../../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code>.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
             
             
-            
-            
-            
-            <a href="../../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></nobr>
+            <a href="../../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#lookup(java.lang.String, java.util.List<java.lang.String>)">lookup</a></span>(String dn, List&lt;String&gt; attributes)</nobr>
@@ -1639,25 +1660,25 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             
             static
             
-            <a href="../../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></nobr>
+            <a href="../../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#mapToLdapEntry(java.util.Map<java.lang.String, java.lang.Object>)">mapToLdapEntry</a></span>(Map&lt;String,&nbsp;Object&gt; entry)</nobr>
         
-        <div class="jd-descrdiv">Creates a <code><a href="../../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> from its Map representation.</div>
+        <div class="jd-descrdiv">Creates a <code><a href="../../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> from its Map representation.</div>
   
   </td></tr>
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1667,15 +1688,15 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#modify(org.mule.module.ldap.ldap.api.LDAPEntry)">modify</a></span>(<a href="../../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#modify(org.mule.module.ldap.api.LDAPEntry)">modify</a></span>(<a href="../../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a> entry)</nobr>
         
-        <div class="jd-descrdiv">Updates an existing <code><a href="../../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server.</div>
+        <div class="jd-descrdiv">Updates an existing <code><a href="../../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></code> in the LDAP server.</div>
   
   </td></tr>
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1693,7 +1714,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1712,7 +1733,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1731,7 +1752,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1741,7 +1762,7 @@ From class
             List&lt;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#pagedResultSearch(java.lang.String, java.lang.String, java.util.List<java.lang.String>, org.mule.module.ldap.SearchScope, int, long, boolean, int, int, org.mule.api.callback.SourceCallback)">pagedResultSearch</a></span>(String baseDn, String filter, List&lt;String&gt; attributes, <a href="../../../../../../java/org/mule/module/ldap/SearchScope.html">SearchScope</a> scope, int timeout, long maxResults, boolean returnObject, int pageSize, int resultPageSize, SourceCallback callback)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#pagedResultSearch(java.lang.String, java.lang.String, java.util.List<java.lang.String>, org.mule.module.ldap.SearchScope, int, long, boolean, int, int, int, int, java.lang.String, org.mule.api.callback.SourceCallback)">pagedResultSearch</a></span>(String baseDn, String filter, List&lt;String&gt; attributes, <a href="../../../../../../java/org/mule/module/ldap/SearchScope.html">SearchScope</a> scope, int timeout, long maxResults, boolean returnObject, int pageSize, int resultPageSize, int resultOffset, int resultPageCount, String orderBy, SourceCallback callback)</nobr>
         
         <div class="jd-descrdiv">Performs a LDAP search and streams result to the rest of the flow.</div>
   
@@ -1749,7 +1770,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1767,14 +1788,14 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             
             
             
-            List&lt;<a href="../../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a>&gt;</nobr>
+            List&lt;<a href="../../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#search(java.lang.String, java.lang.String, java.util.List<java.lang.String>, org.mule.module.ldap.SearchScope, int, long, boolean, int)">search</a></span>(String baseDn, String filter, List&lt;String&gt; attributes, <a href="../../../../../../java/org/mule/module/ldap/SearchScope.html">SearchScope</a> scope, int timeout, long maxResults, boolean returnObject, int pageSize)</nobr>
@@ -1785,14 +1806,14 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             
             
             
-            <a href="../../../../../../java/org/mule/module/ldap/ldap/api/LDAPEntry.html">LDAPEntry</a></nobr>
+            <a href="../../../../../../java/org/mule/module/ldap/api/LDAPEntry.html">LDAPEntry</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/ldap/LDAPConnector.html#searchOne(java.lang.String, java.lang.String, java.util.List<java.lang.String>, org.mule.module.ldap.SearchScope, int, long, boolean)">searchOne</a></span>(String baseDn, String filter, List&lt;String&gt; attributes, <a href="../../../../../../java/org/mule/module/ldap/SearchScope.html">SearchScope</a> scope, int timeout, long maxResults, boolean returnObject)</nobr>
@@ -1803,7 +1824,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1819,7 +1840,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1835,7 +1856,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1851,7 +1872,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1867,7 +1888,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1883,7 +1904,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1899,7 +1920,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             

@@ -209,21 +209,23 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/agents/package-summary.html">org.mule.module.ldap.agents</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/ldap/api/package-summary.html">org.mule.module.ldap.api</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/ldap/api/holders/package-summary.html">org.mule.module.ldap.api.holders</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/ldap/api/jndi/package-summary.html">org.mule.module.ldap.api.jndi</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/ldap/api/transformers/package-summary.html">org.mule.module.ldap.api.transformers</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/config/package-summary.html">org.mule.module.ldap.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/connectivity/package-summary.html">org.mule.module.ldap.connectivity</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/ldap/ldap/api/package-summary.html">org.mule.module.ldap.ldap.api</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/ldap/ldap/api/holders/package-summary.html">org.mule.module.ldap.ldap.api.holders</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/ldap/ldap/api/jndi/package-summary.html">org.mule.module.ldap.ldap.api.jndi</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/ldap/ldap/api/transformers/package-summary.html">org.mule.module.ldap.ldap.api.transformers</a></li>
-    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/process/package-summary.html">org.mule.module.ldap.process</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/processors/package-summary.html">org.mule.module.ldap.processors</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/ldap/security/package-summary.html">org.mule.module.ldap.security</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/ldap/transformers/package-summary.html">org.mule.module.ldap.transformers</a></li>
               </ul><br/>
@@ -247,6 +249,7 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/ldap/processors/DeleteMessageProcessor.html">DeleteMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/ldap/processors/DeleteMultiValueAttributeMessageProcessor.html">DeleteMultiValueAttributeMessageProcessor</a></li>
           <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/module/ldap/processors/DeleteSingleValueAttributeMessageProcessor.html">DeleteSingleValueAttributeMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/ldap/processors/ExistsMessageProcessor.html">ExistsMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/ldap/processors/LookupMessageProcessor.html">LookupMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/ldap/processors/ModifyFromMapMessageProcessor.html">ModifyFromMapMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/ldap/processors/ModifyMessageProcessor.html">ModifyMessageProcessor</a></li>
@@ -1257,7 +1260,7 @@ From class
             
             
             
-            void</nobr>
+            O</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractMessageProcessor.html#findOrCreate(java.lang.Class, boolean, org.mule.api.MuleEvent)">findOrCreate</a></span>(Class moduleClass, boolean shouldAutoCreate, MuleEvent muleEvent)</nobr>
@@ -1295,26 +1298,6 @@ From class
             
             
             
-            O</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractMessageProcessor.html#getModuleObject()">getModuleObject</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieves moduleObject
- 
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
             MuleContext</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -1328,7 +1311,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1348,7 +1331,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1366,7 +1349,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1384,7 +1367,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1612,7 +1595,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractExpressionEvaluator.html#evaluateAndTransform(org.mule.api.MuleContext, org.mule.api.MuleEvent, java.lang.reflect.Type, java.lang.String, java.lang.Object)">evaluateAndTransform</a></span>(MuleContext muleContext, MuleEvent event, Type expectedType, String expectedMimeType, Object source)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractExpressionEvaluator.html#evaluateAndTransform(org.mule.api.MuleContext, org.mule.api.MuleMessage, java.lang.reflect.Type, java.lang.String, java.lang.Object)">evaluateAndTransform</a></span>(MuleContext muleContext, MuleMessage muleMessage, Type expectedType, String expectedMimeType, Object source)</nobr>
         
   </td></tr>
 
@@ -1625,10 +1608,10 @@ From class
             
             
             
-            boolean</nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractExpressionEvaluator.html#isAssignableFrom(java.lang.reflect.Type, java.lang.Class)">isAssignableFrom</a></span>(Type expectedType, Class clazz)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractExpressionEvaluator.html#evaluateAndTransform(org.mule.api.MuleContext, org.mule.api.MuleEvent, java.lang.reflect.Type, java.lang.String, java.lang.Object)">evaluateAndTransform</a></span>(MuleContext muleContext, MuleEvent event, Type expectedType, String expectedMimeType, Object source)</nobr>
         
   </td></tr>
 
@@ -1644,13 +1627,29 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractExpressionEvaluator.html#isList(java.lang.reflect.Type)">isList</a></span>(Type type)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractExpressionEvaluator.html#isAssignableFrom(java.lang.reflect.Type, java.lang.Class)">isAssignableFrom</a></span>(Type expectedType, Class clazz)</nobr>
         
   </td></tr>
 
 
 	 
     <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractExpressionEvaluator.html#isList(java.lang.reflect.Type)">isList</a></span>(Type type)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1668,7 +1667,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1684,7 +1683,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1698,6 +1697,22 @@ From class
         
         <div class="jd-descrdiv">Checks whether the specified class parameter is an instance of Map</div>
   
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/ldap/processors/AbstractExpressionEvaluator.html#transform(org.mule.api.MuleContext, org.mule.api.MuleMessage, java.lang.reflect.Type, java.lang.String, java.lang.Object)">transform</a></span>(MuleContext muleContext, MuleMessage message, Type expectedType, String expectedMimeType, Object source)</nobr>
+        
   </td></tr>
 
 
