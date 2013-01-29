@@ -491,7 +491,6 @@ public class LDAPConnector
      * <h4>Check if LDAP entry exists</h4>
      * {@sample.xml ../../../doc/mule-module-ldap.xml.sample ldap:exists-1}
      * @param dn The DN of the LDAP entry that will be retrieved.
-     * @param throwException Whether a {@link org.mule.module.ldap.api.NameNotFoundException} should be thrown when the entry does not exist or if just false should be returned. The default is not to raise the exception.
      * @return true if the LDAP entry represented by <code>dn</code> exists or false if not
      * @throws org.mule.module.ldap.api.NoPermissionException If the current binded user has no permissions to perform the lookup for the given DN.
      * @throws org.mule.module.ldap.api.LDAPException In case there is any other exception, mainly related to connectivity problems or referrals.
@@ -500,7 +499,7 @@ public class LDAPConnector
      */
     @Processor
     @InvalidateConnectionOn(exception = CommunicationException.class)
-    public boolean exists(@FriendlyName("DN") String dn, @Optional @Default("false") boolean throwException) throws Exception
+    public boolean exists(@FriendlyName("DN") String dn) throws Exception
     {
         try
         {
@@ -508,11 +507,7 @@ public class LDAPConnector
         }
         catch(NameNotFoundException nnfe)
         {
-            if(throwException) {
-                throw nnfe;
-            } else {
-                return false;
-            }
+            return false;
         }
     }
     

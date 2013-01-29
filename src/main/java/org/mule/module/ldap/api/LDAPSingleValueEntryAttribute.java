@@ -5,16 +5,6 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.md file.
  */
-
-/*
- * Project: Leonards Common Libraries
- * This class is member of leonards.common.ldap
- * File: LDAPSingleValueEntryAttribute.java
- *
- * Property of Leonards / Mindpool
- * Created on Jun 24, 2006 (10:59:34 PM) 
- */
-
 package org.mule.module.ldap.api;
 
 import java.util.ArrayList;

@@ -38,15 +38,6 @@ public class LDAPExistsTest extends AbstractLDAPConnectorTest
         
         assertTrue(result);
     }
-    
-    @Test
-    public void testExistsThrowException() throws Exception
-    {
-        String dn = "uid=user1,ou=people,dc=mulesoft,dc=org";
-        Boolean result = (Boolean) runFlow("testExistsThrowExceptionFlow", dn);
-        
-        assertTrue(result);
-    }
 
     @Test
     public void testNotExists() throws Exception
@@ -55,13 +46,6 @@ public class LDAPExistsTest extends AbstractLDAPConnectorTest
         Boolean result = (Boolean) runFlow("testExistsFlow", dn);
         
         assertFalse(result);
-    }
-    
-    @Test
-    public void testNotExistsThrowException() throws Exception
-    {
-        String dn = "uid=userXXX,ou=people,dc=mulesoft,dc=org";
-        runFlowWithPayloadAndExpectException("testExistsThrowExceptionFlow", NameNotFoundException.class, dn);
     }
 }
 

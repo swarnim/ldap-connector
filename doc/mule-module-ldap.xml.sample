@@ -226,7 +226,6 @@
     <ldap:ldap-entry-to-ldif/>
 <!-- END_INCLUDE(ldap:ldap-entry-to-ldif) -->
 
-
 <!-- BEGIN_INCLUDE(ldap:exists-1) -->
     <ldap:exists dn="ou=people, dc=domain, dc=org"/>
 <!-- END_INCLUDE(ldap:exists-1) -->
