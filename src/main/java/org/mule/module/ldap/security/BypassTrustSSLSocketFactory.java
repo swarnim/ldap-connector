@@ -8,8 +8,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.security.SecureRandom;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLContext;

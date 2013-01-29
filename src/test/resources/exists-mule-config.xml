@@ -31,7 +31,11 @@
 		<spring:import resource="ldap-config.xml" />
 	</spring:beans>
 
-    <flow name="testExists">
-		<ldap:exists dn="#[payload:]"/>
+    <flow name="testExistsFlow">
+		<ldap:exists  config-ref="adminConf" dn="#[payload:]"/>
+	</flow>
+	
+	<flow name="testExistsThrowExceptionFlow">
+		<ldap:exists config-ref="adminConf" dn="#[payload:]" throwException="true"/>
 	</flow>
 </mule>

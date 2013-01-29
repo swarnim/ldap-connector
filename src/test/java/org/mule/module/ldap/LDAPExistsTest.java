@@ -8,14 +8,11 @@
 
 package org.mule.module.ldap;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.Ignore;
 import org.junit.Test;
-import org.mule.module.ldap.api.InvalidAttributeException;
-import org.mule.module.ldap.api.InvalidEntryException;
-import org.mule.module.ldap.api.LDAPEntry;
-import org.mule.module.ldap.api.NameAlreadyBoundException;
+import org.mule.module.ldap.api.NameNotFoundException;
 
 public class LDAPExistsTest extends AbstractLDAPConnectorTest
 {
@@ -30,78 +27,42 @@ public class LDAPExistsTest extends AbstractLDAPConnectorTest
     @Override
     protected String getConfigResources()
     {
-        return "add-mule-config.xml";
+        return "exists-mule-config.xml";
     }
     
     @Test
-    public void testAddNewValidEntry() throws Exception
+    public void testExists() throws Exception
     {
-        LDAPEntry entryToAdd = new LDAPEntry("uid=testuser,ou=people,dc=mulesoft,dc=org");
-        entryToAdd.addAttribute("uid", "testuser");
-        entryToAdd.addAttribute("cn", "Test User");
-        entryToAdd.addAttribute("sn", "User");
-        entryToAdd.addAttribute("userPassword", "test1234");
-        entryToAdd.addAttribute("objectclass", new String[] {"top", "person", "organizationalPerson", "inetOrgPerson"});
+        String dn = "uid=user1,ou=people,dc=mulesoft,dc=org";
+        Boolean result = (Boolean) runFlow("testExistsFlow", dn);
         
-        LDAPEntry result = (LDAPEntry) runFlow("testAddEntryFlow", entryToAdd);
-        
-        assertEquals(entryToAdd.getAttribute("uid").getValue(), result.getAttribute("uid").getValue());
-        assertEquals(entryToAdd.getAttribute("cn").getValue(), result.getAttribute("cn").getValue());
-        assertEquals(entryToAdd.getAttribute("sn").getValue(), result.getAttribute("sn").getValue());
+        assertTrue(result);
     }
     
     @Test
-    public void testAddExistingDnEntry() throws Exception
+    public void testExistsThrowException() throws Exception
     {
-        LDAPEntry entryToAdd = new LDAPEntry("uid=user1,ou=people,dc=mulesoft,dc=org");
-        entryToAdd.addAttribute("uid", "user1");
-        entryToAdd.addAttribute("cn", "User One");
-        entryToAdd.addAttribute("sn", "One");
-        entryToAdd.addAttribute("userPassword", "user1");
-        entryToAdd.addAttribute("objectclass", new String[] {"top", "person", "organizationalPerson", "inetOrgPerson"});
+        String dn = "uid=user1,ou=people,dc=mulesoft,dc=org";
+        Boolean result = (Boolean) runFlow("testExistsThrowExceptionFlow", dn);
         
-        runFlowWithPayloadAndExpectException("testAddEntryFlow", NameAlreadyBoundException.class, entryToAdd);
-    }    
-    
-    @Test
-    @Ignore // This is not working in the embedded Directory Server! No schema validation?
-    public void testAddMissingRequiredAttributeEntry() throws Exception
-    {
-        LDAPEntry entryToAdd = new LDAPEntry("uid=invalidtestuser1,ou=people,dc=mulesoft,dc=org");
-        entryToAdd.addAttribute("uid", "invalidtestuser1");
-        entryToAdd.addAttribute("objectclass", new String[] {"top", "person", "organizationalPerson", "inetOrgPerson"});
-        
-        runFlowWithPayloadAndExpectException("testAddEntryFlow", InvalidEntryException.class, entryToAdd);
-    }    
+        assertTrue(result);
+    }
 
     @Test
-    @Ignore // This is not working in the embedded Directory Server! It is just a WARN message that the attribute will be skipped
-    public void testAddNotSupportedAttributeEntry() throws Exception
+    public void testNotExists() throws Exception
     {
-        LDAPEntry entryToAdd = new LDAPEntry("uid=invalidtestuser2,ou=people,dc=mulesoft,dc=org");
-        entryToAdd.addAttribute("uid", "invalidtestuser2");
-        entryToAdd.addAttribute("cn", "Invalid Test User 2");
-        entryToAdd.addAttribute("sn", "User");
-        entryToAdd.addAttribute("userPassword", "test1234");
-        entryToAdd.addAttribute("notSupportedAttribute", "notSupportedValue");
-        entryToAdd.addAttribute("objectclass", new String[] {"top", "person", "organizationalPerson", "inetOrgPerson"});
+        String dn = "uid=userXXX,ou=people,dc=mulesoft,dc=org";
+        Boolean result = (Boolean) runFlow("testExistsFlow", dn);
         
-        runFlowWithPayloadAndExpectException("testAddEntryFlow", InvalidAttributeException.class, entryToAdd);
-    }    
-
-    @Test
-    public void testAddInvalidAttributeValueEntry() throws Exception
-    {
-        LDAPEntry entryToAdd = new LDAPEntry("uid=invalidtestuser3,ou=people,dc=mulesoft,dc=org");
-        entryToAdd.addAttribute("uid", "invalidtestuser3");
-        entryToAdd.addAttribute("cn", new LDAPEntry()); // Invalid value!
-        entryToAdd.addAttribute("sn", "User");
-        entryToAdd.addAttribute("userPassword", "test1234");
-        entryToAdd.addAttribute("objectclass", new String[] {"top", "person", "organizationalPerson", "inetOrgPerson"});
-        
-        runFlowWithPayloadAndExpectException("testAddEntryFlow", InvalidAttributeException.class, entryToAdd);
-    }    
+        assertFalse(result);
+    }
     
+    @Test
+    public void testNotExistsThrowException() throws Exception
+    {
+        String dn = "uid=userXXX,ou=people,dc=mulesoft,dc=org";
+        runFlowWithPayloadAndExpectException("testExistsThrowExceptionFlow", NameNotFoundException.class, dn);
+    }
 }
 
 

@@ -9,13 +9,16 @@
 package org.mule.module.ldap.api.jndi;
 
 import java.io.IOException;
+import java.util.List;
 
+import javax.naming.InvalidNameException;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.SearchControls;
 import javax.naming.ldap.Control;
+import javax.naming.ldap.LdapName;
 import javax.naming.ldap.PagedResultsControl;
 
 import org.mule.module.ldap.api.LDAPEntry;
@@ -150,6 +153,7 @@ public class LDAPJNDIUtils
         return ctrls;
     }    
     
+    
     /**
      * @param scope
      * @return
@@ -167,7 +171,49 @@ public class LDAPJNDIUtils
             default :
                 return SearchControls.ONELEVEL_SCOPE;
         }
-    }      
+    } 
+    
+    /**
+     * Whether the list of values contains a given DN. You can use this
+     * method to evaluate if a multi value attribute that holds DNs contains
+     * a given DN. 
+     * @param dn
+     * @param values
+     * @return
+     */
+    public static boolean containsDnValue(String dn, List<Object> values)
+    {
+        LdapName normalizedDn = toLdapName(dn);
+        if(normalizedDn != null && values != null && values.size() > 0)
+        {
+            for(Object value : values)
+            {
+                if(value instanceof String)
+                {
+                    if(normalizedDn.equals(toLdapName((String) value)))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    private static LdapName toLdapName(String dn) {
+        try
+        {
+            return new LdapName(dn);
+        }
+        catch (InvalidNameException e)
+        {
+            return null;
+        }         
+    }
 }
 
 
